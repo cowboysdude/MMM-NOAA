@@ -219,7 +219,11 @@ Module.register("MMM-NOAA", {
                 wrapper.appendChild(bP);
                 
                 
-                var srss = this.srss
+            
+            if (this.config.lat != "" && this.config.lon != ""){
+				
+			
+            var srss = this.srss
 			
 			var sunrise = srss.sunrise;
             var sunset = srss.sunset;
@@ -238,7 +242,7 @@ Module.register("MMM-NOAA", {
 					}
 			Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> "+sunrise+ " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> "+sunset+"<br><br>";
 			wrapper.appendChild(Rdate);
-                 
+             }    
 				 	
           
 		        var keys = Object.keys(this.forecast);
@@ -263,7 +267,6 @@ Module.register("MMM-NOAA", {
                 var artIcon = document.createElement("img");
                 artIcon.classList.add("imgDesInv");
                 artIcon.src = "modules/MMM-NOAA/images/"+noaa.icon+".png";
-                //artIcon.src = noaa.icon_url;
                 artLogo.appendChild(artIcon);
                 wrapper.appendChild(artLogo);
                 

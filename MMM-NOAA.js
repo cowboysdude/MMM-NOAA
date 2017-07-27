@@ -15,7 +15,7 @@ Module.register("MMM-NOAA", {
         initialLoadDelay: 875, //  delay
         retryDelay: 1500,
         maxWidth: "100%",
-        rotateInterval: 5 * 1000,
+        rotateInterval: 20 * 1000,
         apiKey: "a020382ba185bf52",
         show: "F".toLowerCase() // show F or C Temps
     },
@@ -23,6 +23,12 @@ Module.register("MMM-NOAA", {
     // Define required scripts.
     getScripts: function() {
         return ["moment.js"];
+    },
+    
+    getTranslations: function () {
+        return {
+            en: "translations/en.json"
+        };
     },
 
     getStyles: function() {
@@ -35,7 +41,6 @@ Module.register("MMM-NOAA", {
 
         // Set locale.
         this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/NY/Elmira.json";
-        //this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/q/NY/Elmira.json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;
@@ -46,8 +51,6 @@ Module.register("MMM-NOAA", {
     processNoaa: function(data) {
         this.current = data.current_observation;
         this.forecast = data.forecast.simpleforecast.forecastday;
-  console.log(this.forecast);
-  console.log(this.current);      
         this.loaded = true;
     },
     
@@ -57,7 +60,7 @@ Module.register("MMM-NOAA", {
      },
 
     scheduleCarousel: function() {
-        console.log("Scheduling Art...");
+        console.log("Scheduling Weather stuff...");
         this.rotateInterval = setInterval(() => {
             this.activeItem++;
             this.updateDom(this.config.animationSpeed);
@@ -256,7 +259,6 @@ Module.register("MMM-NOAA", {
                 var artIcon = document.createElement("img");
                 artIcon.classList.add("imgDesInv");
                 artIcon.src = "modules/MMM-NOAA/images/"+noaa.icon+".png";
-                //artIcon.src = noaa.icon_url;
                 artLogo.appendChild(artIcon);
                 wrapper.appendChild(artLogo);
                 

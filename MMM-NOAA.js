@@ -31,6 +31,7 @@ Module.register("MMM-NOAA", {
     getTranslations: function () {
         return {
             en: "translations/en.json"
+            sv: "translations/sv.json"
         };
     },
 

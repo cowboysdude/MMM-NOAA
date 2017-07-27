@@ -1,7 +1,7 @@
 {
   "name": "mmm-noaa",
   "version": "1.0.0",
-  "description": "Horoscopes for daily, weekly, monthly or yearly!  For the MagicMirror2",
+  "description": "Weather module using the www.wunderground.com API for the MagicMirror2",
   "main": "MMM-NOAA.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

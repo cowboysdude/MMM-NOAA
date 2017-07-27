@@ -16,8 +16,9 @@ Module.register("MMM-NOAA", {
         retryDelay: 1500,
         maxWidth: "100%",
         rotateInterval: 20 * 1000,
-        apiKey: "a020382ba185bf52",
-        show: "F".toLowerCase() // show F or C Temps
+        apiKey: "YOUR API KEY",
+        show: "F".toLowerCase(), // show F or C Temps
+	place: "NY/Elmira" //or UK/London for example
     },
 
     // Define required scripts.
@@ -40,7 +41,7 @@ Module.register("MMM-NOAA", {
         Log.info("Starting module: " + this.name);
 
         // Set locale.
-        this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/NY/Elmira.json";
+        this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/"+this.config.place+".json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;

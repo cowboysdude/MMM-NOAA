@@ -31,7 +31,9 @@ Terminal Window instructions:
 		  apiKey: "YOUR API KEY",  //https://www.wunderground.com/weather/api  select the middle plan... 
 		   maxWidth: "100%",
 		   show: "F",
-		   place: "NY/Elmira  //example UK/London
+		   place: "NY/Elmira,  //example UK/London
+		   lat: "",  //need this for sunrise/sunset  if left blank none will show
+		   long: ""   //need this for sunrise/sunset  if left blank none will show
 		}
 		}
 

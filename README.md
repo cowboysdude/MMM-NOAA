@@ -21,7 +21,7 @@ Terminal Window instructions:
       maxWidth: Suggest leaving it at 100%
       show:  Show F or C Temps and info. 
       
-      See screen shots...     
+      
 
             {
             disabled: false,

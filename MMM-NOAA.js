@@ -16,9 +16,11 @@ Module.register("MMM-NOAA", {
         retryDelay: 1500,
         maxWidth: "100%",
         rotateInterval: 20 * 1000,
-        apiKey: "YOUR API KEY",
+        apiKey: "a020382ba185bf52",
         show: "F".toLowerCase(), // show F or C Temps
-	place: "NY/Elmira" //or UK/London for example
+        place: "NY/Elmira",
+        lat: "",
+        lon: ""
     },
 
     // Define required scripts.
@@ -39,6 +41,7 @@ Module.register("MMM-NOAA", {
     // Define start sequence.
     start: function() {
         Log.info("Starting module: " + this.name);
+        this.sendSocketNotification('CONFIG', this.config);
 
         // Set locale.
         this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/"+this.config.place+".json";
@@ -260,6 +263,7 @@ Module.register("MMM-NOAA", {
                 var artIcon = document.createElement("img");
                 artIcon.classList.add("imgDesInv");
                 artIcon.src = "modules/MMM-NOAA/images/"+noaa.icon+".png";
+                //artIcon.src = noaa.icon_url;
                 artLogo.appendChild(artIcon);
                 wrapper.appendChild(artLogo);
                 

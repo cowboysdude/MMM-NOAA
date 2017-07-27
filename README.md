@@ -28,9 +28,10 @@ Terminal Window instructions:
             module: 'MMM-NOAA',
             position: 'top_right',
             config: {
-		  apiKey: "YOUR API KEY",
+		  apiKey: "YOUR API KEY",  //https://www.wunderground.com/weather/api  select the middle plan... 
 		   maxWidth: "100%",
-		   show: "F"
+		   show: "F",
+		   place: "NY/Elmira  //example UK/London
 		}
 		}
 

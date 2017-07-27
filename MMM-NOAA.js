@@ -16,7 +16,7 @@ Module.register("MMM-NOAA", {
         retryDelay: 1500,
         maxWidth: "100%",
         rotateInterval: 20 * 1000,
-        apiKey: "a020382ba185bf52",
+        apiKey: "",
         show: "F".toLowerCase(), // show F or C Temps
         place: "NY/Elmira",
         lat: "",
@@ -30,7 +30,7 @@ Module.register("MMM-NOAA", {
     
     getTranslations: function () {
         return {
-            en: "translations/en.json"
+            en: "translations/en.json",
             sv: "translations/sv.json"
         };
     },

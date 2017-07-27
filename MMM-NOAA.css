@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu+Condensed');
+.MMM-NOAA .font {
+	font-family: 'Ubuntu Condensed', sans-serif;
+}
+.MMM-NOAA .datetime {
+   font-size: 18px;
+}
+.MMM-NOAA .fontClock {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	color:#ffffff;
+}
+.MMM-NOAA .imgDesInv {
+  width: 15%;
+  height: 15%;
+}
+.MMM-NOAA .imgDesInv2 {
+  width: 100%;
+  height: 30%;
+}
+.MMM-NOAA .amclock {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	font-size: 18px;
+	color: #fdfa91;
+	padding-top: 8px;
+}
+.MMM-NOAA .eclock {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	font-size: 18px;
+	color: #a5dff8;
+	padding-top: 8px;
+}
+.MMM-NOAA .pmclock {
+	font-family: 'Ubuntu Condensed', sans-serif;
+	font-size: 18px;
+	color: #c7c8cb;
+	padding-top: 8px;
+}
+.MMM-NOAA .humid {
+    color: #ff0000;
+    font-weight: bold;
+}
+.MMM-NOAA .hitemp {
+    color: #ffff00;
+    font-weight: bold;
+}
+.MMM-NOAA .lowtemp {
+    color: #c4d7e6;
+    font-weight: bold;
+}

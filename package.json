@@ -1,0 +1,15 @@
+{
+  "name": "mmm-noaa",
+  "version": "1.0.0",
+  "description": "Horoscopes for daily, weekly, monthly or yearly!  For the MagicMirror2",
+  "main": "MMM-NOAA.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cowboysdude",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.81.0"
+  },
+  "devDependencies": {}
+}

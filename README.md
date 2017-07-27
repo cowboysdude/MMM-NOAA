@@ -5,17 +5,17 @@ Instructions:
 
 Terminal Window instructions:
 
-Go to:
-~MagicMirror/modules
-git clone "https://github.com/cowboysdude/MMM-NOAA"
+    Go to:
+    ~MagicMirror/modules
+    git clone "https://github.com/cowboysdude/MMM-NOAA"
 
-Go to:
-~MagicMirror/modules/MMM-NOAA
-Run:  npm install
+    Go to:
+    ~MagicMirror/modules/MMM-NOAA
+     Run:  npm install
 
-Go to:
-Config.js -- Example config...
-    [MUST follow the instructions.  
+    Go to:
+     Config.js -- Example config...
+     
       Config options:
       apiKey: Get yourself a key here:   https://www.wunderground.com/weather/api
       maxWidth: Suggest leaving it at 100%

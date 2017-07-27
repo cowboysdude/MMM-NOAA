@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
     getSRSS: function(){
      	var self = this;
 	 	request({ 
-    	    url: "https://api.sunrise-sunset.org/json?lat=42.089796&lng=-76.807734&formatted=0",
+    	    url: "https://api.sunrise-sunset.org/json?lat="+this.config.lat+"&lng="+this.config.lon+"&formatted=0",
     	          method: 'GET' 
     	        }, (error, response, body) => {
             if (!error && response.statusCode === 200) {
@@ -44,10 +44,11 @@ module.exports = NodeHelper.create({
 
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
-        if (notification === 'GET_NOAA') {
+    	if(notification === 'CONFIG'){
+			this.config = payload;
+		} else if (notification === 'GET_NOAA') {
                 this.getNOAA(payload);
-            }
-          if (notification === 'GET_SRSS') {
+            } else if (notification === 'GET_SRSS') {
                 this.getSRSS(payload);
 			}    
          }  

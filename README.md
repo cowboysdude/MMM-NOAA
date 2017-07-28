@@ -21,7 +21,8 @@ https://www.wunderground.com/weather/api
 ## Get your PWS from here
 
  https://www.wunderground.com/wundermap
-
+ 
+ * For your config.js entry for precise localized weather 
 
 ## Config.js entry and options
 

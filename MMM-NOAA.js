@@ -18,7 +18,7 @@ Module.register("MMM-NOAA", {
         rotateInterval: 20 * 1000,
         apiKey: "a020382ba185bf52",
         show: "F".toLowerCase(), // show F or C Temps
-        place: "NY/Elmira",
+        pws: "",
         lat: "",
         lon: "", 
         lang: ""

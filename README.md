@@ -40,4 +40,4 @@ https://www.wunderground.com/weather/api
         }
     },
 	
-## Start your mirror . . . enjoy!
+## Start your mirror . . . enjoy!  [Relax... it will take a minute to load this module!]

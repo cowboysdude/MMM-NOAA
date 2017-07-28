@@ -16,11 +16,12 @@ Module.register("MMM-NOAA", {
         retryDelay: 1500,
         maxWidth: "100%",
         rotateInterval: 20 * 1000,
-        apiKey: "",
+        apiKey: "a020382ba185bf52",
         show: "F".toLowerCase(), // show F or C Temps
         place: "NY/Elmira",
         lat: "",
-        lon: ""
+        lon: "", 
+        lang: "en"
     },
 
     // Define required scripts.
@@ -42,10 +43,12 @@ Module.register("MMM-NOAA", {
     // Define start sequence.
     start: function() {
         Log.info("Starting module: " + this.name);
+        this.config.lang = this.config.lang || config.language;
         this.sendSocketNotification('CONFIG', this.config);
 
         // Set locale.
-        this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/"+this.config.place+".json";
+        this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/pws:"+this.config.pws+".json"
+        //this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/"+this.config.place+".json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;
@@ -268,6 +271,7 @@ Module.register("MMM-NOAA", {
                 var artIcon = document.createElement("img");
                 artIcon.classList.add("imgDesInv");
                 artIcon.src = "modules/MMM-NOAA/images/"+noaa.icon+".png";
+                //artIcon.src = noaa.icon_url;
                 artLogo.appendChild(artIcon);
                 wrapper.appendChild(artLogo);
                 

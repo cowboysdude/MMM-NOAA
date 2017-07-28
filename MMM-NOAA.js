@@ -18,10 +18,10 @@ Module.register("MMM-NOAA", {
         rotateInterval: 20 * 1000,
         apiKey: "a020382ba185bf52",
         show: "F".toLowerCase(), // show F or C Temps
-        pws: "",
+        place: "NY/Elmira",
         lat: "",
         lon: "", 
-        lang: "en"
+        lang: ""
     },
 
     // Define required scripts.
@@ -43,7 +43,7 @@ Module.register("MMM-NOAA", {
     // Define start sequence.
     start: function() {
         Log.info("Starting module: " + this.name);
-        this.config.lang = this.config.lang || config.language;
+        //this.config.lang = this.config.lang || config.language;
         this.sendSocketNotification('CONFIG', this.config);
 
         // Set locale.
@@ -115,7 +115,7 @@ Module.register("MMM-NOAA", {
 
         if (!this.loaded) {
             wrapper.classList.add("wrapper");
-            wrapper.innerHTML = "Gathering weather stuff..";
+            wrapper.innerHTML = this.translate("Gathering weather stuff..");
             wrapper.className = "bright light small";
             return wrapper;
         }
@@ -214,11 +214,11 @@ Module.register("MMM-NOAA", {
                 var bP = document.createElement("div");
                 bP.classList.add("xsmall", "bright");
                 if (current.pressure_trend === "+"){
-				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+" <font color=red>&#8679;</font>";	
+				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+" <img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";	
 				} else if (current.pressure_trend === "-"){
-				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+"  <font color=yellow>&#8681;</font>";	
+				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+"  <img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";	
 				} else {
-				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+"  <font color=green>&#8703;</font>";	
+				bP.innerHTML = "Barometer: "+current.pressure_in+ " "+"  <img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";	
 				}
                 wrapper.appendChild(bP);
                 

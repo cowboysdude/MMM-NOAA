@@ -1,41 +1,43 @@
 # MMM-NOAA
-Weather for your mirror
 
-Instructions:
+**Weather for your mirror**
 
-Terminal Window instructions:
+## Examples
 
-    Go to:
-    ~MagicMirror/modules
-    git clone "https://github.com/cowboysdude/MMM-NOAA"
+![](fun.png), ![](c.png),
 
-    Go to:
-    ~MagicMirror/modules/MMM-NOAA
-     Run:  npm install
+## Your terminal installation instructions
 
-    Go to:
-     Config.js -- Example config...
-     
-      Config options:
-      apiKey: Get yourself a key here:   https://www.wunderground.com/weather/api
-      maxWidth: Suggest leaving it at 100%
-      show:  Show F or C Temps and info. 
-      
-      
+* `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
 
-            {
-            disabled: false,
-            module: 'MMM-NOAA',
-            position: 'top_right',
-            config: {
-		  apiKey: "YOUR API KEY",  //https://www.wunderground.com/weather/api  select the middle plan... 
-		   maxWidth: "100%",
-		   show: "F",
-		   pws: "KNYELMIR13",  //go here to find your pws: https://www.wunderground.com/wundermap
-	lat: "42.089796",  //need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
-        lon: "-76.807734",   //need this for sunrise/sunset  if left blank none will show
-		}
-		}
+* Run `npm install` in the `~MagicMirror/modules/MMM-NOAA` directory.
 
-Start mirror...enjoy!
+## Get your free API key here
 
+https://www.wunderground.com/weather/api
+
+* Select the middle plan
+
+## Get your PWS from here
+
+ https://www.wunderground.com/wundermap
+ 
+ * For your config.js entry for precise localized weather 
+
+## Config.js entry and options
+
+    {
+        disabled: false,
+        module: 'MMM-NOAA',
+        position: 'top_right',
+        config: {
+            apiKey: "YOUR API KEY",          // https://www.wunderground.com/weather/api  select the middle plan... 
+			maxWidth: "100%",        // Suggest leaving it at 100%
+			show: "F",               // "F" = Fahrenheit info / "C" = Celsius info
+			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap
+			lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
+			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
+        }
+    },
+	
+## Start your mirror . . . enjoy!

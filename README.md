@@ -4,7 +4,7 @@
 
 ## Examples
 
-![](fun.png), ![](c.png),
+![](fun.png), ![](c.png), ![](swedish.png)
 
 ## Your terminal installation instructions
 

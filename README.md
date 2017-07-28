@@ -26,6 +26,8 @@ https://www.wunderground.com/weather/api
 
 ## Config.js entry and options
 
+Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top] 
+
     {
         disabled: false,
         module: 'MMM-NOAA',
@@ -33,7 +35,6 @@ https://www.wunderground.com/weather/api
         config: {
             apiKey: "YOUR API KEY",          // https://www.wunderground.com/weather/api  select the middle plan... 
 			maxWidth: "100%",        // Suggest leaving it at 100%
-			show: "F",               // "F" = Fahrenheit info / "C" = Celsius info
 			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap
 			lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show

@@ -18,6 +18,10 @@ https://www.wunderground.com/weather/api
 
 * Select the middle plan
 
+## Get your PWS from here
+
+ https://www.wunderground.com/wundermap
+
 
 ## Config.js entry and options
 

@@ -26,7 +26,7 @@ https://www.wunderground.com/weather/api
         module: 'MMM-NOAA',
         position: 'top_right',
         config: {
-            apiKey: "YOUR API KEY",              // https://www.wunderground.com/weather/api  select the middle plan... 
+            apiKey: "YOUR API KEY",          // https://www.wunderground.com/weather/api  select the middle plan... 
 			maxWidth: "100%",        // Suggest leaving it at 100%
 			show: "F",               // "F" = Fahrenheit info / "C" = Celsius info
 			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap

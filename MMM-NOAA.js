@@ -111,10 +111,10 @@ Module.register("MMM-NOAA", {
     	var langFile = this.config.langFile;
     	
     var time = new Date();
-    if (format == "24"){
-	 time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: false });	
-	} else if (format == "12") {
-	time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: true });	
+    if (config.timeFormat === "12"){
+	 time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: true });	
+	} else if (config.timeFormat === "24") {
+	time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: false });	
 	} else {
 	time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });	//fallback 
 	}

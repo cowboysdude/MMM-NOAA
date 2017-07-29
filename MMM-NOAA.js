@@ -23,7 +23,7 @@ Module.register("MMM-NOAA", {
         lon: "-76.807734",
         
         langFile: {'en': 'en-US', 
-		           'de': 'de-DE',
+		   'de': 'de-DE',
     	           'sv': 'sv-SE'
     	   },
     },

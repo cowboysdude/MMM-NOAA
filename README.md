@@ -26,7 +26,8 @@ https://www.wunderground.com/weather/api
 
 ## Config.js entry and options
 
-Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top] 
+Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top]
+Will default to EN if NO translation file is found.
 
     {
         disabled: false,
@@ -38,7 +39,7 @@ Will automatically select translation file and either F or C by reading your def
 			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap
 			lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
-			format: "12",             // 12 or 24 hour format
+			format: "12",             // 12 or 24 hour format.. will default to 12 hour if none selected.
 			rotateInterval: 10 * 1000  // Every 10 seconds 
         }
     },

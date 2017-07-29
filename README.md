@@ -39,6 +39,7 @@ Will automatically select translation file and either F or C by reading your def
 			lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
 			format: "12"             // 12 or 24 hour format
+			rotateInterval: 10 * 1000, //every 10 seconds 
         }
     },
 	

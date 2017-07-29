@@ -239,8 +239,13 @@ Module.register("MMM-NOAA", {
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
             var utcsunset = moment.utc(sunset).toDate();
-            var sunrise = moment(utcsunrise).local().format('h:mm A');
-            var sunset = moment(utcsunset).local().format('h:mm A');
+            if (this.config.ampm == true){
+	    var sunrise = moment(utcsunrise).local().format('h:mm A');
+            var sunset = moment(utcsunset).local().format('h:mm A');	
+			} else {
+	    var sunrise = moment(utcsunrise).local().format('h:mm');
+            var sunset = moment(utcsunset).local().format('h:mm');	
+			}
             var Rdate = document.createElement("div");
             if (n < 12) {
                 Rdate.classList.add("bright","small", "amclock", "imgDesInv2");

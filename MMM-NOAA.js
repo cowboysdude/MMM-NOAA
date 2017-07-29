@@ -20,7 +20,12 @@ Module.register("MMM-NOAA", {
         show: "F", // Show F or C Temps
         pws: "KNYELMIR13",
         lat: "42.089796",
-        lon: "-76.807734"
+        lon: "-76.807734",
+        
+        langFile: {'en': 'en-US', 
+		           'de': 'de-DE',
+    	           'sv': 'sv-SE'
+    	   },
     },
 
     // Define required scripts.
@@ -101,15 +106,19 @@ Module.register("MMM-NOAA", {
     },
 
     getTime: function(){
-        var format = this.config.format;
-        
-        var time = new Date();
-        if (format == "24") {
-            time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: false });
-        } else {
-            time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });
-        }
-        return time;
+    	var format = this.config.format;
+    	var location = config.language;
+    	var langFile = this.config.langFile;
+    	
+    var time = new Date();
+    if (format == "24"){
+	 time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: false });	
+	} else if (format == "12") {
+	time = time.toLocaleString(langFile[location], { hour: 'numeric',minute:'numeric', hour12: true });	
+	} else {
+	time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });	//fallback 
+	}
+    return time;
     },
 
     getDom: function() {

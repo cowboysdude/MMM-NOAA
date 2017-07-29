@@ -38,7 +38,7 @@ Will automatically select translation file and either F or C by reading your def
 			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap
 			lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
-			format: "12"             //12 or 24 hour format
+			format: "12"             // 12 or 24 hour format
         }
     },
 	

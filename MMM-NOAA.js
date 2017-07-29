@@ -239,15 +239,12 @@ Module.register("MMM-NOAA", {
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
             var utcsunset = moment.utc(sunset).toDate();
-            if (this.config.ampm == true){
-	    var sunrise = moment(utcsunrise).local().format('h:mm A');
-            var sunset = moment(utcsunset).local().format('h:mm A');	
-			} else {
-	    var sunrise = moment(utcsunrise).local().format('h:mm');
-            var sunset = moment(utcsunset).local().format('h:mm');	
-			}
-            var Rdate = document.createElement("div");
-            if (n < 12) {
+            var sunrise = this.config.ampm === true ? moment(utcsunrise).local().format('h:mm A') : moment(utcsunrise).local().format('h:mm');
+            var sunset = this.config.ampm === true ? moment(utcsunset).local().format('h:mm A') : moment(utcsunrise).local().format('h:mm');	
+            
+		
+	    var Rdate = document.createElement("div");
+	    if (n < 12) {
                 Rdate.classList.add("bright","small", "amclock", "imgDesInv2");
             } else if (n > 12 && n < 21) {
                 Rdate.classList.add("bright","small", "eclock", "imgDesInv2");

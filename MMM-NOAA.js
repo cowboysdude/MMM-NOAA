@@ -102,9 +102,14 @@ Module.register("MMM-NOAA", {
     },
     
     getTime: function(){
+    	var format = this.config.format;
+    	
     var time = new Date();
-    time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });
-    
+    if (format == "24"){
+	 time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: false });	
+	} else {
+	time = time.toLocaleString('en-US', { hour: 'numeric',minute:'numeric', hour12: true });	
+	}
     return time;
     },
 

@@ -1,6 +1,6 @@
 /* Magic Mirror
  * Module: MMM-NOAA
- * By cowboysdude
+ * By cowboysdude and snille
  */
 Module.register("MMM-NOAA", {
 
@@ -15,7 +15,6 @@ Module.register("MMM-NOAA", {
         maxWidth: "100%",
         rotateInterval: 20 * 1000,
         apiKey: "",
-        format: "12", // Default 12 hour
         pws: "KNYELMIR13",
         lat: "42.089796",
         lon: "-76.807734",
@@ -70,11 +69,10 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
-        console.log(this.srss);
     },
 
     scheduleCarousel: function() {
-        console.log("Scheduling Weather stuff...");
+        console.log("Scheduling rotating Weather forecast...");
         this.rotateInterval = setInterval(() => {
             this.activeItem++;
             this.updateDom(this.config.animationSpeed);
@@ -125,7 +123,6 @@ Module.register("MMM-NOAA", {
                 hour12: false
             });
         }
-        console.log(time);
         return time;
     },
 
@@ -154,12 +151,12 @@ Module.register("MMM-NOAA", {
 
 
         var CurTime = document.createElement("div");
-        CurTime.classList.add("medium", "fontClock");
+        CurTime.classList.add("large", "fontClock");
         CurTime.innerHTML = this.getTime();
         wrapper.appendChild(CurTime);
 
         var CurDate = document.createElement("div");
-        CurDate.classList.add("small", "fontClock");
+        CurDate.classList.add("medium", "fontClock");
         CurDate.innerHTML = newdate;
         wrapper.appendChild(CurDate);
 

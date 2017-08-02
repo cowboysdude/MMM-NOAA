@@ -41,8 +41,7 @@ Will default to EN if NO translation file is found.
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
 			format: "12",             // 12 or 24 hour format.. will default to 12 hour if none selected.
 			rotateInterval: 10 * 1000,  // Every 10 seconds 
-			ampm: true,                 //to show AM and PM on Sunrise/Sunset times
-                        showClock: true,            //Hides or shows clock
+			ampm: true,                 //to show AM and PM on Sunrise/Sunset time                                                                   showClock: true,            //Hides or shows clock
 			dformat: "1"                //Date format 1 for D/M/Y 2 for M/D/Y
 	}
     },

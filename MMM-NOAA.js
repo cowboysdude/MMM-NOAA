@@ -7,9 +7,7 @@ Module.register("MMM-NOAA", {
     // Module config defaults.
     defaults: {
         updateInterval: 30 * 60 * 1000, // every 10 minutes
-        //setInterval: 1000,
         animationSpeed: 0,
-        //fadeSpeed: 11120,  //fade in
         initialLoadDelay: 875, //  delay
         retryDelay: 1500,
         maxWidth: "100%",
@@ -19,6 +17,8 @@ Module.register("MMM-NOAA", {
         lat: "42.089796",
         lon: "-76.807734",
         ampm: true,
+        dformat: "2",
+        showClock: true,
 
         langFile: {
             "en": "en-US",
@@ -53,7 +53,6 @@ Module.register("MMM-NOAA", {
 
         // Set locale.
         this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/conditions/q/pws:" + this.config.pws + ".json"
-        //this.url = "http://api.wunderground.com/api/"+this.config.apiKey+"/forecast10day/conditions/q/"+this.config.place+".json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;
@@ -146,14 +145,20 @@ Module.register("MMM-NOAA", {
         var month = d.getUTCMonth() + 1; //months from 1-12
         var day = d.getUTCDate();
         var year = d.getUTCFullYear();
-        var newdate = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;
+        if (this.config.dformat === "1") {
+            var newdate = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;
+        } else {
+            var newdate = this.translate(days[d.getDay()]) + " " + day + "/" + month + "/" + year;
+        }
         var n = d.getHours();
 
 
-        var CurTime = document.createElement("div");
-        CurTime.classList.add("large", "fontClock");
-        CurTime.innerHTML = this.getTime();
-        wrapper.appendChild(CurTime);
+        if (this.config.showClock == true) {
+            var CurTime = document.createElement("div");
+            CurTime.classList.add("large", "fontClock");
+            CurTime.innerHTML = this.getTime();
+            wrapper.appendChild(CurTime);
+        }
 
         var CurDate = document.createElement("div");
         CurDate.classList.add("medium", "fontClock");
@@ -251,8 +256,8 @@ Module.register("MMM-NOAA", {
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
             var utcsunset = moment.utc(sunset).toDate();
-            var sunrise = this.config.ampm === true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
-            var sunset = this.config.ampm === true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
+            var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
+            var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("h:mm");
 
 
             var Rdate = document.createElement("div");

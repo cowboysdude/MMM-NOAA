@@ -28,5 +28,8 @@
   "Very High": "Mycket Högt",
   "Extreme": "Extremt",
   "Sunset": "Solnedgång",
-  "Sunrise": "Soluppgång"
+  "Sunrise": "Soluppgång",
+  "hours": "",
+  "minutes": "",
+  "Amount of Daylight": ""
 }

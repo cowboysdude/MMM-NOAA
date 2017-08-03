@@ -28,5 +28,8 @@
 "Very High": "Sehr hoch",
 "Extreme": "Extrem",
 "Sunset": "Sonnenuntergang",
-"Sunrise": "Sonnenaufgang"
+"Sunrise": "Sonnenaufgang",
+"hours": "",
+"minutes": "",
+"Amount of Daylight": ""
 }

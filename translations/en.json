@@ -28,5 +28,8 @@
   "VERY_HIGH": "Very High",
   "EXTREME": "Extreme",
   "SUNSET": "Sunset",
-  "SUNRISE": "Sunrise"
+  "SUNRISE": "Sunrise",
+  "hours": "hours",
+  "minutes": "minutes",
+  "Amount of Daylight": "Amount of Daylight"
 }

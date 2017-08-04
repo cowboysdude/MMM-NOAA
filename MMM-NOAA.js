@@ -270,9 +270,8 @@ Module.register("MMM-NOAA", {
             
             var Tlength= document.createElement("div");
             Tlength.classList.add("xsmall", "bright");
-            Tlength.innerHTML = "<b>"+dHours+this.translate(" hours ")+ dMins+this.translate(" minutes ")+"</b><br><br>";
-            wrapper.appendChild(Tlength)
-            
+            Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") +"<br><br>";
+            wrapper.appendChild(Tlength);
            
 
         if (this.config.lat != "" && this.config.lon != "") {

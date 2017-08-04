@@ -68,6 +68,7 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
+    console.log(this.srss);
     },
 
     scheduleCarousel: function() {
@@ -145,19 +146,19 @@ Module.register("MMM-NOAA", {
         var month = d.getUTCMonth() + 1; //months from 1-12
         var day = d.getUTCDate();
         var year = d.getUTCFullYear();
-        if (this.config.dformat === "1") {
-            var newdate = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;
-        } else {
-            var newdate = this.translate(days[d.getDay()]) + " " + day + "/" + month + "/" + year;
-        }
+        if (this.config.dformat === "1"){
+		var newdate = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;	
+		} else  {
+		var newdate = this.translate(days[d.getDay()]) + " " + day + "/" + month + "/" + year;	
+		}
         var n = d.getHours();
 
 
-        if (this.config.showClock == true) {
-            var CurTime = document.createElement("div");
-            CurTime.classList.add("large", "fontClock");
-            CurTime.innerHTML = this.getTime();
-            wrapper.appendChild(CurTime);
+        if (this.config.showClock == true){
+        var CurTime = document.createElement("div");
+        CurTime.classList.add("large", "fontClock");
+        CurTime.innerHTML = this.getTime();
+        wrapper.appendChild(CurTime);
         }
 
         var CurDate = document.createElement("div");
@@ -212,7 +213,7 @@ Module.register("MMM-NOAA", {
 
 
         var ccurHumid = document.createElement("div");
-        ccurHumid.classList.add("xsmall", "bright");
+		ccurHumid.classList.add("xsmall", "bright");	
         ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;
         wrapper.appendChild(ccurHumid);
 
@@ -245,12 +246,29 @@ Module.register("MMM-NOAA", {
             bP.innerHTML = "Barometer: " + current.pressure_in + " " + "  <img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
         }
         wrapper.appendChild(bP);
-
-
+        
+        var srss = this.srss
+        
+            var date = new Date(null);
+            date.setSeconds(srss.day_length);
+            var dayLength = date.toISOString().substr(11, 8);
+            var longpieces = dayLength.toString().split(":");
+            var dHours = longpieces[0];
+            var dMins = longpieces[1];
+            
+            var Dlength = document.createElement("div");
+            Dlength.classList.add("xsmall", "bright", "font");
+            Dlength.innerHTML = this.translate("Amount of Daylight");
+            wrapper.appendChild(Dlength);
+            
+            var Tlength= document.createElement("div");
+            Tlength.classList.add("xsmall", "bright");
+            Tlength.innerHTML = dHours+this.translate(" hours ")+ dMins+this.translate(" minutes ")+"<br><br>";
+            wrapper.appendChild(Tlength)
+            
+           
 
         if (this.config.lat != "" && this.config.lon != "") {
-
-            var srss = this.srss
 
             var sunrise = srss.sunrise;
             var sunset = srss.sunset;
@@ -268,9 +286,11 @@ Module.register("MMM-NOAA", {
             } else {
                 Rdate.classList.add("bright", "small", "pmclock", "imgDesInv2");
             }
-            Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> " + sunrise + " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> " + sunset + "<br><br>";
+            Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> " + sunrise + " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> " + sunset+ "<br><br>";
             wrapper.appendChild(Rdate);
         }
+
+            
 
 
         var keys = Object.keys(this.forecast);

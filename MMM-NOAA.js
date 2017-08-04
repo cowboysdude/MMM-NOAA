@@ -218,7 +218,7 @@ Module.register("MMM-NOAA", {
         var ccurHumid = document.createElement("div");
 		ccurHumid.classList.add("xsmall", "bright");
 		if (reHumid > 70){
-        ccurHumid.innerHTML = this.translate("Humidity: <b><font color=red>") + current.relative_humidity+"</font></b>";
+        ccurHumid.innerHTML = this.translate("Humidity: ")+"<b><font color=red>" + current.relative_humidity + "</font></b>";
 		} else {
 		ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;	
 		}

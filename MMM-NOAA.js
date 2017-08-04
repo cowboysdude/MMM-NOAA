@@ -70,7 +70,6 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
-    console.log(this.srss);
     },
 
     scheduleCarousel: function() {
@@ -266,12 +265,12 @@ Module.register("MMM-NOAA", {
             
             var Dlength = document.createElement("div");
             Dlength.classList.add("xsmall", "bright", "font");
-            Dlength.innerHTML = this.translate("Amount of Daylight");
+            Dlength.innerHTML = this.translate("Amount of <font color=yellow>Daylight</font>");
             wrapper.appendChild(Dlength);
             
             var Tlength= document.createElement("div");
             Tlength.classList.add("xsmall", "bright");
-            Tlength.innerHTML = dHours+this.translate(" hours ")+ dMins+this.translate(" minutes ")+"<br><br>";
+            Tlength.innerHTML = "<b>"+dHours+this.translate(" hours ")+ dMins+this.translate(" minutes ")+"</b><br><br>";
             wrapper.appendChild(Tlength)
             
            

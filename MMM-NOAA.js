@@ -213,10 +213,16 @@ Module.register("MMM-NOAA", {
         }
         wrapper.appendChild(cpCondition);
 
-
+ //var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
+        
+        var reHumid = current.relative_humidity.substring(0, 2);
         var ccurHumid = document.createElement("div");
-		ccurHumid.classList.add("xsmall", "bright");	
-        ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;
+		ccurHumid.classList.add("xsmall", "bright");
+		if (reHumid > 70){
+        ccurHumid.innerHTML = this.translate("Humidity: <b><font color=red>") + current.relative_humidity+"</font></b>";
+		} else {
+		ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;	
+		}
         wrapper.appendChild(ccurHumid);
 
 

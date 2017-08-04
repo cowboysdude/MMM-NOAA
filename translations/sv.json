@@ -30,7 +30,7 @@
   "Extreme": "Extremt",
   "Sunset": "Solnedgång",
   "Sunrise": "Soluppgång",
-  "hours": "Timmar",
-  "minutes": "Minuter",
-  "Amount of Daylight": "Tid av dagsljus"
+  " hours ": "Timmar",
+  " minutes ": "Minuter",
+  "Amount of <font color=yellow>Daylight</font>": "Tid av dagsljus"
 }

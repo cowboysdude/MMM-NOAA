@@ -22,6 +22,7 @@
   "High: ": "Högst: ",
   "Low: ": "Lägst: ",
   "Humidity: ": "Luftfuktighet: ",
+  "Humidity: <b><font color=red>" : "Luftfuktighet: ", 
   "Safe": "Säkert",
   "Moderate": "Medel",
   "Snow showers": "Snöbyar",

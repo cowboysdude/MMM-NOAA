@@ -22,7 +22,6 @@
 "High:  ": "Alto: ",
 "Low:  ": "Bajo: ",
 "Humidity: ": "Humedad: ",
-"Humidity: <b><font color=red>": "Humedad: <b><font color=red>",
 "Safe": "Seguro",
 "Moderate": "Mediano",
 "Snow showers": "Duchas de nieve",
@@ -30,7 +29,7 @@
 "Extreme": "Extremo",
 "Sunset": "Puesta de sol",
 "Sunrise": "Salida del sol",
-"hours": "horas",
-"minutes": "minutos",
+" hours ": "horas",
+" minutes ": "minutos",
 "Amount of <font color=yellow>Daylight</font>": "Cantidad de Luz diurna"
 }

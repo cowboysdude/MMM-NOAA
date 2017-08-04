@@ -22,6 +22,7 @@
 "High:  ": "Alto: ",
 "Low:  ": "Bajo: ",
 "Humidity: ": "Humedad: ",
+"Humidity: <b><font color=red>": "Humedad: ",
 "Safe": "Seguro",
 "Moderate": "Mediano",
 "Snow showers": "Duchas de nieve",

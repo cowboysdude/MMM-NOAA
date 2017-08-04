@@ -23,7 +23,8 @@ Module.register("MMM-NOAA", {
         langFile: {
             "en": "en-US",
             "de": "de-DE",
-            "sv": "sv-SE"
+            "sv": "sv-SE",
+            "es": "es-ES"
         }
     },
 
@@ -36,7 +37,8 @@ Module.register("MMM-NOAA", {
         return {
             en: "translations/en.json",
             sv: "translations/sv.json",
-            de: "translations/de.json"
+            de: "translations/de.json",
+            es: "translations/es.json"
         };
     },
 

@@ -29,7 +29,7 @@
   "Extreme": "Extremt",
   "Sunset": "Solnedgång",
   "Sunrise": "Soluppgång",
-  "hours": "",
-  "minutes": "",
-  "Amount of Daylight": ""
+  "hours": "Timmar",
+  "minutes": "Minuter",
+  "Amount of Daylight": "Tid av dagsljus"
 }

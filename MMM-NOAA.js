@@ -18,13 +18,15 @@ Module.register("MMM-NOAA", {
         lon: "-76.807734",
         ampm: true,
         dformat: "2",
-        showClock: true,
+        showClock: true, 
+	airKEY: "",
 
         langFile: {
             "en": "en-US",
             "de": "de-DE",
             "sv": "sv-SE",
-            "es": "es-ES"
+            "es": "es-ES",
+            "fr": "fr-FR"
         }
     },
 
@@ -38,7 +40,8 @@ Module.register("MMM-NOAA", {
             en: "translations/en.json",
             sv: "translations/sv.json",
             de: "translations/de.json",
-            es: "translations/es.json"
+            es: "translations/es.json",
+	    fr: "translations/fr.json"
         };
     },
 

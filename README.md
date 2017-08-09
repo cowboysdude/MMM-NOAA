@@ -1,6 +1,7 @@
 # MMM-NOAA
 
 **Weather for your mirror**
+  Also UV index and Air Quality Index.  [Warning AQI may not work in all areas if not then disable see config options].
 
 ## Examples
 

@@ -6,6 +6,8 @@
 
 ![](fun.png), ![](c.png), ![](swedish.png), ![](greeting.png)
 
+If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name see picture example.
+
 ## Your terminal installation instructions
 
 * `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.

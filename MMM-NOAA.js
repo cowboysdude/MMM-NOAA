@@ -17,9 +17,12 @@ Module.register("MMM-NOAA", {
         lat: "42.089796",
         lon: "-76.807734",
         ampm: true,
-        dformat: "2",
-        showClock: true, 
-	airKEY: "",
+        dformat: true,
+        showClock: true,
+        useAir: false,
+        airKEY: "",
+        showGreet: false,
+        name: "",
 
         langFile: {
             "en": "en-US",
@@ -41,7 +44,7 @@ Module.register("MMM-NOAA", {
             sv: "translations/sv.json",
             de: "translations/de.json",
             es: "translations/es.json",
-	    fr: "translations/fr.json"
+            fr: "translations/fr.json"
         };
     },
 
@@ -57,7 +60,7 @@ Module.register("MMM-NOAA", {
         this.sendSocketNotification("CONFIG", this.config);
 
         // Set locale.
-        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/conditions/q/pws:" + this.config.pws + ".json"
+        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/conditions/q/pws:" + this.config.pws + ".json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;
@@ -73,6 +76,10 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
+    },
+
+    processAIR: function(data) {
+        this.air = data.data.current.pollution;
     },
 
     scheduleCarousel: function() {
@@ -105,7 +112,9 @@ Module.register("MMM-NOAA", {
         if (notification === "SRSS_RESULTS") {
             this.processSRSS(payload);
         }
-
+        if (notification === "AIR_RESULTS") {
+            this.processAIR(payload);
+        }
     },
 
     getTime: function() {
@@ -150,24 +159,52 @@ Module.register("MMM-NOAA", {
         var month = d.getUTCMonth() + 1; //months from 1-12
         var day = d.getUTCDate();
         var year = d.getUTCFullYear();
-        if (this.config.dformat === "1"){
-		var newdate = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;	
-		} else  {
-		var newdate = this.translate(days[d.getDay()]) + " " + day + "/" + month + "/" + year;	
-		}
+        if (this.config.dformat == true) {
+            var newdatea = this.translate(days[d.getDay()]) + " " + month + "/" + day + "/" + year;
+        } else {
+            var newdatea = this.translate(days[d.getDay()]) + " " + day + "/" + month + "/" + year;
+        }
         var n = d.getHours();
 
 
-        if (this.config.showClock == true){
-        var CurTime = document.createElement("div");
-        CurTime.classList.add("large", "fontClock");
-        CurTime.innerHTML = this.getTime();
-        wrapper.appendChild(CurTime);
+        if (this.config.showClock == true) {
+            var CurTime = document.createElement("div");
+            CurTime.classList.add("large", "fontClock");
+            CurTime.innerHTML = this.getTime();
+            wrapper.appendChild(CurTime);
+        }
+
+        if (this.config.showGreet == true) {
+            var Greet = document.createElement("div");
+            if (this.config.name != "") {
+                if (n < 12) {
+                    Greet.classList.add("bright", "medium", "amclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Morning ") + this.config.name + "!";
+                } else if (n > 12 && n < 18) {
+                    Greet.classList.add("bright", "medium", "eclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Afternoon ") + this.config.name + "!";
+                } else if (n > 18 && n < 24) {
+                    Greet.classList.add("bright", "medium", "pmclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Evening ") + this.config.name + "!";
+                }
+            } else {
+                if (n < 12) {
+                    Greet.classList.add("bright", "medium", "amclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Morning!");
+                } else if (n > 12 && n < 18) {
+                    Greet.classList.add("bright", "medium", "eclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Afternoon!");
+                } else if (n > 18 && n < 24) {
+                    Greet.classList.add("bright", "medium", "pmclock", "imgDesInv2");
+                    Greet.innerHTML = this.translate("Good Evening!");
+                }
+            }
+            wrapper.appendChild(Greet);
         }
 
         var CurDate = document.createElement("div");
         CurDate.classList.add("medium", "fontClock");
-        CurDate.innerHTML = newdate;
+        CurDate.innerHTML = newdatea;
         wrapper.appendChild(CurDate);
 
         var crtLogo = document.createElement("div");
@@ -187,44 +224,61 @@ Module.register("MMM-NOAA", {
         cTempHigh.classList.add("xsmall", "bright");
         if (this.config.units != "metric") {
             if (current.temp_f > 80) {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=red>" + current.temp_f + "&#730;</font>";
+                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=#7dfafd>" + Math.round(current.temp_f) + "&#730;</font>";
             } else {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + current.temp_f + "&#730;";
+                cTempHigh.innerHTML = this.translate("Current Temp: ") + Math.round(current.temp_f) + "&#730;";
             }
         } else {
             if (current.temp_c > 26) {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=red>" + current.temp_c + "&#730;</font>";
+                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=#7dfafd>" + Math.round(current.temp_c) + "&#730;</font>";
             } else {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + current.temp_c + "&#730;";
+                cTempHigh.innerHTML = this.translate("Current Temp: ") + Math.round(current.temp_c) + "&#730;";
             }
         }
         wrapper.appendChild(cTempHigh);
 
         var cpCondition = document.createElement("div");
         cpCondition.classList.add("xsmall", "bright");
-        if (current.UV > 0 && current.UV < 3) {
-            cpCondition.innerHTML = "UV Index: " + current.UV + " ~ <font color=#ABFBAE>" + this.translate("Safe") + "</font>";
+        if (current.UV >= 0 && current.UV < 3) {
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#ABFBAE>" + this.translate("Safe") + "</font>";
         } else if (current.UV > 2 && current.UV < 6) {
-            cpCondition.innerHTML = "UV Index: " + current.UV + " ~ <font color=#FDF877>" + this.translate("Moderate") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FDF877>" + this.translate("Moderate") + "</font>";
         } else if (current.UV > 5 && current.UV < 8) {
-            cpCondition.innerHTML = "UV Index: " + current.UV + " ~ <font color=#FECA62>" + this.translate("High") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FECA62>" + this.translate("High") + "</font>";
         } else if (current.UV > 7 && current.UV < 11) {
-            cpCondition.innerHTML = "UV Index: " + current.UV + " ~ <font color=#FE0F0F>" + this.translate("Very High") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FE0F0F>" + this.translate("Very High") + "</font>";
         } else if (current.UV >= 11) {
-            cpCondition.innerHTML = "UV Index: " + current.UV + " ~ <font color=#E6E6FA>" + this.translate("Extreme") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#E6E6FA>" + this.translate("Extreme") + "</font>";
         }
         wrapper.appendChild(cpCondition);
 
- //var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
-        
+        if (this.config.useAir != false) {
+            var aqius = this.air.aqius;
+            var aqi = document.createElement("div");
+            aqi.classList.add("xsmall", "bright");
+            if (aqius < 51) {
+                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#66FF00>" + aqius + "</font>";
+            } else if (aqius > 50 && aqius < 101) {
+                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#f2f735>" + aqius + "</font>";
+            } else if (aqius > 100 && aqius < 151) {
+                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#f5700c>" + aqius + "</font>";
+            } else if (aqius > 150 && aqius < 201) {
+                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#ff1313>" + aqius + "</font>";
+            } else {
+                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#800000>" + aqius + "</font>";
+            }
+            wrapper.appendChild(aqi);
+        }
+
+
         var reHumid = current.relative_humidity.substring(0, 2);
         var ccurHumid = document.createElement("div");
-		ccurHumid.classList.add("xsmall", "bright");
-		if (reHumid > 70){
-        ccurHumid.innerHTML = this.translate("Humidity: ")+"<b><font color=red>" + current.relative_humidity + "</font></b>";
-		} else {
-		ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;	
-		}
+        ccurHumid.classList.add("xsmall", "bright");
+        if (reHumid > 80) {
+            ccurHumid.innerHTML = this.translate("Humidity: ") + "<b><font color=red>" + current.relative_humidity + "</font></b>";
+        } else {
+            ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;
+        }
         wrapper.appendChild(ccurHumid);
 
 
@@ -256,26 +310,27 @@ Module.register("MMM-NOAA", {
             bP.innerHTML = "Barometer: " + current.pressure_in + " " + "  <img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
         }
         wrapper.appendChild(bP);
-        
-        var srss = this.srss
-        
-            var date = new Date(null);
-            date.setSeconds(srss.day_length);
-            var dayLength = date.toISOString().substr(11, 8);
-            var longpieces = dayLength.toString().split(":");
-            var dHours = longpieces[0];
-            var dMins = longpieces[1];
-            
-            var Dlength = document.createElement("div");
-            Dlength.classList.add("xsmall", "bright", "font");
-            Dlength.innerHTML = this.translate("Amount of <font color=yellow>Daylight</font>");
-            wrapper.appendChild(Dlength);
-            
-            var Tlength= document.createElement("div");
-            Tlength.classList.add("xsmall", "bright");
-            Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") +"<br><br>";
-            wrapper.appendChild(Tlength);
-           
+
+        var srss = this.srss;
+
+        var date = new Date(null);
+        date.setSeconds(srss.day_length);
+        var dayLength = date.toISOString().substr(11, 8);
+        var longpieces = dayLength.toString().split(":");
+        var dHours = longpieces[0];
+        var dMins = longpieces[1];
+
+        var Dlength = document.createElement("div");
+        Dlength.classList.add("xsmall", "bright", "font");
+        Dlength.innerHTML = this.translate("Amount of <font color=yellow>Daylight</font>");
+        wrapper.appendChild(Dlength);
+
+        var Tlength = document.createElement("div");
+        Tlength.classList.add("xsmall", "bright");
+        Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") + "<br><br>";
+        wrapper.appendChild(Tlength);
+
+
 
         if (this.config.lat != "" && this.config.lon != "") {
 
@@ -295,11 +350,11 @@ Module.register("MMM-NOAA", {
             } else {
                 Rdate.classList.add("bright", "small", "pmclock", "imgDesInv2");
             }
-            Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> " + sunrise + " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> " + sunset+ "<br><br>";
+            Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> " + sunrise + " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> " + sunset + "<br><br>";
             wrapper.appendChild(Rdate);
         }
 
-            
+
 
 
         var keys = Object.keys(this.forecast);
@@ -350,5 +405,4 @@ Module.register("MMM-NOAA", {
         }
         return wrapper;
     },
-
 });

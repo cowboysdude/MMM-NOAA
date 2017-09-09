@@ -32,7 +32,7 @@ module.exports = NodeHelper.create({
     getSRSS: function(){
      	var self = this;
 	 	request({ 
-    	    url: "https://api.sunrise-sunset.org/json?lat="+this.config.lat+"&lng="+this.config.lon+"&formatted=0",
+    	    url: "http://api.sunrise-sunset.org/json?lat="+this.config.lat+"&lng="+this.config.lon+"&formatted=0",
     	          method: 'GET' 
     	        }, (error, response, body) => {
             if (!error && response.statusCode === 200) {

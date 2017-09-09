@@ -30,7 +30,8 @@ Module.register("MMM-NOAA", {
             "sv": "sv-SE",
             "es": "es-ES",
             "fr": "fr-FR",
-            "da": "da-DK"
+            "da": "da-DK",
+            "zh_cn": "zh-CN"
         }
     },
 

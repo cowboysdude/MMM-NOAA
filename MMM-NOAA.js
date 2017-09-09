@@ -30,8 +30,7 @@ Module.register("MMM-NOAA", {
             "sv": "sv-SE",
             "es": "es-ES",
             "fr": "fr-FR",
-            "da": "da-DK",
-            "zh_cn": "zh-CN"
+          "zh_cn": "zh-CN"
         }
     },
 
@@ -47,8 +46,7 @@ Module.register("MMM-NOAA", {
             de: "translations/de.json",
             es: "translations/es.json",
             fr: "translations/fr.json",
-            da: "translations/da.json",
-         zh_cn: "translations/zh_cn.json"
+          zh_cn: "translations/zh_cn.json"
         };
     },
 
@@ -80,10 +78,12 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
+console.log(this.srss);
     },
 
     processAIR: function(data) {
         this.air = data.data.current.pollution;
+console.log(this.air);
     },
 
     scheduleCarousel: function() {
@@ -315,7 +315,7 @@ Module.register("MMM-NOAA", {
         }
         wrapper.appendChild(bP);
 
-        var srss = this.srss;
+       var srss = this.srss;
 
         var date = new Date(null);
         date.setSeconds(srss.day_length);
@@ -337,7 +337,7 @@ Module.register("MMM-NOAA", {
 
 
         if (this.config.lat != "" && this.config.lon != "") {
-
+            
             var sunrise = srss.sunrise;
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
@@ -409,4 +409,5 @@ Module.register("MMM-NOAA", {
         }
         return wrapper;
     },
+
 });

@@ -48,7 +48,7 @@ Module.register("MMM-NOAA", {
             es: "translations/es.json",
             fr: "translations/fr.json",
             da: "translations/da.json",
-         zh-cn: "translations/zh_cn.json"
+         zh_cn: "translations/zh_cn.json"
         };
     },
 

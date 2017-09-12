@@ -37,6 +37,8 @@ Module.register("MMM-NOAA", {
         }
     },
 
+    requiresVersion: "2.1.0",
+
     // Define required scripts.
     getScripts: function() {
         return ["moment.js"];

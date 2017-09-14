@@ -5,9 +5,9 @@
 
 ## Examples
 
-![](fun.png), ![](c.png), ![](swedish.png), ![](greeting.png)
+![](NEW.png)
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name see picture example.
+If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
 
 ## Your terminal installation instructions
 
@@ -43,7 +43,6 @@ Will default to EN if NO translation file is found.
 			pws: "KNYELMIR13",       // go here to find your pws: https://www.wunderground.com/wundermap
 	                lat: "42.089796",        // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
 			lon: "-76.807734",       // need this for sunrise/sunset  if left blank none will show
-			rotateInterval: 10 * 1000,  // Every 10 seconds 
 			showClock: true,            //Hides or shows clock
 			dformat: true,             //for M/D/YYYY format, false for D/M/YYYY
 			showClock: true,
@@ -51,7 +50,9 @@ Will default to EN if NO translation file is found.
 			ampm: true,                 //to show AM and PM on Sunrise/Sunset time
 			showGreet: false,          //deafult is false - to show greeting under clock and above date
                         name: "",                  // Your name
+			showWind: false,
+                        showDate: false,
 	}
     },
 	
-## Start your mirror . . . enjoy!  [Relax... it will take a minute to load this module!]
+## Start your mirror . . . enjoy! 

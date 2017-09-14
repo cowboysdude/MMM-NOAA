@@ -1,21 +1,22 @@
 /* Magic Mirror
  * Module: MMM-NOAA
- * By cowboysdude and snille
+ * By cowboysdude and snille 
+        modified by barnosch
  */
 Module.register("MMM-NOAA", {
 
     // Module config defaults.
     defaults: {
         updateInterval: 30 * 60 * 1000, // every 10 minutes
-        animationSpeed: 0,
+        animationSpeed: 3650,
         initialLoadDelay: 875, //  delay
         retryDelay: 1500,
         maxWidth: "100%",
-        rotateInterval: 20 * 1000,
+        rotateInterval: 60 * 1000,
         apiKey: "",
         pws: "KNYELMIR13",
-        lat: "",
-        lon: "",
+        lat: "42.089796",
+        lon: "-76.807734",
         ampm: true,
         dformat: true,
         showClock: true,
@@ -23,6 +24,8 @@ Module.register("MMM-NOAA", {
         airKEY: "",
         showGreet: false,
         name: "",
+        showWind: false,
+        showDate: false,
 
         langFile: {
             "en": "en-US",
@@ -61,8 +64,8 @@ Module.register("MMM-NOAA", {
         this.config.units = this.config.units || config.units;
         this.sendSocketNotification("CONFIG", this.config);
 
-        // Set locale.
-        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/conditions/q/pws:" + this.config.pws + ".json";
+        // Set locale.  
+        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/conditions/q/pws:" + this.config.pws + ".json";
         this.forecast = {};
         this.today = "";
         this.activeItem = 0;
@@ -78,21 +81,12 @@ Module.register("MMM-NOAA", {
 
     processSRSS: function(data) {
         this.srss = data.results;
-console.log(this.srss);
     },
 
     processAIR: function(data) {
         this.air = data.data.current.pollution;
-console.log(this.air);
     },
 
-    scheduleCarousel: function() {
-        console.log("Scheduling rotating Weather forecast...");
-        this.rotateInterval = setInterval(() => {
-            this.activeItem++;
-            this.updateDom(this.config.animationSpeed);
-        }, this.config.rotateInterval);
-    },
 
     scheduleUpdate: function() {
         setInterval(() => {
@@ -108,10 +102,7 @@ console.log(this.air);
     socketNotificationReceived: function(notification, payload) {
         if (notification === "NOAA_RESULT") {
             this.processNoaa(payload);
-            if (this.rotateInterval == null) {
-                this.scheduleCarousel();
-            }
-            this.updateDom(this.config.animationSpeed);
+
         }
         if (notification === "SRSS_RESULTS") {
             this.processSRSS(payload);
@@ -119,6 +110,9 @@ console.log(this.air);
         if (notification === "AIR_RESULTS") {
             this.processAIR(payload);
         }
+
+
+        this.updateDom(this.config.animationSpeed);
     },
 
     getTime: function() {
@@ -206,17 +200,36 @@ console.log(this.air);
             wrapper.appendChild(Greet);
         }
 
-        var CurDate = document.createElement("div");
-        CurDate.classList.add("medium", "fontClock");
-        CurDate.innerHTML = newdatea;
-        wrapper.appendChild(CurDate);
+        if (this.config.showDate != false) {
+            var CurDate = document.createElement("div");
+            CurDate.classList.add("medium", "fontClock");
+            CurDate.innerHTML = newdatea;
+            wrapper.appendChild(CurDate);
+        }
 
-        var crtLogo = document.createElement("div");
-        var crtIcon = document.createElement("img");
-        crtIcon.classList.add("imgDesInv");
-        crtIcon.src = "modules/MMM-NOAA/images/" + current.icon + ".png";
-        crtLogo.appendChild(crtIcon);
+        var crtLogo = document.createElement("span");
+        crtLogo.classList.add("img");
+        crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";
         wrapper.appendChild(crtLogo);
+
+        
+        var cTempHigh = document.createElement("span");
+        cTempHigh.classList.add("bright", "wFont");
+        if (this.config.units != "metric") {
+            if (current.temp_f > 80) {
+                cTempHigh.innerHTML = "&nbsp;&nbsp;" + Math.round(current.temp_f) + "&#730;</font>";
+            } else {
+                cTempHigh.innerHTML = "&nbsp;&nbsp;" + Math.round(current.temp_f) + "&#730;";
+            }
+        } else {
+            if (current.temp_c > 26) {
+                cTempHigh.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_c) + "&#730;</font>";
+            } else {
+                cTempHigh.innerHTML = "<font size=115%>" + Math.round(current.temp_c) + "&#730;</font>"; //changed font size
+            }
+        }
+        wrapper.appendChild(cTempHigh);
+
 
         var curCon = document.createElement("div");
         curCon.classList.add("xsmall", "bright");
@@ -224,33 +237,16 @@ console.log(this.air);
         wrapper.appendChild(curCon);
 
 
-        var cTempHigh = document.createElement("div");
-        cTempHigh.classList.add("xsmall", "bright");
-        if (this.config.units != "metric") {
-            if (current.temp_f > 80) {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=#7dfafd>" + Math.round(current.temp_f) + "&#730;</font>";
-            } else {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + Math.round(current.temp_f) + "&#730;";
-            }
-        } else {
-            if (current.temp_c > 26) {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + "<font color=#7dfafd>" + Math.round(current.temp_c) + "&#730;</font>";
-            } else {
-                cTempHigh.innerHTML = this.translate("Current Temp: ") + Math.round(current.temp_c) + "&#730;";
-            }
-        }
-        wrapper.appendChild(cTempHigh);
-
         var cpCondition = document.createElement("div");
         cpCondition.classList.add("xsmall", "bright");
         if (current.UV >= 0 && current.UV < 3) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#ABFBAE>" + this.translate("Safe") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#66FF00>" + this.translate("Safe") + "</font>";
         } else if (current.UV > 2 && current.UV < 6) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FDF877>" + this.translate("Moderate") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#f2f735>" + this.translate("Moderate") + "</font>";
         } else if (current.UV > 5 && current.UV < 8) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FECA62>" + this.translate("High") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#f5700c>" + this.translate("High") + "</font>";
         } else if (current.UV > 7 && current.UV < 11) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#FE0F0F>" + this.translate("Very High") + "</font>";
+            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#ff1313>" + this.translate("Very High") + "</font>";
         } else if (current.UV >= 11) {
             cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#E6E6FA>" + this.translate("Extreme") + "</font>";
         }
@@ -279,30 +275,32 @@ console.log(this.air);
         var ccurHumid = document.createElement("div");
         ccurHumid.classList.add("xsmall", "bright");
         if (reHumid > 80) {
-            ccurHumid.innerHTML = this.translate("Humidity: ") + "<b><font color=red>" + current.relative_humidity + "</font></b>";
+            ccurHumid.innerHTML = this.translate("Humidity: ") + "<b><font color=#fe5469>" + current.relative_humidity + "</font></b>";
         } else {
             ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;
         }
         wrapper.appendChild(ccurHumid);
 
+        if (this.config.showWind != false) {
+            var wind = document.createElement("div");
+            wind.classList.add("xsmall", "bright");
+            if (this.config.units != "metric") {
 
-        var wind = document.createElement("div");
-        wind.classList.add("xsmall", "bright");
-        if (this.config.units != "metric") {
-
-            if (current.wind_mph > 0) {
-                wind.innerHTML = this.translate("Wind: ") + current.wind_mph + " mph ~ " + this.translate("From: ") + current.wind_dir;
+                if (current.wind_mph > 0) {
+                    wind.innerHTML = this.translate("Wind: ") + current.wind_mph + " mph ~ " + this.translate("From: ") + current.wind_dir;
+                } else {
+                    wind.innerHTML = this.translate("Wind: 0");
+                }
             } else {
-                wind.innerHTML = this.translate("Wind: 0");
+                if (current.wind_kph > 0) {
+                    wind.innerHTML = this.translate("Wind: ") + current.wind_kph + " kph ~ " + this.translate("From: ") + current.wind_dir;
+                } else {
+                    wind.innerHTML = this.translate("Wind: 0");
+                }
             }
-        } else {
-            if (current.wind_kph > 0) {
-                wind.innerHTML = this.translate("Wind: ") + current.wind_kph + " kph ~ " + this.translate("From: ") + current.wind_dir;
-            } else {
-                wind.innerHTML = this.translate("Wind: 0");
-            }
+            wrapper.appendChild(wind);
         }
-        wrapper.appendChild(wind);
+
 
         var bP = document.createElement("div");
         bP.classList.add("xsmall", "bright");
@@ -315,7 +313,7 @@ console.log(this.air);
         }
         wrapper.appendChild(bP);
 
-       var srss = this.srss;
+        var srss = this.srss;
 
         var date = new Date(null);
         date.setSeconds(srss.day_length);
@@ -331,19 +329,18 @@ console.log(this.air);
 
         var Tlength = document.createElement("div");
         Tlength.classList.add("xsmall", "bright");
-        Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") + "<br><br>";
+        Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") + "<br>";
         wrapper.appendChild(Tlength);
 
 
 
         if (this.config.lat != "" && this.config.lon != "") {
-            
             var sunrise = srss.sunrise;
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
             var utcsunset = moment.utc(sunset).toDate();
-            var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("h:mm");
-            var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("h:mm");
+            var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm"); 
+            var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm"); 
 
 
             var Rdate = document.createElement("div");
@@ -354,60 +351,51 @@ console.log(this.air);
             } else {
                 Rdate.classList.add("bright", "small", "pmclock", "imgDesInv2");
             }
-            Rdate.innerHTML = "<img src='modules/MMM-NOAA/images/sunrise1.png' width=10%; height=10%;> " + sunrise + " &nbsp;&nbsp;&nbsp;<img src='modules/MMM-NOAA/images/sunset1.png' width=10%; height=10%;> " + sunset + "<br><br>";
+            Rdate.innerHTML = "<img class = srss src='modules/MMM-NOAA/images/sunrise1.png'> " + sunrise + " &nbsp;&nbsp;&nbsp;<img class = srss src='modules/MMM-NOAA/images/sunset1.png'> " + sunset + "<br><br>";
             wrapper.appendChild(Rdate);
         }
 
+        console.log(this.forecast);
+
+        for (i = 0; i < this.forecast.length; i++) {
+            var noaa = this.forecast[i];
+
+            var tdDiv = document.createElement("div");
+            tdDiv.classList.add("tdh");
+
+            var td1 = document.createElement("span");
+            td1.classList.add("xsmall", "bright", "span");
+            td1.innerHTML = this.translate(noaa.date.weekday_short);
+            tdDiv.appendChild(td1);
+
+            var td2 = document.createElement("span");
+            td2.innerHTML = "<img class='icon' src='modules/MMM-NOAA/images/" + noaa.icon + ".png'>&nbsp;&nbsp;";
+            tdDiv.appendChild(td2);
 
 
+            var td3 = document.createElement("span");
+            td3.classList.add("xsmall", "bright", "span", "row");
+            td3.innerHTML = noaa.pop + "%";
+            tdDiv.appendChild(td3);
 
-        var keys = Object.keys(this.forecast);
-        if (keys.length > 0) {
-            if (this.activeItem >= keys.length) {
-                this.activeItem = 0;
-            }
-            var noaa = this.forecast[keys[this.activeItem]];
-
-            var sDiv = document.createElement("div");
-            sDiv.classList.add("small", "bright");
-            sDiv.innerHTML = this.translate("~~~ Forecast ~~~<br/>");
-            wrapper.appendChild(sDiv);
-
-            var newDate = document.createElement("div");
-            newDate.classList.add("xsmall", "bright", "font");
-            var myDate = this.translate(noaa.date.weekday) + " " + noaa.date.month + "/" + noaa.date.day + "/" + noaa.date.year;
-            newDate.innerHTML = myDate;
-            wrapper.appendChild(newDate);
-
-            var artLogo = document.createElement("div");
-            var artIcon = document.createElement("img");
-            artIcon.classList.add("imgDesInv");
-            artIcon.src = "modules/MMM-NOAA/images/" + noaa.icon + ".png";
-            artLogo.appendChild(artIcon);
-            wrapper.appendChild(artLogo);
-
-            var UpCondition = document.createElement("div");
-            UpCondition.classList.add("xsmall", "bright", "font");
-            UpCondition.innerHTML = this.translate(noaa.conditions);
-            wrapper.appendChild(UpCondition);
-
-            var TempHigh = document.createElement("div");
-            TempHigh.classList.add("xsmall", "bright", "font");
+            var td4 = document.createElement("span");
+            td4.classList.add("xsmall", "bright", "span");
             if (this.config.units != "metric") {
-                TempHigh.innerHTML = this.translate("High: ") + noaa.high.fahrenheit + "&#730; &nbsp;&nbsp;&nbsp;" + this.translate("Low: ") + noaa.low.fahrenheit + "&#730;";
+                td4.innerHTML = "<b><font color=#FD0E35>&uarr;</font></b>"+ noaa.high.fahrenheit + "&#730; &nbsp;" + "<font color=#2E9AFE><b>&darr;</b></font> " + noaa.low.fahrenheit + "&#730;";
             } else {
-                TempHigh.innerHTML = this.translate("High: ") + noaa.high.celsius + "&#730; &nbsp;&nbsp;&nbsp;" + this.translate("Low: ") + noaa.low.celsius + "&#730;";
+                td4.innerHTML = "<b><font color=#FD0E35>&uarr;</font></b>" + noaa.high.celsius + "&#730; &nbsp;" + "<font color=#2E9AFE><b>&darr;</b></font> " + noaa.low.celsius + "&#730;"; 
             }
-            wrapper.appendChild(TempHigh);
-
-            var CurHumid = document.createElement("div");
-            CurHumid.classList.add("xsmall", "bright", "font");
-            CurHumid.innerHTML = this.translate("Humidity: ") + noaa.avehumidity + "%";
-            wrapper.appendChild(CurHumid);
+            tdDiv.appendChild(td4);
 
 
+            var td5 = document.createElement("span");
+            td5.classList.add("xsmall", "bright", "span");
+            td5.innerHTML = this.translate("Humidity: ") + noaa.avehumidity + "%";
+            tdDiv.appendChild(td5);
+
+
+            wrapper.appendChild(tdDiv);
         }
         return wrapper;
     },
-
 });

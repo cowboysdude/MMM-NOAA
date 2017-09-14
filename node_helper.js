@@ -38,9 +38,23 @@ module.exports = NodeHelper.create({
             if (!error && response.statusCode === 200) {
                         var srssresult = JSON.parse(body);
                         this.sendSocketNotification("SRSS_RESULTS", srssresult);
+                        this.getAir();
             }
        });
     },
+  
+    getAir: function(){
+     	var self = this;
+	 	request({ 
+    	    url: "http://api.airvisual.com/v2/nearest_city?lat="+this.config.lat+"&lon="+this.config.lon+"&rad=100&key="+this.config.airKey,
+    	          method: 'GET' 
+    	        }, (error, response, body) => {
+            if (!error && response.statusCode === 200) {
+                        var airresult = JSON.parse(body);
+                        this.sendSocketNotification("AIR_RESULTS", airresult);
+            }
+       });
+   },
 
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
@@ -50,6 +64,8 @@ module.exports = NodeHelper.create({
                 this.getNOAA(payload);
             } else if (notification === 'GET_SRSS') {
                 this.getSRSS(payload);
-			}    
-         }  
+			}  else if (notification === 'GET_AIR') {
+				this.getAIR(payload);
+			}
+         },  
     });

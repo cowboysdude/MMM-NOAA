@@ -5,7 +5,7 @@
 
 ## Examples
 
-![](NEW.png)
+![](NEW.PNG)
 
 If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
 

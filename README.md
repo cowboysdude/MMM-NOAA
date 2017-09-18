@@ -5,7 +5,7 @@
 
 ## Examples
 
-![](NEW.PNG)
+![](en.png) ![](fr.png) ![](es.png) ![](sv.png) ![](de.png) ![](cn.png)
 
 If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
 

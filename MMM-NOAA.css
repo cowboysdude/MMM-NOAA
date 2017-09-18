@@ -23,7 +23,6 @@
 	padding-top: 8px;
 }
 .MMM-NOAA .eclock {
-	
 	color: #a5dff8;
 	padding-top: 8px;
 }
@@ -54,11 +53,22 @@
 .MMM-NOAA .span {
 	padding-left: 4px;
 	padding-right: 4px;
+	line-height: .6em;  
 }
 .MMM-NOAA .tdh{
-	line-height: 40%;
-	display: block;
+	line-height: 60%;
+	display: inline-block;
+	line-height: .6em;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
 }
 .MMM-NOAA .img{
 	display: inline-block;
+}
+.MMM-NOAA .back {
+	background-image: url('images/back.jpg');
+	z-index: -1;
+	margin-right: 2px;
+	margin-left: 2px;
 }

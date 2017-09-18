@@ -1,7 +1,7 @@
 {
   "GATHERING_WEATHER_STUFF": "Gathering weather stuff",
-  "CURRENTLY": "Currently",
-  "CURRENT_TEMP": "Current Temp",
+  "Currently": "Currently",
+  "Current Temp": "Current Temp",
   "UV_INDEX": "UV Index",
   "WIND": "Wind",
   "FROM": "From",
@@ -31,5 +31,6 @@
   "SUNRISE": "Sunrise",
   "hours": "hours",
   "minutes": "minutes",
-  "Amount of Daylight": "Amount of Daylight"
+  "Amount of Daylight": "Amount of Daylight",
+  "Wind: ": "Wind: "
 }

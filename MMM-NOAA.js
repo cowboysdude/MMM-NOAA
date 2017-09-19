@@ -238,7 +238,7 @@ console.log(this.url);
             if (current.temp_c > 26) {
                 cTempHigh.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_c) + "&#730;</font>";
             } else {
-                cTempHigh.innerHTML = "<font size=115%>" + Math.round(current.temp_c) + "&#730;</font>"; //changed font size
+                cTempHigh.innerHTML = Math.round(current.temp_c) + "&#730;";
             }
         }
         wrapper.appendChild(cTempHigh);
@@ -265,7 +265,7 @@ console.log(this.url);
         }
         wrapper.appendChild(cpCondition);
 
-        if (this.config.useAir != false || aquis != undefined) {
+        if (this.config.useAir != false || aqius != undefined) {
             var aqius = this.air.aqius;
             var aqi = document.createElement("div");
             aqi.classList.add("xsmall", "bright");

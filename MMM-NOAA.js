@@ -33,18 +33,20 @@ Module.register("MMM-NOAA", {
             "es": "es-ES",
             "fr": "fr-FR",
           "zh_cn": "zh-CN",
-          "da": "da"
+          "da": "da",
+	   "nl": "nl"
         },
     
     
     langTrans: {
-		    "en": "EN",
+            "en": "EN",
             "de": "DL",
             "sv": "SW",
             "es": "SP",
             "fr": "FR",
           "zh_cn": "CN",
-            "da": "DK"
+            "da": "DK",
+	    "nl": "NL"
 	}
 	},
 
@@ -61,7 +63,8 @@ Module.register("MMM-NOAA", {
             de: "translations/de.json",
             es: "translations/es.json",
             fr: "translations/fr.json",
-          zh_cn: "translations/zh_cn.json"
+          zh_cn: "translations/zh_cn.json",
+	    nl: "translations/nl.json"
         };
     },
 

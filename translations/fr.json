@@ -2,11 +2,10 @@
 "GATHERING WEATHER STUFF": "Info météo",
   "Currently: ": "Actuellement: ",
   "Current Temp: ": "Température: ",
-  "UV Index ": "Index UV  ",
+  "UV Index: ": "Index UV:  ",
   "Wind: ": "Vent: ",
   "From: ": "de: ",
   "Barometer: ": "Baromètre: ",
-  "~~~ Forecast ~~~<br />": "~~~ Prévision ~~~<br />",
   "Monday": "Lundi",
   "Tuesday": "Mardi",
   "Wednesday": "Mercredi",
@@ -22,7 +21,6 @@
   "High: ": "Haute: ",
   "Low: ": "Basse: ",
   "Humidity: ": "Humidité: ",
-  "Humidity: <b><font color=red>": "Humidité: ",
   "Safe": "Sûr",
   "Moderate": "Modéré",
   "Snow showers": "Averses de neige",
@@ -32,5 +30,10 @@
   "Sunrise": "Levée de soleil",
   " hours ": " Heures ",
   " minutes ": " Minutes ",
-  "Amount of <font color=yellow>Daylight</font>": "Lumière du jour"
+  "Amount of <font color=yellow>Daylight</font>": "Lumière du jour",
+  "Air Quality Index: ":"Indice de qualité de l'air: ",
+  "Good Morning ":"Bonjour ",
+  "Good Afternoon ": "Bonjour ",
+  "Good Evening ": "Bonsoir ",
+  "Amount of Daylight": "Montant de la lumière du jour"
   }

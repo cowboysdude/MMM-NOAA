@@ -13,8 +13,6 @@ If you do not enter a name in the config.js file it will just say either "Good M
 
 * `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
 
-* Run `npm install` in the `~MagicMirror/modules/MMM-NOAA` directory.
-
 ## Get your free API key here
 
  [https://www.wunderground.com/weather/api](https://www.wunderground.com/weather/api)

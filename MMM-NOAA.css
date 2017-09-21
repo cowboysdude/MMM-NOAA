@@ -7,20 +7,26 @@
   color: "#ffffff";
 }
 
-.MMM-NOAA img.icon {
+.MMM-NOAA .icon {
   width: 6%;
   height: 6%;
   vertical-align: middle;
 }
-
-.MMM-NOAA img.icon2 {
+.MMM-NOAA .icon2 {
   width: 48%;
   height: 48%;
 }
-
-.MMM-NOAA img.srss {
+.MMM-NOAA .srss {
   width: 8%;
   height: 8%;
+}
+.MMM-NOAA .icon2 {
+  width: 48%;
+  height: 48%;
+}
+.MMM-NOAA .srss{
+	 width: 8%;
+   height: 8%;
 }
 
 .MMM-NOAA .amclock {
@@ -64,6 +70,7 @@
 }
 
 .MMM-NOAA .span {
+
   padding-left: 4px;
   padding-right: 4px;
 }
@@ -71,8 +78,27 @@
 .MMM-NOAA .tdh {
   line-height: 40%;
   display: block;
+
+	padding-left: 4px;
+	padding-right: 4px;
+	line-height: .6em;  
+}
+.MMM-NOAA .tdh{
+	display: inline-block;
+	line-height: .6em;
+	margin-right: 10px;
+	margin-left: 10px;
+	margin-top: 10px;
+
 }
 
 .MMM-NOAA .img {
   display: inline-block;
 }
+.MMM-NOAA .back {
+	background-image: url('images/back.jpg');
+	z-index: -1;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+

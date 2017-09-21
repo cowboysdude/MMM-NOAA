@@ -9,7 +9,6 @@
   "author": "cowboysdude",
   "license": "MIT",
   "dependencies": {
-    "request": "^2.81.0"
   },
   "devDependencies": {
     "grunt": "latest",

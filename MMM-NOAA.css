@@ -5,16 +5,16 @@
 .MMM-NOAA .fontClock {
 	color:#ffffff;
 }
-.img.icon {
+.MMM-NOAA .icon {
   width: 6%;
   height: 6%;
  vertical-align:middle;
 }
-.img.icon2 {
+.MMM-NOAA .icon2 {
   width: 48%;
   height: 48%;
 }
-.img.srss{
+.MMM-NOAA .srss{
 	 width: 8%;
      height: 8%;
 }
@@ -56,7 +56,6 @@
 	line-height: .6em;  
 }
 .MMM-NOAA .tdh{
-	line-height: 60%;
 	display: inline-block;
 	line-height: .6em;
 	margin-right: 10px;
@@ -72,3 +71,4 @@
 	margin-right: 2px;
 	margin-left: 2px;
 }
+

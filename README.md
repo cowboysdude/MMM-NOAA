@@ -17,15 +17,17 @@ If you do not enter a name in the config.js file it will just say either "Good M
 
 ## Get your free API key here
 
-https://www.wunderground.com/weather/api
+ [https://www.wunderground.com/weather/api](https://www.wunderground.com/weather/api)
 
 * Select the middle plan
 
 ## Get your PWS from here
 
- https://www.wunderground.com/wundermap
 
- * For your config.js entry for precise localized weather 
+ [https://www.wunderground.com/wundermap](https://www.wunderground.com/wundermap)
+ 
+* For your config.js entry for precise localized weather 
+
 
 ## Config.js entry and options
 

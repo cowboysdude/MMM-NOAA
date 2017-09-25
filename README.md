@@ -7,25 +7,25 @@
 
 ![](en.png) ![](fr.png) ![](es.png) ![](sv.png) ![](de.png) ![](cn.png)
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".   With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
+If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
 
 ## Your terminal installation instructions
 
 * `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
 
-* Run `npm install` in the `~MagicMirror/modules/MMM-NOAA` directory.
-
 ## Get your free API key here
 
-https://www.wunderground.com/weather/api
+ [https://www.wunderground.com/weather/api](https://www.wunderground.com/weather/api)
 
 * Select the middle plan
 
 ## Get your PWS from here
 
- https://www.wunderground.com/wundermap
+
+ [https://www.wunderground.com/wundermap](https://www.wunderground.com/wundermap)
  
- * For your config.js entry for precise localized weather 
+* For your config.js entry for precise localized weather 
+
 
 ## Config.js entry and options
 
@@ -37,6 +37,7 @@ Will default to EN if NO translation file is found.
         module: 'MMM-NOAA',
         position: 'top_right',
         config: {
+
 		apiKey: "YOUR API KEY",    // https://www.wunderground.com/weather/api  select the middle plan... 
 		useAir: false,             // set to false if you do not want to use Air Quality Index
 		airKey: "YOUR API KEY",    // IF you want Air Quality Index
@@ -51,7 +52,7 @@ Will default to EN if NO translation file is found.
 		name: "",                  // Your name
 		showWind: false,
 		showDate: false,
-	}
-    },
 	
+    },
+
 ## Start your mirror . . . enjoy! 

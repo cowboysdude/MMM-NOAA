@@ -4,12 +4,21 @@
   "description": "Weather module using the www.wunderground.com API for the MagicMirror2",
   "main": "MMM-NOAA.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/grunt/bin/grunt"
   },
   "author": "cowboysdude",
   "license": "MIT",
   "dependencies": {
-    "request": "^2.81.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "grunt": "latest",
+    "grunt-eslint": "latest",
+    "grunt-jsonlint": "latest",
+    "grunt-markdownlint": "^1.0.13",
+    "grunt-stylelint": "latest",
+    "grunt-yamllint": "^0.3.0",
+    "stylelint": "^7.10.1",
+    "stylelint-config-standard": "latest",
+    "time-grunt": "latest"
+  }
 }

@@ -26,7 +26,15 @@
 " hours ": " horas ",
 " minutes ": " minutos ",
 "Amount of Daylight": "Cantidad de Luz diurna",
-  "Good Morning ":"¡Buenos días ",
-  "Good Afternoon ": "¡Buenas tardes ",
-  "Good Evening ": "¡Buena noches "
+"Good Morning ":"¡Buenos días ",
+"Good Afternoon ": "¡Buenas tardes ",
+"Good Evening ": "¡Buena noches ",
+"Today":"Hoy",
+"Mon":"Lun",
+"Tue":"Mar",
+"Wed":"Mie",
+"Thu":"Jue",
+"Fri":"Vie",
+"Sat":"Sab",
+"Sun":"Lun"
 }

@@ -28,5 +28,13 @@
 "Good Morning ":"Guten Morgen ",
   "Good Afternoon ": "Guten Nachmittag ",
   "Good Evening ": "Guten Abend ",
-  "Air Quality Index: ":"Luftqualitätsindex: "
+  "Air Quality Index: ":"Luftqualitätsindex: ",
+  "Today":"Heute",
+"Mon":"Mo",
+"Tue":"Di",
+"Wed":"Mi",
+"Thu":"Do",
+"Fri":"Fr",
+"Sat":"Sa",
+"Sun":"So"
 }

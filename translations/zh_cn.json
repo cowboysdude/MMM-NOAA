@@ -31,5 +31,13 @@
   "Good Evening ": "晚上好! ",
   "Good Morning ":"早上好 ",
   "Good Afternoon ": "下午好 ",
-  "Good Evening ": "晚上好 "
+  "Good Evening ": "晚上好 ",
+  "Today":"今天",
+"Mon":"週一",
+"Tue":"星期二",
+"Wed":"星期三",
+"Thu":"集",
+"Fri":"週五",
+"Sat":"星期六",
+"Sun":"太陽"
 }

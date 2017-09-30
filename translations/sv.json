@@ -27,5 +27,13 @@
   "Amount of Daylight": "Dagsljus",
   "Good Morning ":"God morgon ",
   "Good Afternoon ": "God eftermiddag ",
-  "Good Evening ": "God kväll "
+  "Good Evening ": "God kväll ",
+  "Today":"I dag",
+"Mon":"Må",
+"Tue":"Ti",
+"Wed":"On",
+"Thu":"To",
+"Fri":"Fr",
+"Sat":"Lö",
+"Sun":"Sö"
 }

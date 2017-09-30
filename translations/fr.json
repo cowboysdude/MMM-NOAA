@@ -35,5 +35,13 @@
   "Good Morning ":"Bonjour ",
   "Good Afternoon ": "Bonjour ",
   "Good Evening ": "Bonsoir ",
-  "Amount of Daylight": "Montant de la lumière du jour"
+  "Amount of Daylight": "Montant de la lumière du jour",
+  "Today":"Aujourd'hui",
+"Mon":"lun",
+"Tue":"mar",
+"Wed":"mer",
+"Thu":"jeu",
+"Fri":"vend",
+"Sat":"sam",
+"Sun":"dim"
   }

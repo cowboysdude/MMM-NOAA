@@ -28,5 +28,13 @@
   "Air Quality Index: ": "Luftkvalitetsindeks: ",
   "Good Morning ":"god morgen ",
   "Good Afternoon ": "God eftermiddag ",
-  "Good Evening ": "God aften "
+  "Good Evening ": "God aften ",
+  "Today":"I dag",
+"Mon":"Man",
+"Tue":"Tir",
+"Wed":"Ons",
+"Thu":"Tor",
+"Fri":"Fre",
+"Sat":"Lor",
+"Sun":"Son"
 }

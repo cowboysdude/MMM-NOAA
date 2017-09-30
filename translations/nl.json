@@ -28,5 +28,13 @@
 "Good Morning ":"Goedemorgen ",
 "Good Afternoon ": "Goedenmiddag ",
 "Good Evening ": "Goedenavond ",
-"Air Quality Index: ":"Luchtkwaliteitsindex: "
+"Air Quality Index: ":"Luchtkwaliteitsindex: ",
+"Today":"Vandaag",
+"Mon":"ma",
+"Tue":"di",
+"Wed":"wo",
+"Thu":"do",
+"Fri":"vrij",
+"Sat":"za",
+"Sun":"zo"
 }

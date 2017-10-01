@@ -5,9 +5,12 @@
 
 ## Examples
 
-![](en.png) ![](fr.png) ![](es.png) ![](sv.png) ![](de.png) ![](cn.png)
+![](github.png) ![](githubde.png) ![](forecast.png)
 
 If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
+*Shows forecast or not, config option
+*NO longer need to enter Lat and Lon... it's automatic!
+*Automatically adjusts languge based on your config.js!
 
 ## Your terminal installation instructions
 

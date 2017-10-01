@@ -16,7 +16,7 @@ If you do not enter a name in the config.js file it will just say either "Good M
 
 * `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
 
-## Get your free API key here
+## Get your free API key here [WEATHER, You must also get an AirAPI Key--- see below]
 
  [https://www.wunderground.com/weather/api](https://www.wunderground.com/weather/api)
 
@@ -29,6 +29,9 @@ If you do not enter a name in the config.js file it will just say either "Good M
  
 * For your config.js entry for precise localized weather 
 
+## Get your AirKEY from here
+
+ [https://airvisual.com/api](https://airvisual.com/api)
 
 ## Config.js entry and options
 

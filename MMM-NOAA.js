@@ -327,6 +327,7 @@ console.log(this.alert);
 
         var bP = document.createElement("div");
         bP.classList.add("xsmall", "bright");
+      if (this.config.units == "imperial"){
         if (current.pressure_trend === "+") {
             bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
         } else if (current.pressure_trend === "-") {
@@ -334,6 +335,16 @@ console.log(this.alert);
         } else {
             bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
         }
+			} else {
+		 if (current.pressure_trend === "+") {
+            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
+        } else if (current.pressure_trend === "-") {
+            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
+        } else {
+            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
+        }
+					
+			}
         wrapper.appendChild(bP);
 
         var srss = this.srss;

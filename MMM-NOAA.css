@@ -1,104 +1,102 @@
-
-.MMM-NOAA .datetime {
-  font-size: 18px;
+/*@import url('https://fonts.googleapis.com/css?family=Padauk');*/
+.MMM-NOAA {
+	width: 259px;
+	margin-right: 0px;
 }
-
 .MMM-NOAA .fontClock {
-  color: "#ffffff";
+	color:#ffffff;
 }
-
-.MMM-NOAA .icon {
-  width: 6%;
-  height: 6%;
-  vertical-align: middle;
-}
-.MMM-NOAA .icon2 {
-  width: 48%;
-  height: 48%;
-}
-.MMM-NOAA .srss {
-  width: 8%;
-  height: 8%;
+.MMM-NOAA .table {
+	border-spacing: 10px 0px;
+    border-collapse: separate;
+    text-align: center;
 }
 .MMM-NOAA .icon2 {
-  width: 48%;
-  height: 48%;
+  width: 60%;
+  height: 60%;
 }
 .MMM-NOAA .srss{
-	 width: 8%;
-   height: 8%;
+	font-family: 'Padauk', sans-serif;
+	 width: 10%;
+     height: 10%;
 }
-
 .MMM-NOAA .amclock {
-  color: #fdfa91;
-  padding-top: 8px;
+	font-family: 'Padauk', sans-serif;
+	color: #fdfa91;
+	padding-top: 8px;
 }
-
 .MMM-NOAA .eclock {
-  color: #a5dff8;
-  padding-top: 8px;
+	font-family: 'Padauk', sans-serif;
+	color: #a5dff8;
+	padding-top: 8px;
 }
-
 .MMM-NOAA .pmclock {
-  color: #c7c8cb;
-  padding-top: 8px;
+	font-family: 'Padauk', sans-serif;
+	color: #c7c8cb;
+	padding-top: 8px;
 }
-
-.MMM-NOAA .humid {
-  color: #ff7b7b;
-  font-weight: bold;
-}
-
-.MMM-NOAA .hitemp {
-  color: #ff7b7b;
-  font-weight: bold;
-}
-
-.MMM-NOAA .lowtemp {
-  color: #c4d7e6;
-  font-weight: bold;
-}
-
 .MMM-NOAA .wFont {
-  color: #e2e4e3;
-  font-size: 1.6em;
-  display: inline-block;
+	text-align: center;
+	font-family: 'Padauk', sans-serif;
+    color: #ffffff;
+    font-size: 2em;
 }
-
-.MMM-NOAA .current {
-  max-width: 10px;
-}
-
-.MMM-NOAA .span {
-
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-.MMM-NOAA .tdh {
-  line-height: 40%;
-  display: block;
-
-	padding-left: 4px;
-	padding-right: 4px;
-	line-height: .6em;  
-}
-.MMM-NOAA .tdh{
+.wDiv {
 	display: inline-block;
-	line-height: .6em;
-	margin-right: 10px;
-	margin-left: 10px;
-	margin-top: 10px;
-
 }
-
-.MMM-NOAA .img {
-  display: inline-block;
+.MMM-NOAA .img{
+	display: inline-block;
+	text-align: center;
 }
-.MMM-NOAA .back {
-	background-image: url('images/back.jpg');
-	z-index: -1;
-	margin-right: 2px;
-	margin-left: 2px;
+.MMM-NOAA .fa-calendar {
+  color: #ffffff;
+  font-size: .5em;
 }
-
+.MMM-NOAA .wi-thermometer {
+  color: #ff0000;
+  font-size: .5em;
+  text-align:center;
+   margin-left: 10px;
+  margin-right: 10px;
+}
+.MMM-NOAA .wi-umbrella {
+  color: #b1bfc0;
+  font-size: .5em;
+  text-align:center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.MMM-NOAA .wi-thermometer-exterior {
+  color: #92bff8;
+  font-size: .5em;
+  text-align:center;
+   margin-left: 10px;
+  margin-right: 10px;
+}
+.MMM-NOAA .wi-humidity {
+  color: #ffffff;
+  font-size: .5em;
+  text-align:center;
+   margin-left: 10px;
+  margin-right: 10px;
+}
+.MMM-NOAA .wi-snowflake-cold {
+  color: #ffffff;
+  font-size: .9em;
+  text-align:center;
+   margin-left: 10px;
+  margin-right: 10px;
+}
+.MMM-NOAA-blur {
+    -webkit-filter: blur(2px) brightness(50%);
+}
+.MMM-NOAA .modal {
+    position: fixed;
+    text-align: left;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+}
+.MMM-NOAA .modal ul {
+    margin: 0px;
+}

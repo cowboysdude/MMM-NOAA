@@ -42,8 +42,6 @@ Will default to EN if NO translation file is found.
 		useAir: false,             // set to false if you do not want to use Air Quality Index
 		airKey: "YOUR API KEY",    // IF you want Air Quality Index
 		pws: "KNYELMIR13",         // go here to find your pws: https://www.wunderground.com/wundermap
-		lat: "42.089796",          // need this for sunrise/sunset  if left blank none will show  -- find them here: http://www.latlong.net/
-		lon: "-76.807734",         // need this for sunrise/sunset  if left blank none will show
 		showClock: true,           // Hides or shows clock
 		dformat: true,             // for M/D/YYYY format, false for D/M/YYYY
 		format: "12",              // 12 or 24 hour format.. will default to 12 hour if none selected.
@@ -52,6 +50,7 @@ Will default to EN if NO translation file is found.
 		name: "",                  // Your name
 		showWind: false,
 		showDate: false,
+		showForecast: true         //show bottom 3 day forecast
 	
     },
 

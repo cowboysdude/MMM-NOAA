@@ -57,7 +57,7 @@ Will default to EN if NO translation file is found.
 		showWind: false,
 		showDate: false,
 		showForecast: true         //show bottom 3 day forecast
-	
+	}
     },
 
 ## Start your mirror . . . enjoy! 

@@ -358,7 +358,7 @@ Module.register("MMM-NOAA", {
         var srss = this.srss;
 
         var Dlength = document.createElement("div");
-        Dlength.classList.add("small", "bright", "font");
+        Dlength.classList.add("xsmall", "bright", "font");
         Dlength.innerHTML = this.translate("Amount of Daylight");
         wrapper.appendChild(Dlength);
 

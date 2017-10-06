@@ -31,23 +31,23 @@ Module.register("MMM-NOAA", {
             "sv": "sv-SE",
             "es": "es-ES",
             "fr": "fr-FR",
-          "zh_cn": "zh-CN",
-             "da": "da",
-	         "nl": "nl-NL" 
+            "zh_cn": "zh-CN",
+            "da": "da",
+            "nl": "nl-NL"
         },
-    
-    
-    langTrans: {
+
+
+        langTrans: {
             "en": "EN",
             "de": "DL",
             "sv": "SW",
             "es": "SP",
             "fr": "FR",
-          "zh_cn": "CN",
+            "zh_cn": "CN",
             "da": "DK",
-	    "nl": "NL"
-	}
-	},
+            "nl": "NL"
+        }
+    },
 
     // Define required scripts.
     getScripts: function() {
@@ -62,13 +62,13 @@ Module.register("MMM-NOAA", {
             de: "translations/de.json",
             es: "translations/es.json",
             fr: "translations/fr.json",
-          zh_cn: "translations/zh_cn.json",
-	        nl: "translations/nl.json"
+            zh_cn: "translations/zh_cn.json",
+            nl: "translations/nl.json"
         };
     },
 
     getStyles: function() {
-        return ["MMM-NOAA.css" ,"weather-icons.css", "font-awesome.css"];
+        return ["MMM-NOAA.css", "weather-icons.css", "font-awesome.css"];
     },
 
     // Define start sequence.
@@ -80,16 +80,18 @@ Module.register("MMM-NOAA", {
 
         // Set locale.  
         var lang = this.config.langTrans[config.language];
-        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:"+lang+"/conditions/q/pws:" + this.config.pws + ".json";
-console.log(this.url);
+        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+
         this.forecast = {};
+        this.air = {};
+        this.srss = {};
+        this.alert = [];
         this.today = "";
         this.scheduleUpdate();
     },
 
     processNoaa: function(data) {
         this.current = data.current_observation;
-console.log(this.current);
         this.forecast = data.forecast.simpleforecast.forecastday;
         this.loaded = true;
     },
@@ -101,10 +103,16 @@ console.log(this.current);
     processAIR: function(data) {
         this.air = data.data.current.pollution;
     },
-    
+
     processAlert: function(data) {
         this.alert = data;
-console.log(this.alert);
+    },
+
+    secondsToString: function(seconds) {
+        var srss = this.srss.day_length;
+        var numhours = Math.floor((srss % 86400) / 3600);
+        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
+        return numhours + this.translate(" hours ") + numminutes + this.translate(" minutes ");
     },
 
 
@@ -129,7 +137,7 @@ console.log(this.alert);
         if (notification === "AIR_RESULTS") {
             this.processAIR(payload);
         }
-         if (notification === "ALERT_RESULTS") {
+        if (notification === "ALERT_RESULTS") {
             this.processAlert(payload);
         }
         this.updateDom(this.config.animationSpeed);
@@ -163,7 +171,7 @@ console.log(this.alert);
         wrapper.style.maxWidth = this.config.maxWidth;
 
         if (!this.loaded) {
-            wrapper.classList.add("small","bright");
+            wrapper.classList.add("small", "bright");
             wrapper.innerHTML = this.translate("GATHERING WEATHER STUFF");
             return wrapper;
         }
@@ -225,20 +233,20 @@ console.log(this.alert);
             wrapper.appendChild(CurDate);
         }
 
-        var wDiv=document.createElement("div");
+        var wDiv = document.createElement("div");
         wDiv.classList.add("wDiv");
-        
+
         var crtLogo = document.createElement("span");
         crtLogo.classList.add("img");
-        if (current.icon != ""){
-		crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";	
-		} else {
-		crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/spacer.png'>";	
-		}
+        if (current.icon != "") {
+            crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";
+        } else {
+            crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/spacer.png'>";
+        }
         wDiv.appendChild(crtLogo);
         wrapper.appendChild(wDiv);
-        
-        
+
+
         var cTempHigh = document.createElement("span");
         cTempHigh.classList.add("bright", "wFont");
         if (this.config.units != "metric") {
@@ -279,7 +287,7 @@ console.log(this.alert);
         }
         wrapper.appendChild(cpCondition);
 
-        if (this.config.useAir != false || aqius != undefined) {
+        if (this.config.useAir != false || this.air.aqius != 'undefined' || null) {
             var aqius = this.air.aqius;
             var aqi = document.createElement("div");
             aqi.classList.add("xsmall", "bright");
@@ -315,11 +323,11 @@ console.log(this.alert);
 
                 if (current.wind_mph > 0) {
                     wind.innerHTML = this.translate("Wind: ") + current.wind_mph + " mph ~ " + this.translate("From: ") + current.wind_dir;
-                } 
+                }
             } else {
                 if (current.wind_kph > 0) {
                     wind.innerHTML = this.translate("Wind: ") + current.wind_kph + " kph ~ " + this.translate("From: ") + current.wind_dir;
-                } 
+                }
             }
             wrapper.appendChild(wind);
         }
@@ -327,34 +335,27 @@ console.log(this.alert);
 
         var bP = document.createElement("div");
         bP.classList.add("xsmall", "bright");
-      if (this.config.units == "imperial"){
-        if (current.pressure_trend === "+") {
-            bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
-        } else if (current.pressure_trend === "-") {
-            bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
+        if (this.config.units == "imperial") {
+            if (current.pressure_trend === "+") {
+                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
+            } else if (current.pressure_trend === "-") {
+                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
+            } else {
+                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
+            }
         } else {
-            bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
+            if (current.pressure_trend === "+") {
+                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
+            } else if (current.pressure_trend === "-") {
+                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
+            } else {
+                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
+            }
+
         }
-			} else {
-		 if (current.pressure_trend === "+") {
-            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
-        } else if (current.pressure_trend === "-") {
-            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
-        } else {
-            bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
-        }
-					
-			}
         wrapper.appendChild(bP);
 
         var srss = this.srss;
-
-        var date = new Date(null);
-        date.setSeconds(srss.day_length);
-        var dayLength = date.toISOString().substr(11, 8);
-        var longpieces = dayLength.toString().split(":");
-        var dHours = longpieces[0];
-        var dMins = longpieces[1];
 
         var Dlength = document.createElement("div");
         Dlength.classList.add("small", "bright", "font");
@@ -363,7 +364,7 @@ console.log(this.alert);
 
         var Tlength = document.createElement("div");
         Tlength.classList.add("xsmall", "bright");
-        Tlength.innerHTML = dHours + " " + this.translate(" hours ") + " " + dMins + " " + this.translate(" minutes ") + "<br>";
+        Tlength.innerHTML = this.secondsToString();
         wrapper.appendChild(Tlength);
 
 
@@ -373,8 +374,8 @@ console.log(this.alert);
             var sunset = srss.sunset;
             var utcsunrise = moment.utc(sunrise).toDate();
             var utcsunset = moment.utc(sunset).toDate();
-            var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm"); 
-            var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm"); 
+            var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm");
+            var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm");
 
 
             var Rdate = document.createElement("div");
@@ -389,150 +390,153 @@ console.log(this.alert);
             wrapper.appendChild(Rdate);
         }
 
-            if (this.config.showForecast != false){
+        if (this.config.showForecast != false) {
             var top = document.createElement("div");
-            
+            //top.classList.add("imgs","text");
+
             var weatherTable = document.createElement("table");
-            //weatherTable.setAttribute('style', 'width:100%;');
+            //weatherTable.classList.add("text");
 
             var forecastRow = document.createElement("tr");
-            
+
             var first = document.createElement("th");
-			var tempSymbol = document.createElement("i");
-			first.appendChild(tempSymbol);
-			forecastRow.appendChild(first);
-			
-			var spacer = document.createElement("th");
-			forecastRow.appendChild(spacer);
-			
-			if (current.temp_f > 32){
-			var second = document.createElement("th");
-			var tempSymbol = document.createElement("i");
-			tempSymbol.classList.add("wi", "wi-umbrella");
-			second.appendChild(tempSymbol);
-			forecastRow.appendChild(second);
-			} else {
-			var second = document.createElement("th");
-			var tempSymbol = document.createElement("i");
-			tempSymbol.classList.add("wi", "wi-snowflake-cold");
-			second.appendChild(tempSymbol);
-			forecastRow.appendChild(second);	
-			}
+            var tempSymbol = document.createElement("i");
+            first.appendChild(tempSymbol);
+            forecastRow.appendChild(first);
 
-	        var third = document.createElement("th");
-			var currentHSymbol = document.createElement("i");
-			currentHSymbol.classList.add("wi", "wi-thermometer");
-			third.appendChild(currentHSymbol);
-			forecastRow.appendChild(third);
+            var spacer = document.createElement("th");
+            forecastRow.appendChild(spacer);
 
-			var fourth = document.createElement("th");
-			var currentWindSymbol = document.createElement("i");
-			currentWindSymbol.classList.add("wi", "wi-thermometer-exterior");
-			fourth.appendChild(currentWindSymbol);
-			forecastRow.appendChild(fourth);
-			
-			var fifth = document.createElement("th");
-			var currentWSymbol = document.createElement("i");
-			currentWSymbol.classList.add("wi", "wi-humidity");
-			fifth.appendChild(currentWSymbol);
-			forecastRow.appendChild(fifth);
-			
-			weatherTable.appendChild(forecastRow);
-            
-             for (i = 0; i < this.forecast.length; i++) {
-            var noaa = this.forecast[i];
-            
-            var TDrow = document.createElement("tr");
-            TDrow.classList.add("xsmall","bright");
-            TDrow.setAttribute('style', 'line-height: 30%;');
-            
-            var d = new Date();
-			var weekday = new Array(7);
-			weekday[0] = "Sun";
-			weekday[1] = "Mon";
-			weekday[2] = "Tue";
-			weekday[3] = "Wed";
-			weekday[4] = "Thu";
-			weekday[5] = "Fri";
-			weekday[6] = "Sat";
-
-			var n = this.translate(weekday[d.getDay()]);
-            
-            var td1 = document.createElement("td");
-			if (noaa.date.weekday_short == n){
-			td1.innerHTML = this.translate("Today");	
-			} else {
-			td1.innerHTML = this.translate(noaa.date.weekday_short);	
-			}
-			TDrow.appendChild(td1);
-			weatherTable.appendChild(TDrow);
-            
-            var td2 = document.createElement("td");
-			td2.innerHTML = "<img src='modules/MMM-NOAA/images/" + noaa.icon + ".png' height='22' width='28'>&nbsp;&nbsp;";
-			TDrow.appendChild(td2);
-			weatherTable.appendChild(TDrow);
-            
-             var td3 = document.createElement("td");
-			//td3.classList.add("small","bright");
-			td3.innerHTML = noaa.pop + "%";
-			TDrow.appendChild(td3);
-			weatherTable.appendChild(TDrow);
-
-            var td5 = document.createElement("td");
-            //td5.classList.add("xsmall", "bright");
-            if (this.config.units != "metric") {
-                td5.innerHTML = noaa.high.fahrenheit + "&#730;";
+            if (current.temp_f > 32) {
+                var second = document.createElement("th");
+                var tempSymbol = document.createElement("i");
+                tempSymbol.classList.add("wi", "wi-umbrella");
+                second.appendChild(tempSymbol);
+                forecastRow.appendChild(second);
             } else {
-                td5.innerHTML = noaa.high.celsius + "&#730;"; 
+                var second = document.createElement("th");
+                var tempSymbol = document.createElement("i");
+                tempSymbol.classList.add("wi", "wi-snowflake-cold");
+                second.appendChild(tempSymbol);
+                forecastRow.appendChild(second);
             }
-            TDrow.appendChild(td5);
-			weatherTable.appendChild(TDrow);
-			
-			var td7 = document.createElement("td");
-            if (this.config.units != "metric") {
-                td7.innerHTML = noaa.low.fahrenheit + "&#730;";
-            } else {
-                td7.innerHTML = noaa.low.celsius + "&#730;"; 
-            }
-            TDrow.appendChild(td7);
-			weatherTable.appendChild(TDrow);
 
-            var td6 = document.createElement("td");
-            //td6.classList.add("xsmall", "bright");
-            td6.innerHTML =  noaa.avehumidity + "%";
-            TDrow.appendChild(td6);
-			weatherTable.appendChild(TDrow);
-            
-            top.appendChild(weatherTable);
-            wrapper.appendChild(top);
+            var third = document.createElement("th");
+            var currentHSymbol = document.createElement("i");
+            currentHSymbol.classList.add("wi", "wi-thermometer");
+            third.appendChild(currentHSymbol);
+            forecastRow.appendChild(third);
+
+            var fourth = document.createElement("th");
+            var currentWindSymbol = document.createElement("i");
+            currentWindSymbol.classList.add("wi", "wi-thermometer-exterior");
+            fourth.appendChild(currentWindSymbol);
+            forecastRow.appendChild(fourth);
+
+            var fifth = document.createElement("th");
+            var currentWSymbol = document.createElement("i");
+            currentWSymbol.classList.add("wi", "wi-humidity");
+            fifth.appendChild(currentWSymbol);
+            forecastRow.appendChild(fifth);
+
+            weatherTable.appendChild(forecastRow);
+
+            for (i = 0; i < this.forecast.length; i++) {
+                var noaa = this.forecast[i];
+
+                var TDrow = document.createElement("tr");
+                TDrow.classList.add("xsmall", "bright");
+                TDrow.setAttribute('style', 'line-height: 30%;');
+
+                var d = new Date();
+                var weekday = new Array(7);
+                weekday[0] = "Sun";
+                weekday[1] = "Mon";
+                weekday[2] = "Tue";
+                weekday[3] = "Wed";
+                weekday[4] = "Thu";
+                weekday[5] = "Fri";
+                weekday[6] = "Sat";
+
+                var n = this.translate(weekday[d.getDay()]);
+
+                var td1 = document.createElement("td");
+                if (noaa.date.weekday_short == n) {
+                    td1.innerHTML = this.translate("Today");
+                    td1.classList.add("pulse");
+                } else {
+                    td1.innerHTML = this.translate(noaa.date.weekday_short);
+                }
+                TDrow.appendChild(td1);
+                weatherTable.appendChild(TDrow);
+
+                var td2 = document.createElement("td");
+                td2.innerHTML = "<img src='modules/MMM-NOAA/images/" + noaa.icon + ".png' height='22' width='28'>&nbsp;&nbsp;";
+                TDrow.appendChild(td2);
+                weatherTable.appendChild(TDrow);
+
+                var td3 = document.createElement("td");
+                //td3.classList.add("small","bright");
+                td3.innerHTML = noaa.pop + "%";
+                TDrow.appendChild(td3);
+                weatherTable.appendChild(TDrow);
+
+                var td5 = document.createElement("td");
+                //td5.classList.add("xsmall", "bright");
+                if (this.config.units != "metric") {
+                    td5.innerHTML = noaa.high.fahrenheit + "&#730;";
+                } else {
+                    td5.innerHTML = noaa.high.celsius + "&#730;";
+                }
+                TDrow.appendChild(td5);
+                weatherTable.appendChild(TDrow);
+
+                var td7 = document.createElement("td");
+                if (this.config.units != "metric") {
+                    td7.innerHTML = noaa.low.fahrenheit + "&#730;";
+                } else {
+                    td7.innerHTML = noaa.low.celsius + "&#730;";
+                }
+                TDrow.appendChild(td7);
+                weatherTable.appendChild(TDrow);
+
+                var td6 = document.createElement("td");
+                //td6.classList.add("xsmall", "bright");
+                td6.innerHTML = noaa.avehumidity + "%";
+                TDrow.appendChild(td6);
+                weatherTable.appendChild(TDrow);
+
+                top.appendChild(weatherTable);
+                wrapper.appendChild(top);
             }
-			}
-            
-            
-          //  if (this.alert != ""){
-           //  var alert = this.alert[0];
-             
-           //  var all = document.createElement("div");
-          //   all.setAttribute('style', 'width = 80px;');
-             
-			// var Alert = document.createElement("div");
-          //   Alert.classList.add("bright", "xsmall");
-           //  Alert.innerHTML = alert.description+"<br>";
-         //    wrapper.appendChild(Alert);
-             
-			// var atext = document.createElement("div");
-           //  atext.classList.add("bright", "xsmall");
-           //  atext.innerHTML = "Expires: "+ alert.expires;
-           //  wrapper.appendChild(atext);
-             
-          //   var warn = document.createElement("div");
-          //   warn.classList.add("bright", "xsmall");
-          //    if(alert.message.length > 10) alert.message = alert.message.substring(0,1000);
-          //  warn.innerHTML = alert.message;
-          //   wrapper.appendChild(warn);
-			//}
-            
-        
+        }
+
+
+        var alert = this.alert[0];
+
+        if (typeof alert !== 'undefined') {
+            var all = document.createElement("div");
+            all.classList.add("bright", "xsmall", "alert");
+            all.innerHTML = "<BR>***ALERT***<br><br>";
+            wrapper.appendChild(all);
+
+            var Alert = document.createElement("div");
+            Alert.classList.add("bright", "xsmall");
+            Alert.innerHTML = alert.description + "<br>";
+            wrapper.appendChild(Alert);
+
+            var atext = document.createElement("div");
+            atext.classList.add("bright", "xsmall");
+            atext.innerHTML = "Expires: " + alert.expires;
+            wrapper.appendChild(atext);
+
+            var warn = document.createElement("div");
+            warn.classList.add("bright", "xsmall");
+            warn.innerHTML = alert.message.split(/\s+/).slice(0, 5).join(" ");
+            wrapper.appendChild(warn);
+        }
+
+
         return wrapper;
     },
 });

@@ -1,15 +1,25 @@
-/*@import url('https://fonts.googleapis.com/css?family=Padauk');*/
+@import url('https://fonts.googleapis.com/css?family=Padauk');
 .MMM-NOAA {
-	width: 259px;
+	width: 230px;
 	margin-right: 0px;
 }
 .MMM-NOAA .fontClock {
 	color:#ffffff;
 }
-.MMM-NOAA .table {
+
+.MMM-NOAA .alert{
+	font-size: 15px;
+	color:#ff0000;
+	text-decoration: underline;
+	text-align: center;
+	text-decoration-color: #fff9f9;
+	font-weight: bold;
+	animation: blinker 1s linear infinite;
+}
+.MMM-NOAA .text {
 	border-spacing: 10px 0px;
     border-collapse: separate;
-    text-align: center;
+    opacity: 1;
 }
 .MMM-NOAA .icon2 {
   width: 60%;
@@ -41,6 +51,11 @@
     color: #ffffff;
     font-size: 2em;
 }
+.MMM-NOAA .font {
+	font-family: 'Padauk', sans-serif;
+    color: #fafa43;
+}
+
 .wDiv {
 	display: inline-block;
 }
@@ -99,4 +114,37 @@
 }
 .MMM-NOAA .modal ul {
     margin: 0px;
+}
+.MMM-NOAA .pulse {
+	width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #000000;
+  animation: pulse 2s infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 30px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 30px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
 }

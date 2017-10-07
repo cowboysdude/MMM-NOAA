@@ -56,7 +56,8 @@ Will default to EN if NO translation file is found.
 		name: "",                  // Your name
 		showWind: false,
 		showDate: false,
-		showForecast: true         //show bottom 3 day forecast
+		showForecast: true,         //show bottom 3 day forecast
+		flash: true                 //Today in forecast flashes halo
 	}
     },
 

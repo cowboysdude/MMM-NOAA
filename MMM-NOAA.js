@@ -24,6 +24,7 @@ Module.register("MMM-NOAA", {
         showWind: false,
         showDate: false,
         showForecast: true,
+        flash: false,
 
         langFile: {
             "en": "en-US",
@@ -460,10 +461,12 @@ Module.register("MMM-NOAA", {
 
                 var n = this.translate(weekday[d.getDay()]);
 
-                var td1 = document.createElement("td");
+                 var td1 = document.createElement("td");
                 if (noaa.date.weekday_short == n) {
                     td1.innerHTML = this.translate("Today");
-                    td1.classList.add("pulse");
+                    if (this.config.flash != false){
+		td1.classList.add("pulse");	
+		}
                 } else {
                     td1.innerHTML = this.translate(noaa.date.weekday_short);
                 }

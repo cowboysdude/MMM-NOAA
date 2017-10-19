@@ -25,6 +25,9 @@ Module.register("MMM-NOAA", {
         showDate: false,
         showForecast: true,
         flash: false,
+        showUV: true,
+		showBar: true,
+		showHum: true,
 
         langFile: {
             "en": "en-US",
@@ -48,7 +51,7 @@ Module.register("MMM-NOAA", {
             "zh_cn": "CN",
             "da": "DK",
             "nl": "NL",
-            "nb": "NB",
+            "nb": "NO",
         }
     },
 
@@ -139,7 +142,9 @@ Module.register("MMM-NOAA", {
             this.processSRSS(payload);
         }
         if (notification === "AIR_RESULTS") {
-            this.processAIR(payload);
+        	if (this.config.useAir != false){
+				this.processAIR(payload);
+			}
         }
         if (notification === "ALERT_RESULTS") {
             this.processAlert(payload);
@@ -272,10 +277,15 @@ Module.register("MMM-NOAA", {
 
         var curCon = document.createElement("div");
         curCon.classList.add("xsmall", "bright");
-        curCon.innerHTML = this.translate("Currently: ") + current.weather;
+        if (this.config.language != 'nb'){
+		 curCon.innerHTML = this.translate("Currently: ") + current.weather;	
+		} else {
+		curCon.innerHTML = this.translate("Currently: ") + this.translate(current.weather);	
+		}
         wrapper.appendChild(curCon);
 
 
+        if (this.config.showUV != false){
         var cpCondition = document.createElement("div");
         cpCondition.classList.add("xsmall", "bright");
         if (current.UV >= 0 && current.UV < 3) {
@@ -290,8 +300,9 @@ Module.register("MMM-NOAA", {
             cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#E6E6FA>" + this.translate("Extreme") + "</font>";
         }
         wrapper.appendChild(cpCondition);
-
-        if (this.config.useAir != false || this.air.aqius != 'undefined' || null) {
+		}
+        
+        if (this.config.useAir != false) {
             var aqius = this.air.aqius;
             var aqi = document.createElement("div");
             aqi.classList.add("xsmall", "bright");
@@ -310,6 +321,7 @@ Module.register("MMM-NOAA", {
         }
 
 
+        if (this.config.showHum != false){
         var reHumid = current.relative_humidity.substring(0, 2);
         var ccurHumid = document.createElement("div");
         ccurHumid.classList.add("xsmall", "bright");
@@ -335,8 +347,10 @@ Module.register("MMM-NOAA", {
             }
             wrapper.appendChild(wind);
         }
+		}
 
 
+        if (this.config.showBar != false){
         var bP = document.createElement("div");
         bP.classList.add("xsmall", "bright");
         if (this.config.units == "imperial") {
@@ -358,6 +372,7 @@ Module.register("MMM-NOAA", {
 
         }
         wrapper.appendChild(bP);
+		}
 
         var srss = this.srss;
 

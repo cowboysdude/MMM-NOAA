@@ -57,7 +57,10 @@ Will default to EN if NO translation file is found.
 		showWind: false,
 		showDate: false,
 		showForecast: true,         //show bottom 3 day forecast
-		flash: true                 //Today in forecast flashes halo
+		flash: true,                 //Today in forecast flashes halo
+		showUV: true,               //show UV index
+	        showBar: true,             // show Barometer
+	        showHum: true              //show Humidity level
 	}
     },
 

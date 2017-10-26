@@ -1,21 +1,89 @@
-@import url('https://fonts.googleapis.com/css?family=Padauk');
+@import url('https://fonts.googleapis.com/css?family=Inconsolata');
 .MMM-NOAA {
-	width: 230px;
+	width: 290px;
 	margin-right: 0px;
 	margin-left: 0px;
 }
 .MMM-NOAA .fontClock {
 	color:#ffffff;
 }
-
+.MMM-NOAA .mappic {
+	width: 90%;
+	height: 90%;
+    margin:15px auto; 
+    padding: 1px;
+    border-width:5px;  
+    border-style:ridge;
+}
+.MMM-NOAA .numberCircleg {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: #e1e1e1;
+    border: 1px solid #666;
+    color: #0ea701;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+}
+.MMM-NOAA .numberCircley {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: #e1e1e1;
+    border: 1px solid #d0d0d0;
+    color: #fdf94f;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+    
+}
+.MMM-NOAA .numberCircleo {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: #e1e1e1;
+    border: 1px solid #666;
+    color: #ffaa55;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+}
+.MMM-NOAA .numberCircler {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: #e1e1e1;
+    border: 1px solid #d0d0d0;
+    color: #ff2424;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+    
+}
+.MMM-NOAA .numberCirclep {
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    padding: 4px;
+    background: #e1e1e1;
+    border: 1px solid #d0d0d0;
+    color: #c401fc;
+    text-align: center;
+    font: 14px Arial, sans-serif;
+    
+}
+.MMM-NOAA .moonpic {
+	width: 60%;
+	height: 60%;
+    display: block;
+    margin: auto;
+}
 .MMM-NOAA .alert{
-	font-size: 15px;
-	color:#ff0000;
-	text-decoration: underline;
+	font-size: 20px;
 	text-align: center;
-	text-decoration-color: #fff9f9;
-	font-weight: bold;
-	animation: blinker 1s linear infinite;
+	color: white;
+    text-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
 }
 .MMM-NOAA .text {
 	border-spacing: 10px 0px;
@@ -27,36 +95,44 @@
   height: 60%;
 }
 .MMM-NOAA .srss{
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
 	 width: 10%;
      height: 10%;
 }
+.MMM-NOAA .set {
+	width:10%;
+    margin-right:10px;
+    float:left;
+}
+.MMM-NOAA .set2 {
+	float:left;
+    margin-right:15px;
+}
 .MMM-NOAA .amclock {
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
 	color: #fdfa91;
 	padding-top: 8px;
 }
 .MMM-NOAA .eclock {
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
 	color: #a5dff8;
 	padding-top: 8px;
 }
 .MMM-NOAA .pmclock {
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
 	color: #c7c8cb;
 	padding-top: 8px;
 }
 .MMM-NOAA .wFont {
 	text-align: center;
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
     color: #ffffff;
     font-size: 2em;
 }
 .MMM-NOAA .font {
-	font-family: 'Padauk', sans-serif;
+	font-family: 'Inconsolata', monospace;
     color: #fafa43;
 }
-
 .wDiv {
 	display: inline-block;
 }
@@ -115,4 +191,53 @@
 }
 .MMM-NOAA .modal ul {
     margin: 0px;
+}
+.MMM-NOAA .pulse {
+	width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #000000;
+  animation: pulse 2s infinite;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 30px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 30px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+.numberCircle {
+    font: 32px Arial, sans-serif;
+
+    width: 2em;
+    height: 2em;
+    box-sizing: initial;
+    
+    background: #fff;
+    border: 0.1em solid #666;
+    color: #666;
+    text-align: center;
+    border-radius: 50%;    
+    
+    line-height: 2em;
+    box-sizing: content-box;   
 }

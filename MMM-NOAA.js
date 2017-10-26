@@ -284,38 +284,35 @@ Module.register("MMM-NOAA", {
 		}
         wrapper.appendChild(curCon);
 
-
-        if (this.config.showUV != false){
         var cpCondition = document.createElement("div");
-        cpCondition.classList.add("xsmall", "bright");
+        cpCondition.classList.add("xsmall", "bright", "set");
         if (current.UV >= 0 && current.UV < 3) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#66FF00>" + this.translate("Safe") + "</font>";
+        cpCondition.innerHTML = this.translate("UVI ")  + "<div class=numberCircleg><b>" + current.UV + "</b></div>";
         } else if (current.UV > 2 && current.UV < 6) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#f2f735>" + this.translate("Moderate") + "</font>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircley><b>" + current.UV + "</b></div>";
         } else if (current.UV > 5 && current.UV < 8) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#f5700c>" + this.translate("High") + "</font>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircleo><b>" + current.UV +  "</b></div>";
         } else if (current.UV > 7 && current.UV < 11) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#ff1313>" + this.translate("Very High") + "</font>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircler><b>" + current.UV +  "</b></div>";
         } else if (current.UV >= 11) {
-            cpCondition.innerHTML = this.translate("UV Index: ") + current.UV + " ~ <font color=#E6E6FA>" + this.translate("Extreme") + "</font>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCirclep><b>" + current.UV +  "</b></div>";
         }
         wrapper.appendChild(cpCondition);
-		}
-        
+
         if (this.config.useAir != false) {
             var aqius = this.air.aqius;
             var aqi = document.createElement("div");
-            aqi.classList.add("xsmall", "bright");
+            aqi.classList.add("xsmall", "bright", "set2");
             if (aqius < 51) {
-                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#66FF00>" + aqius + "</font>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircleg><b>" + aqius + "</b></div>";
             } else if (aqius > 50 && aqius < 101) {
-                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#f2f735>" + aqius + "</font>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircley><b>" + aqius + "</b></div>";
             } else if (aqius > 100 && aqius < 151) {
-                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#f5700c>" + aqius + "</font>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircleo><b>" + aqius + "</b></div>";
             } else if (aqius > 150 && aqius < 201) {
-                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#ff1313>" + aqius + "</font>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircler><b>" + aqius + "</b></div>";
             } else {
-                aqi.innerHTML = this.translate("Air Quality Index: ") + "<font color=#800000>" + aqius + "</font>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCirclep><b>" + aqius + "</b></div>";
             }
             wrapper.appendChild(aqi);
         }
@@ -336,14 +333,12 @@ Module.register("MMM-NOAA", {
             var wind = document.createElement("div");
             wind.classList.add("xsmall", "bright");
             if (this.config.units != "metric") {
-
-                if (current.wind_mph > 0) {
                     wind.innerHTML = this.translate("Wind: ") + current.wind_mph + " mph ~ " + this.translate("From: ") + current.wind_dir;
-                }
+               
             } else {
-                if (current.wind_kph > 0) {
+               
                     wind.innerHTML = this.translate("Wind: ") + current.wind_kph + " kph ~ " + this.translate("From: ") + current.wind_dir;
-                }
+               
             }
             wrapper.appendChild(wind);
         }

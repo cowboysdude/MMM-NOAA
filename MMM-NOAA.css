@@ -1,11 +1,20 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata');
+
 .MMM-NOAA {
-	width: 290px;
+	width: 310px;
 	margin-right: 0px;
 	margin-left: 0px;
 }
 .MMM-NOAA .fontClock {
 	color:#ffffff;
+}
+.MMM-NOAA .hr { 
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
 }
 .MMM-NOAA .mappic {
 	width: 90%;
@@ -15,63 +24,42 @@
     border-width:5px;  
     border-style:ridge;
 }
-.MMM-NOAA .numberCircleg {
-    border-radius: 50%;
-    width: 16px;
+.MMM-NOAA .box{
+	width: 35px;
     height: 16px;
-    padding: 4px;
-    background: #e1e1e1;
-    border: 1px solid #666;
-    color: #0ea701;
+	background:#fff;
+	border:#00ff13;
+	padding: 4px;
+    background: #fff;
+    border: 1px solid #dadada;
+    color: #000000;
+    font-weight: bold;
     text-align: center;
-    font: 14px Arial, sans-serif;
+	 border: 1px solid #07c;
+    box-shadow: 0 0 10px #07c;
 }
-.MMM-NOAA .numberCircley {
-    border-radius: 50%;
-    width: 16px;
+.MMM-NOAA .baro{
+	width: 40px;
     height: 16px;
-    padding: 4px;
-    background: #e1e1e1;
-    border: 1px solid #d0d0d0;
-    color: #fdf94f;
+	background:#fff;
+	border:#00ff13;
+	padding: 4px;
+    background: #fff;
+    border: 1px solid #dadada;
+    color: #000000;
+    font-weight: bold;
     text-align: center;
-    font: 14px Arial, sans-serif;
-    
+	 border: 1px solid #07c;
+    box-shadow: 0 0 10px #07c;
 }
-.MMM-NOAA .numberCircleo {
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    padding: 4px;
-    background: #e1e1e1;
-    border: 1px solid #666;
-    color: #ffaa55;
-    text-align: center;
-    font: 14px Arial, sans-serif;
+.red{
+	background:#f00;
 }
-.MMM-NOAA .numberCircler {
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    padding: 4px;
-    background: #e1e1e1;
-    border: 1px solid #d0d0d0;
-    color: #ff2424;
-    text-align: center;
-    font: 14px Arial, sans-serif;
-    
+.green{
+	background:#0f0;
 }
-.MMM-NOAA .numberCirclep {
-    border-radius: 50%;
-    width: 16px;
-    height: 16px;
-    padding: 4px;
-    background: #e1e1e1;
-    border: 1px solid #d0d0d0;
-    color: #c401fc;
-    text-align: center;
-    font: 14px Arial, sans-serif;
-    
+.blue{
+	background:#00f;
 }
 .MMM-NOAA .moonpic {
 	width: 60%;
@@ -85,52 +73,67 @@
 	color: white;
     text-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
 }
+.MMM-NOAA .dayalert{
+	font-size: 20px;
+	color: #ffff00;
+    text-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
+}
 .MMM-NOAA .text {
 	border-spacing: 10px 0px;
     border-collapse: separate;
     opacity: 1;
 }
 .MMM-NOAA .icon2 {
-  width: 60%;
-  height: 60%;
+  width: 100%;
+  height: 100%;
 }
 .MMM-NOAA .srss{
-	font-family: 'Inconsolata', monospace;
 	 width: 10%;
      height: 10%;
 }
-.MMM-NOAA .set {
-	width:10%;
+.MMM-NOAA .topset {
+	width:25%;
     margin-right:10px;
     float:left;
+    margin-bottom: -10px;
+}
+.MMM-NOAA .set {
+	width:12%;
+    margin-right:10px;
+    float: left;
+    margin-bottom: -10px;
+}
+.MMM-NOAA .rset {
+	width:12%;
+    margin-right:10px;
+    float: right;
+    margin-bottom: -10px;
+}
+.MMM-NOAA .wdiv{
+	width: 80%
 }
 .MMM-NOAA .set2 {
 	float:left;
-    margin-right:15px;
+    margin-right:5px;
 }
 .MMM-NOAA .amclock {
-	font-family: 'Inconsolata', monospace;
 	color: #fdfa91;
 	padding-top: 8px;
 }
 .MMM-NOAA .eclock {
-	font-family: 'Inconsolata', monospace;
 	color: #a5dff8;
 	padding-top: 8px;
 }
 .MMM-NOAA .pmclock {
-	font-family: 'Inconsolata', monospace;
 	color: #c7c8cb;
 	padding-top: 8px;
 }
 .MMM-NOAA .wFont {
 	text-align: center;
-	font-family: 'Inconsolata', monospace;
     color: #ffffff;
     font-size: 2em;
 }
 .MMM-NOAA .font {
-	font-family: 'Inconsolata', monospace;
     color: #fafa43;
 }
 .wDiv {
@@ -182,16 +185,6 @@
 .MMM-NOAA-blur {
     -webkit-filter: blur(2px) brightness(50%);
 }
-.MMM-NOAA .modal {
-    position: fixed;
-    text-align: left;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-}
-.MMM-NOAA .modal ul {
-    margin: 0px;
-}
 .MMM-NOAA .pulse {
 	width: 12px;
   height: 12px;
@@ -224,20 +217,4 @@
       -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
-}
-.numberCircle {
-    font: 32px Arial, sans-serif;
-
-    width: 2em;
-    height: 2em;
-    box-sizing: initial;
-    
-    background: #fff;
-    border: 0.1em solid #666;
-    color: #666;
-    text-align: center;
-    border-radius: 50%;    
-    
-    line-height: 2em;
-    box-sizing: content-box;   
 }

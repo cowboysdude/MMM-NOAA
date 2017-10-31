@@ -28,6 +28,7 @@ Module.register("MMM-NOAA", {
         showUV: true,
 		showBar: true,
 		showHum: true,
+		position: 'top_left',
 
         langFile: {
             "en": "en-US",
@@ -184,7 +185,7 @@ Module.register("MMM-NOAA", {
             wrapper.innerHTML = this.translate("GATHERING WEATHER STUFF");
             return wrapper;
         }
-
+console.log(this.config.position);
         var current = this.current;
 
         var d = new Date();
@@ -284,52 +285,107 @@ Module.register("MMM-NOAA", {
 		}
         wrapper.appendChild(curCon);
 
-        var cpCondition = document.createElement("div");
-        cpCondition.classList.add("xsmall", "bright", "set");
+
+"UVI<div class=box><b>" + current.UV + " G</b></div>";
+
+        var cpCondition = document.createElement("span");
+        if (this.config.position != 'top_left' || this.config.position != "top_left"){
+		cpCondition.classList.add("xsmall", "bright", "rset");	
+		} else {
+		cpCondition.classList.add("xsmall", "bright", "set");	
+		}
         if (current.UV >= 0 && current.UV < 3) {
-        cpCondition.innerHTML = this.translate("UVI ")  + "<div class=numberCircleg><b>" + current.UV + "</b></div>";
+        cpCondition.innerHTML = this.translate("UVI")  +"<div class=box><b>" + current.UV + " G</b></div>";
         } else if (current.UV > 2 && current.UV < 6) {
-        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircley><b>" + current.UV + "</b></div>";
+        cpCondition.innerHTML = this.translate("UVI ") +"<div class=box><b>" + current.UV + "</b></div>";
         } else if (current.UV > 5 && current.UV < 8) {
-        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircleo><b>" + current.UV +  "</b></div>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
         } else if (current.UV > 7 && current.UV < 11) {
-        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCircler><b>" + current.UV +  "</b></div>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
         } else if (current.UV >= 11) {
-        cpCondition.innerHTML = this.translate("UVI ") + "<div class=numberCirclep><b>" + current.UV +  "</b></div>";
+        cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
         }
         wrapper.appendChild(cpCondition);
 
         if (this.config.useAir != false) {
             var aqius = this.air.aqius;
-            var aqi = document.createElement("div");
-            aqi.classList.add("xsmall", "bright", "set2");
+            var aqi = document.createElement("span");
+            if (this.config.position != 'top_left' || this.config.position != "top_left"){
+		    aqi.classList.add("xsmall", "bright", "rset");	
+		    } else {
+		    aqi.classList.add("xsmall", "bright", "set");	
+		     }
             if (aqius < 51) {
-                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircleg><b>" + aqius + "</b></div>";
+                aqi.innerHTML = this.translate("AQI") + "<div class=box><b>" + aqius + " G</b></div>";
             } else if (aqius > 50 && aqius < 101) {
-                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircley><b>" + aqius + "</b></div>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "Y</b></div>";
             } else if (aqius > 100 && aqius < 151) {
-                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircleo><b>" + aqius + "</b></div>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "O</b></div>";
             } else if (aqius > 150 && aqius < 201) {
-                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCircler><b>" + aqius + "</b></div>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "R</b></div>";
             } else {
-                aqi.innerHTML = this.translate("AQI ") + "<div class=numberCirclep><b>" + aqius + "</b></div>";
+                aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "P</b></div>";
             }
             wrapper.appendChild(aqi);
         }
 
 
+
+
+
+
         if (this.config.showHum != false){
         var reHumid = current.relative_humidity.substring(0, 2);
         var ccurHumid = document.createElement("div");
-        ccurHumid.classList.add("xsmall", "bright");
-        if (reHumid > 80) {
-            ccurHumid.innerHTML = this.translate("Humidity: ") + "<b><font color=#ffb7c0>" + current.relative_humidity + "</font></b>";
-        } else {
-            ccurHumid.innerHTML = this.translate("Humidity: ") + current.relative_humidity;
-        }
+         if (this.config.position != 'top_left' || this.config.position != "top_left"){
+		    ccurHumid.classList.add("xsmall", "bright", "rset");	
+		    } else {
+		    ccurHumid.classList.add("xsmall", "bright", "set");	
+		     }
+        ccurHumid.classList.add("xsmall", "bright", "set");
+        ccurHumid.innerHTML = this.translate("Hum") + "<div class=box><b>" + current.relative_humidity + "</b></div>";
         wrapper.appendChild(ccurHumid);
 
-        if (this.config.showWind != false) {
+       
+"BARO<div class=box><b>" + current.pressure_in + "<b>";
+
+        if (this.config.showBar != false){
+        var bP = document.createElement("div");
+         if (this.config.position != 'top_left' || this.config.position != "top_left"){
+		    bP.classList.add("xsmall", "bright", "rset");	
+		    } else {
+		    bP.classList.add("xsmall", "bright", "set");	
+		     }
+        if (this.config.units == "imperial") {
+            if (current.pressure_trend === "+") {
+                bP.innerHTML = this.translate("BARO") +"<div class=baro><b>" + current.pressure_in +   "<b>&uarr; </div>";
+            } else if (current.pressure_trend === "-") {
+                bP.innerHTML = this.translate("BARO") +"<div class=baro><b>" + current.pressure_in +   "<b>&darr; </div>";
+            } else {
+                bP.innerHTML = this.translate("BARO") +"<div class=baro><b>" + current.pressure_in +   "<b></div>";
+            }
+        } else {
+            if (current.pressure_trend === "+") {
+                bP.innerHTML = this.translate("hPa: ") +"<div class=baro><b>" + current.pressure_in +   "<b>&uarr; </div>";
+            } else if (current.pressure_trend === "-") {
+                bP.innerHTML = this.translate("hPa: ") +"<div class=baro><b>" + current.pressure_in +   "<b>&darr; </div>";
+            } else {
+                bP.innerHTML = this.translate("hPa: ") +"<div class=baro><b>" + current.pressure_in +   "<b></div>";
+            }
+
+        }
+        wrapper.appendChild(bP);
+		}
+		
+		
+		
+		if (this.config.showWind != false) {
+		var spacer = document.createElement("div");
+        spacer.classList.add("small", "bright", "font");
+        spacer.innerHTML = "<br><br>";
+        wrapper.appendChild(spacer);
+
+         
             var wind = document.createElement("div");
             wind.classList.add("xsmall", "bright");
             if (this.config.units != "metric") {
@@ -345,31 +401,8 @@ Module.register("MMM-NOAA", {
 		}
 
 
-        if (this.config.showBar != false){
-        var bP = document.createElement("div");
-        bP.classList.add("xsmall", "bright");
-        if (this.config.units == "imperial") {
-            if (current.pressure_trend === "+") {
-                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
-            } else if (current.pressure_trend === "-") {
-                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
-            } else {
-                bP.innerHTML = this.translate("Barometer: ") + current.pressure_in + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
-            }
-        } else {
-            if (current.pressure_trend === "+") {
-                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + " <img class = img src=modules/MMM-NOAA/images/up.png width=5% height=5%>";
-            } else if (current.pressure_trend === "-") {
-                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/down.png width=5% height=5%>";
-            } else {
-                bP.innerHTML = this.translate("hPa: ") + current.pressure_mb + " " + "  <img class = img src=modules/MMM-NOAA/images/even.png width=5% height=5%>";
-            }
-
-        }
-        wrapper.appendChild(bP);
-		}
-
         var srss = this.srss;
+
 
         var Dlength = document.createElement("div");
         Dlength.classList.add("xsmall", "bright", "font");

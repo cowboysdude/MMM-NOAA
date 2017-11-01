@@ -377,11 +377,11 @@ Module.register("MMM-NOAA", {
 						}
 					} else {
 						if (current.pressure_trend === "+") {
-							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_in +   "<b>&uarr; </div>";
+							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_mb +   "<b>&uarr; </div>";
 						} else if (current.pressure_trend === "-") {
-							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_in +   "<b>&darr; </div>";
+							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_mb +   "<b>&darr; </div>";
 						} else {
-							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_in +   "<b></div>";
+							bP.innerHTML = this.translate("hPa ") +"<div class=baro><b>" + current.pressure_mb +   "<b></div>";
 						}
 
 					}

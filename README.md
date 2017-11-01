@@ -7,7 +7,7 @@
 
 ![](github.png) ![](githubde.png) ![](forecast.png)
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  loads in 1/2 the time, new config options and different format! **** [See image above]
+If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  MUST ADD POSITION to config see example BELOW in sampe CONFIG ****
 *Shows forecast or not, config option
 *NO longer need to enter Lat and Lon... it's automatic!
 *Automatically adjusts languge based on your config.js!
@@ -61,6 +61,7 @@ Will default to EN if NO translation file is found.
 		showUV: true,               //show UV index
 	        showBar: true,             // show Barometer
 	        showHum: true              //show Humidity level
+		position: 'top_right'       //whatever you have in above position must also be here
 	}
     },
 

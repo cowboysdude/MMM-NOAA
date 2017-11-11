@@ -120,7 +120,7 @@ Module.register("MMM-NOAA", {
 			var srss = this.srss.day_length;
 			var numhours = Math.floor((srss % 86400) / 3600);
 			var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
-			return numhours + this.translate(" hours ") + numminutes + this.translate(" minutes ");
+			return numhours + this.translate(" hours ") + " " + numminutes + " " +this.translate(" minutes ");
 		},
 
 
@@ -254,18 +254,18 @@ Module.register("MMM-NOAA", {
 				wrapper.appendChild(CurDate);
 			}
 
-			var wDiv = document.createElement("div");
-			wDiv.classList.add("wDiv");
-
-			var crtLogo = document.createElement("span");
-			crtLogo.classList.add("img");
-			if (current.icon != "") {
-				crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";
-			} else {
-				crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/spacer.png'>";
-			}
-			wDiv.appendChild(crtLogo);
-			wrapper.appendChild(wDiv);
+		var wDiv = document.createElement("div");
+        wDiv.classList.add("wDiv");
+        
+        var crtLogo = document.createElement("span");
+        crtLogo.classList.add("img", "topset");
+        if (n < 17){
+        crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";
+        } else {
+		crtLogo.innerHTML = "<img class = 'icon2' src='modules/MMM-NOAA/images/nt_" + current.icon + ".png'>";		
+		}
+		wDiv.appendChild(crtLogo);
+        wrapper.appendChild(wDiv);
 
 
 			var cTempHigh = document.createElement("span");
@@ -297,7 +297,7 @@ Module.register("MMM-NOAA", {
 			wrapper.appendChild(curCon);
 
 
-			"UVI<div class=box><b>" + current.UV + " G</b></div>";
+		
 
 			var cpCondition = document.createElement("span");
 			if (this.config.position != 'top_left' || this.config.position != "top_left"){
@@ -417,15 +417,8 @@ Module.register("MMM-NOAA", {
 
 			var Dlength = document.createElement("div");
 			Dlength.classList.add("xsmall", "bright", "font");
-			Dlength.innerHTML = this.translate("Amount of Daylight");
+			Dlength.innerHTML = this.translate("Amount of Daylight") + ": " + this.secondsToString();
 			wrapper.appendChild(Dlength);
-
-			var Tlength = document.createElement("div");
-			Tlength.classList.add("xsmall", "bright");
-			Tlength.innerHTML = this.secondsToString();
-			wrapper.appendChild(Tlength);
-
-
 
 			if (this.config.lat != "" && this.config.lon != "") {
 				var sunrise = srss.sunrise;

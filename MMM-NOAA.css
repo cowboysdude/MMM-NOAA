@@ -39,7 +39,7 @@
     box-shadow: 0 0 10px #07c;
 }
 .MMM-NOAA .baro{
-	width: 40px;
+	width: 45px;
     height: 16px;
 	background:#fff;
 	border:#00ff13;
@@ -92,7 +92,7 @@
      height: 10%;
 }
 .MMM-NOAA .topset {
-	width:25%;
+	width:50%;
     margin-right:10px;
     float:left;
     margin-bottom: -10px;
@@ -100,6 +100,7 @@
 .MMM-NOAA .set {
 	width:12%;
     margin-right:10px;
+    margin-left: 5px;
     float: left;
     margin-bottom: -10px;
 }
@@ -134,7 +135,10 @@
     font-size: 2em;
 }
 .MMM-NOAA .font {
-    color: #fafa43;
+    color: #97e1cd;
+}
+.MMM-NOAA .dfont {
+	color: #ffff75;
 }
 .wDiv {
 	display: inline-block;

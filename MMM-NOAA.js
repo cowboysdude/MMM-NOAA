@@ -389,14 +389,14 @@ Module.register("MMM-NOAA", {
 				}
 		
 		
-		
+		    
 				if (this.config.showWind != false) {
 					var spacer = document.createElement("div");
 					spacer.classList.add("small", "bright", "font");
 					spacer.innerHTML = "<br><br>";
 					wrapper.appendChild(spacer);
 
-         
+                if (current.wind_mph > 0 || current.wind_kph > 0){
 					var wind = document.createElement("div");
 					wind.classList.add("xsmall", "bright");
 					if (this.config.units != "metric") {
@@ -409,8 +409,9 @@ Module.register("MMM-NOAA", {
 					}
 					wrapper.appendChild(wind);
 				}
+			  }
 			}
-
+          	
 
 			var srss = this.srss;
 

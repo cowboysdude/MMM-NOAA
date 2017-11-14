@@ -6,6 +6,7 @@
     */
 const NodeHelper = require('node_helper');
 var request = require('request');
+const translate = require('google-translate-api');
 
 
 module.exports = NodeHelper.create({
@@ -14,6 +15,9 @@ module.exports = NodeHelper.create({
     	console.log("Starting module: " + this.name);
     },
     
+     getTrans: function(orig) {
+	translate(orig, {to: 'de'}).then(res => {this.sendSocketNotification('TRANS_RESULT', res)});
+     },
     
      getNOAA: function(url) {
         request({
@@ -82,15 +86,17 @@ module.exports = NodeHelper.create({
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
-			this.config = payload;
-		} else if (notification === 'GET_NOAA') {
+		this.config = payload;
+	    } else if (notification === 'GET_NOAA') {
                 this.getNOAA(payload);
             } else if (notification === 'GET_SRSS') {
                 this.getSRSS(payload);
-			}  else if (notification === 'GET_AIR') {
-				this.getAIR(payload);
-			}  else if (notification === 'GET_ALERT') {
-				this.getAlert(payload);
-			}
+	    }  else if (notification === 'GET_AIR') {
+		this.getAIR(payload);
+	    }  else if (notification === 'GET_ALERT') {
+		this.getAlert(payload);
+	    }  else if (notification === 'GET_TRANS') {
+		this.getTrans(payload);
+	    }
          },  
     });

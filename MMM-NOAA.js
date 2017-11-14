@@ -3,6 +3,7 @@
 * By cowboysdude and snille 
 modified by barnosch
 */
+
 Module.register("MMM-NOAA", {
 
 		// Module config defaults.
@@ -95,6 +96,8 @@ Module.register("MMM-NOAA", {
 			this.srss = {};
 			this.alert = [];
 			this.today = "";
+			this.ans = [];
+			this.orig = "Test";
 			this.scheduleUpdate();
 		},
 
@@ -102,6 +105,10 @@ Module.register("MMM-NOAA", {
 			this.current = data.current_observation;
 			this.forecast = data.forecast.simpleforecast.forecastday;
 			this.loaded = true;
+		},
+
+		processTrans: function(data) {
+			this.ans = data;
 		},
 
 		processSRSS: function(data) {
@@ -135,9 +142,16 @@ Module.register("MMM-NOAA", {
 			this.sendSocketNotification("GET_NOAA", this.url);
 		},
 
+		getTRANS: function() {
+			this.sendSocketNotification("GET_TRANS", this.orig);
+		},
+
 		socketNotificationReceived: function(notification, payload) {
 			if (notification === "NOAA_RESULT") {
 				this.processNoaa(payload);
+			}
+			if (notification === "TRANS_RESULT") {
+				this.processTrans(payload);
 			}
 			if (notification === "SRSS_RESULTS") {
 				this.processSRSS(payload);
@@ -389,14 +403,14 @@ Module.register("MMM-NOAA", {
 				}
 		
 		
-		
+		    
 				if (this.config.showWind != false) {
 					var spacer = document.createElement("div");
 					spacer.classList.add("small", "bright", "font");
 					spacer.innerHTML = "<br><br>";
 					wrapper.appendChild(spacer);
 
-         
+                if (current.wind_mph > 0 || current.wind_kph > 0){
 					var wind = document.createElement("div");
 					wind.classList.add("xsmall", "bright");
 					if (this.config.units != "metric") {
@@ -409,8 +423,9 @@ Module.register("MMM-NOAA", {
 					}
 					wrapper.appendChild(wind);
 				}
+			  }
 			}
-
+          	
 
 			var srss = this.srss;
 
@@ -569,23 +584,31 @@ Module.register("MMM-NOAA", {
 			if (typeof alert !== 'undefined') {
 				var all = document.createElement("div");
 				all.classList.add("bright", "xsmall", "alert");
-				all.innerHTML = "<BR>***ALERT***<br><br>";
+				this.orig = "***ALERT***";
+				this.getTRANS();
+     				all.innerHTML = "<BR>" + this.ans.text + "<br><br>";
 				wrapper.appendChild(all);
 
-				var Alert = document.createElement("div");
-				Alert.classList.add("bright", "xsmall");
-				Alert.innerHTML = alert.description + "<br>";
-				wrapper.appendChild(Alert);
+//				var Alert = document.createElement("div");
+//				Alert.classList.add("bright", "xsmall");
+//				this.orig = alert.description;
+//				this.getTRANS();
+//				Alert.innerHTML = this.ans.text + "<br>";
+//				wrapper.appendChild(Alert);
 
-				var atext = document.createElement("div");
-				atext.classList.add("bright", "xsmall");
-				atext.innerHTML = "Expires: " + alert.expires;
-				wrapper.appendChild(atext);
+//				var atext = document.createElement("div");
+//				atext.classList.add("bright", "xsmall");
+//				this.orig = "Expires: " + alert.expires;
+//				this.getTRANS();
+//				atext.innerHTML = this.ans.text;
+//				wrapper.appendChild(atext);
 
-				var warn = document.createElement("div");
-				warn.classList.add("bright", "xsmall");
-				warn.innerHTML = alert.message.split(/\s+/).slice(0, 5).join(" ");
-				wrapper.appendChild(warn);
+//				var warn = document.createElement("div");
+//				warn.classList.add("bright", "xsmall");
+//				this.orig = alert.message.split(/\s+/).slice(0, 5).join(" ");
+//				this.getTRANS();
+//				warn.innerHTML = this.ans.text;
+//				wrapper.appendChild(warn);
 			}
 
 

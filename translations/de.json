@@ -36,5 +36,7 @@
 "Thu":"Do",
 "Fri":"Fr",
 "Sat":"Sa",
-"Sun":"So"
+"Sun":"So",
+"***ALERT***":"*** Wetterwarnung ***",
+"Expires: ":"Bis zum: "
 }

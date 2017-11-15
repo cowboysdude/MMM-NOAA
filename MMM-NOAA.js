@@ -96,7 +96,6 @@ Module.register("MMM-NOAA", {
 			this.srss = {};
 			this.alert = [];
 			this.today = "";
-			this.ans = [];
 			this.scheduleUpdate();
 		},
 
@@ -104,10 +103,6 @@ Module.register("MMM-NOAA", {
 			this.current = data.current_observation;
 			this.forecast = data.forecast.simpleforecast.forecastday;
 			this.loaded = true;
-		},
-
-		processTrans: function(data) {
-			this.ans = data;
 		},
 
 		processSRSS: function(data) {
@@ -144,9 +139,6 @@ Module.register("MMM-NOAA", {
 		socketNotificationReceived: function(notification, payload) {
 			if (notification === "NOAA_RESULT") {
 				this.processNoaa(payload);
-			}
-			if (notification === "TRANS_RESULT") {
-				this.processTrans(payload);
 			}
 			if (notification === "SRSS_RESULTS") {
 				this.processSRSS(payload);
@@ -585,17 +577,17 @@ Module.register("MMM-NOAA", {
 
 				var Alert = document.createElement("div");
 				Alert.classList.add("bright", "xsmall");
-				Alert.innerHTML = this.ans.description + "<br>";
+				Alert.innerHTML = alert.description + "<br>";
 				wrapper.appendChild(Alert);
 
 				var atext = document.createElement("div");
 				atext.classList.add("bright", "xsmall");
-				atext.innerHTML = this.translate("Expires: ") + this.ans.expires;
+				atext.innerHTML = this.translate("Expires: ") + alert.expires;
 				wrapper.appendChild(atext);
 
 				var warn = document.createElement("div");
 				warn.classList.add("bright", "xsmall");
-				warn.innerHTML = this.ans.message.split(/\s+/).slice(0, 5).join(" ");
+				warn.innerHTML = alert.message.split(/\s+/).slice(0, 5).join(" ");
 				wrapper.appendChild(warn);
 			}
 

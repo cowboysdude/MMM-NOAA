@@ -36,7 +36,6 @@ module.exports = NodeHelper.create({
     },
     
     getSRSS: function(){
-     	var self = this;
 	 	request({ 
     	    url: "http://api.sunrise-sunset.org/json?lat="+lat2+"&lng="+lon2+"&formatted=0",
     	          method: 'GET' 
@@ -50,8 +49,7 @@ module.exports = NodeHelper.create({
     },
   
     getAir: function(){
-     	var self = this;
-	 	request({ 
+ 	 	request({ 
     	    url: "http://api.airvisual.com/v2/nearest_city?lat="+this.config.lat+"&lon="+this.config.lon+"&rad=100&key="+this.config.airKey,
     	          method: 'GET' 
     	        }, (error, response, body) => {
@@ -64,31 +62,28 @@ module.exports = NodeHelper.create({
    },
    
    getAlerts: function(){
-   	var self = this;
 	 	request({ 
-    	    url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
+    	  	  url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
     	          method: 'GET' 
     	        }, (error, response, body) => {
-            if (!error && response.statusCode === 200) {
-                        var alerts = JSON.parse(body).alerts;
-                        if (alerts != null || undefined){
-			  self.sendSocketNotification("ALERT_RESULTS", alerts);	
-			  this.getTrans();
-			}                        
-        console.log(alerts);
-            }
-       });
+     		       if (!error && response.statusCode === 200) {
+                     	  var alerts = JSON.parse(body).alerts;
+                          if (alerts != null || undefined){
+				if (this.config.lang != 'en') {
+					console.log("STEP 1");
+					console.log(alerts.description);
+			 		translate(alerts.description, {to: this.config.lang}).then(res => {alerts.description = res.text});
+					translate(alerts.expires, {to: this.config.lang}).then(res => {alerts.expires = res.text});
+					translate(alerts.message, {to: this.config.lang}).then(res => {alerts.message = res.text});
+				}
+			        this.sendSocketNotification("ALERT_RESULTS", alerts);	
+			  }                        
+                          console.log(alerts);
+              }
+         });
    },
 
-   getTrans: function(){
-	var self = this;
-	var aresult = alerts;
-	translate(alerts.description, {to: this.config.language}).then(res => {aresult.description = res.text});
-	translate(alerts.expires, {to: this.config.language}).then(res => {aresult.expires = res.text});
-	translate(alerts.message, {to: this.config.language}).then(res => {aresult.message = res.text});
-	self.sendSocketNotification("TRANS_RESULT", aresult);
-   },
-    
+   
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
@@ -101,8 +96,6 @@ module.exports = NodeHelper.create({
 		this.getAIR(payload);
 	    }  else if (notification === 'GET_ALERT') {
 		this.getAlert(payload);
-	    }  else if (notification === 'GET_TRANS') {
-		this.getTrans(payload);
 	    }
          },  
     });

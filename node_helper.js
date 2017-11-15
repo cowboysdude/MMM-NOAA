@@ -15,10 +15,6 @@ module.exports = NodeHelper.create({
     	console.log("Starting module: " + this.name);
     },
     
-     getTrans: function(orig) {
-	translate(orig, {to: 'de'}).then(res => {this.sendSocketNotification('TRANS_RESULT', res)});
-     },
-    
      getNOAA: function(url) {
         request({
             url: url,
@@ -76,13 +72,23 @@ module.exports = NodeHelper.create({
             if (!error && response.statusCode === 200) {
                         var alerts = JSON.parse(body).alerts;
                         if (alerts != null || undefined){
-						self.sendSocketNotification("ALERT_RESULTS", alerts);	
-						}                        
+			  self.sendSocketNotification("ALERT_RESULTS", alerts);	
+			  this.getTrans();
+			}                        
         console.log(alerts);
             }
        });
    },
 
+   getTrans: function(){
+	var self = this;
+	var aresult = alerts;
+	translate(alerts.description, {to: this.config.language}).then(res => {aresult.description = res.text});
+	translate(alerts.expires, {to: this.config.language}).then(res => {aresult.expires = res.text});
+	translate(alerts.message, {to: this.config.language}).then(res => {aresult.message = res.text});
+	self.sendSocketNotification("TRANS_RESULT", aresult);
+   },
+    
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){

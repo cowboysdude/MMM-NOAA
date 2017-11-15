@@ -97,7 +97,6 @@ Module.register("MMM-NOAA", {
 			this.alert = [];
 			this.today = "";
 			this.ans = [];
-			this.orig = "Test";
 			this.scheduleUpdate();
 		},
 
@@ -140,10 +139,6 @@ Module.register("MMM-NOAA", {
 
 		getNOAA: function() {
 			this.sendSocketNotification("GET_NOAA", this.url);
-		},
-
-		getTRANS: function() {
-			this.sendSocketNotification("GET_TRANS", this.orig);
 		},
 
 		socketNotificationReceived: function(notification, payload) {
@@ -582,33 +577,26 @@ Module.register("MMM-NOAA", {
 			var alert = this.alert[0];
 
 			if (typeof alert !== 'undefined') {
+				
 				var all = document.createElement("div");
 				all.classList.add("bright", "xsmall", "alert");
-				this.orig = "***ALERT***";
-				this.getTRANS();
-     				all.innerHTML = "<BR>" + this.ans.text + "<br><br>";
+     				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
 				wrapper.appendChild(all);
 
-//				var Alert = document.createElement("div");
-//				Alert.classList.add("bright", "xsmall");
-//				this.orig = alert.description;
-//				this.getTRANS();
-//				Alert.innerHTML = this.ans.text + "<br>";
-//				wrapper.appendChild(Alert);
+				var Alert = document.createElement("div");
+				Alert.classList.add("bright", "xsmall");
+				Alert.innerHTML = this.ans.description + "<br>";
+				wrapper.appendChild(Alert);
 
-//				var atext = document.createElement("div");
-//				atext.classList.add("bright", "xsmall");
-//				this.orig = "Expires: " + alert.expires;
-//				this.getTRANS();
-//				atext.innerHTML = this.ans.text;
-//				wrapper.appendChild(atext);
+				var atext = document.createElement("div");
+				atext.classList.add("bright", "xsmall");
+				atext.innerHTML = this.translate("Expires: ") + this.ans.expires;
+				wrapper.appendChild(atext);
 
-//				var warn = document.createElement("div");
-//				warn.classList.add("bright", "xsmall");
-//				this.orig = alert.message.split(/\s+/).slice(0, 5).join(" ");
-//				this.getTRANS();
-//				warn.innerHTML = this.ans.text;
-//				wrapper.appendChild(warn);
+				var warn = document.createElement("div");
+				warn.classList.add("bright", "xsmall");
+				warn.innerHTML = this.ans.message.split(/\s+/).slice(0, 5).join(" ");
+				wrapper.appendChild(warn);
 			}
 
 

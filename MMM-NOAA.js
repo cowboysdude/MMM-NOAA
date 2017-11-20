@@ -594,4 +594,4 @@ Module.register("MMM-NOAA", {
 
 			return wrapper;
 		},
-	});
+});

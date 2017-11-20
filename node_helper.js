@@ -67,23 +67,25 @@ module.exports = NodeHelper.create({
     	          method: 'GET' 
     	        }, (error, response, body) => {
      		       if (!error && response.statusCode === 200) {
-                     	  var alerts = JSON.parse(body).alerts;
-                          if (alerts != null || undefined){
-				if (this.config.lang != 'en') {
-					console.log("STEP 1");
-					console.log(alerts.description);
-			 		translate(alerts.description, {to: this.config.lang}).then(res => {alerts.description = res.text});
-					translate(alerts.expires, {to: this.config.lang}).then(res => {alerts.expires = res.text});
-					translate(alerts.message, {to: this.config.lang}).then(res => {alerts.message = res.text});
+                     	  var alert = JSON.parse(body).alerts;
+			  var keys = Object.keys(alert);
+			  var alerts = alert[keys];
+			  if (alerts != undefined){
+				console.log("STEP 1 with " + this.config.lang);
+				console.log(alerts.description);
+				if (this.config.lang != 'en'){
+			    		translate(alerts.description, {to: this.config.lang}).then(res => {console.log(res.text)});
+					translate(alerts.expires, {to: this.config.lang}).then(res => {console.log(res.text)});
+					translate(alerts.message, {to: this.config.lang}).then(res => {console.log(res.text)});
 				}
-			        this.sendSocketNotification("ALERT_RESULTS", alerts);	
-			  }                        
-                          console.log(alerts);
+			  }         
+                          this.sendSocketNotification("ALERT_RESULTS", alerts);
+			  console.log(alerts);
               }
          });
    },
 
-   
+
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
@@ -94,8 +96,6 @@ module.exports = NodeHelper.create({
                 this.getSRSS(payload);
 	    }  else if (notification === 'GET_AIR') {
 		this.getAIR(payload);
-	    }  else if (notification === 'GET_ALERT') {
-		this.getAlert(payload);
 	    }
          },  
     });

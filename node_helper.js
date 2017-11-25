@@ -61,42 +61,54 @@ module.exports = NodeHelper.create({
        });
    },
    
-   getAlerts: function(){
-	 	request({ 
-    	  	  url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
-    	          method: 'GET' 
-    	        }, (error, response, body) => {
-     		       if (!error && response.statusCode === 200) {
-			  var reta = [];
-                     	  var alert = JSON.parse(body).alerts;
-			  var keys = Object.keys(alert);
-			  var alerts = alert[keys];
-			  if (alerts != undefined){
-  			    	if (this.config.lang != 'en'){
-           				console.log("in Translate");
-            				Promise.all([
-               					translate(alerts.description, {to: this.config.lang}),
-				        	translate(alerts.expires, {to: this.config.lang}),
-            					translate(alerts.message, {to: this.config.lang})
-        				]).then(function(results) {
-						alerts.description = results[0].text;
-						alerts.expires = results[1].text;
-						alerts.message = results[2].text;
-						reta[0] = alerts;
-						console.log("inside=", reta);
-						this.sendSocketNotification("ALERT_RESULTS", reta);		
- 				         })
-  			        }else{
-		                    this.sendSocketNotification("ALERT_RESULTS", alerts);
-			  	    console.log(alerts);
-				}				
-			  }else{
- 		              this.sendSocketNotification("ALERT_RESULTS", alerts);
-			      console.log(alerts);
-        		  }
-              }
-         });
-   },
+  getAlerts: function() {
+    var self = this;
+    request({
+        url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
+        method: 'GET'
+    }, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+            var reta = [];
+            var alert = JSON.parse(body).alerts;
+            var keys = Object.keys(alert);
+            var alerts = alert[keys];
+            if (alerts != undefined) {
+                if (this.config.lang != 'en') {
+                    console.log("in Translate");
+                    Promise.all([
+                        translate(alerts.description, {
+                            to: this.config.lang
+                        }),
+                        translate(alerts.expires, {
+                            to: this.config.lang
+                        }),
+                        translate(alerts.message, {
+                            to: this.config.lang
+                        })
+                    ]).then(function(results) {
+                        alerts.description = results[0].text;
+                        alerts.expires = results[1].text;
+                        alerts.message = results[2].text;
+                        reta[0] = alerts;
+                        var desc = alerts.description;
+                        var expire = alerts.expires;
+                        var mess = alerts.message;
+                        self.sendSocketNotification("ALERT_RESULTS", {
+                            desc,
+                            expire,
+                            mess
+                        });
+                    })
+                } else {
+                    console.log(alerts);
+                    self.sendSocketNotification("ALERT_RESULTS", alerts);
+                }
+
+            }
+
+        }
+    });
+},
   
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {

@@ -564,10 +564,10 @@ Module.register("MMM-NOAA", {
 			}
 
 
-			 var alert = this.alert;
-
+			var alert = this.alert;
+      	if (typeof alert.mess != 'undefined' || typeof alert.message != 'undefined'){
         if (this.config.lang != 'en'){
-        if (typeof alert !== 'undefined') {
+        
             var all = document.createElement("div");
             all.classList.add("bright", "xsmall", "alert");
             all.innerHTML = "<BR>***ALERT***<br><br>";
@@ -583,13 +583,14 @@ Module.register("MMM-NOAA", {
             atext.innerHTML = "Expires: " + alert.expire;
             wrapper.appendChild(atext);
 
+            
             var warn = document.createElement("div");
             warn.classList.add("bright", "xsmall");
             warn.innerHTML = alert.mess.split(/\s+/).slice(0, 1).join(" ");
             wrapper.appendChild(warn);
-        }
+			
 		} else {
-		if (typeof alert !== 'undefined') {
+		
             var all = document.createElement("div");
             all.classList.add("bright", "xsmall", "alert");
             all.innerHTML = "<BR>***ALERT***<br><br>";
@@ -605,13 +606,13 @@ Module.register("MMM-NOAA", {
             atext.innerHTML = "Expires: " + alert.expires;
             wrapper.appendChild(atext);
 
+          
             var warn = document.createElement("div");
             warn.classList.add("bright", "xsmall");
             warn.innerHTML = alert.message.split(/\s+/).slice(0, 1).join(" ");
             wrapper.appendChild(warn);
-        }	
-		}
-
+					}
+       	}
 
 			return wrapper;
 		},

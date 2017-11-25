@@ -67,25 +67,37 @@ module.exports = NodeHelper.create({
     	          method: 'GET' 
     	        }, (error, response, body) => {
      		       if (!error && response.statusCode === 200) {
+			  var reta = [];
                      	  var alert = JSON.parse(body).alerts;
 			  var keys = Object.keys(alert);
 			  var alerts = alert[keys];
 			  if (alerts != undefined){
-				console.log("STEP 1 with " + this.config.lang);
-				console.log(alerts.description);
-				if (this.config.lang != 'en'){
-			    		translate(alerts.description, {to: this.config.lang}).then(res => {console.log(res.text)});
-					translate(alerts.expires, {to: this.config.lang}).then(res => {console.log(res.text)});
-					translate(alerts.message, {to: this.config.lang}).then(res => {console.log(res.text)});
-				}
-			  }         
-                          this.sendSocketNotification("ALERT_RESULTS", alerts);
-			  console.log(alerts);
+  			    	if (this.config.lang != 'en'){
+           				console.log("in Translate");
+            				Promise.all([
+               					translate(alerts.description, {to: this.config.lang}),
+				        	translate(alerts.expires, {to: this.config.lang}),
+            					translate(alerts.message, {to: this.config.lang})
+        				]).then(function(results) {
+						alerts.description = results[0].text;
+						alerts.expires = results[1].text;
+						alerts.message = results[2].text;
+						reta[0] = alerts;
+						console.log("inside=", reta);
+						this.sendSocketNotification("ALERT_RESULTS", reta);		
+ 				         })
+  			        }else{
+		                    this.sendSocketNotification("ALERT_RESULTS", alerts);
+			  	    console.log(alerts);
+				}				
+			  }else{
+ 		              this.sendSocketNotification("ALERT_RESULTS", alerts);
+			      console.log(alerts);
+        		  }
               }
          });
    },
-
-
+  
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
@@ -96,6 +108,8 @@ module.exports = NodeHelper.create({
                 this.getSRSS(payload);
 	    }  else if (notification === 'GET_AIR') {
 		this.getAIR(payload);
+	    }  else if (notification === 'GET_ALERT') {
+		this.getAlerts(payload);
 	    }
          },  
     });

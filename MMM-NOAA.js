@@ -594,7 +594,7 @@ Module.register("MMM-NOAA", {
 					var alert = this.amess[i];
 
 					Level[i] = document.createElement("div");
-					Level[i].classList.add("bright", "xsmall");
+					Level[i].classList.add("bright", "xsmall", "alert");
 					Level[i].innerHTML =  this.translate("Warning Level: ") + alert.level + "<br>";
 					wrapper.appendChild(Level[i]);
 					

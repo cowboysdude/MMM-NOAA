@@ -37,6 +37,6 @@
 "Fri":"Fr",
 "Sat":"Sa",
 "Sun":"So",
-"***ALERT***":"*** Wetterwarnung ***",
-"Expires: ":"Bis zum: "
+"***ALERT***":"*** Wetterwarnungen ***",
+"Warning Level: ":"Warnstufe: "
 }

@@ -61,54 +61,40 @@ module.exports = NodeHelper.create({
        });
    },
    
-  getAlerts: function() {
-    var self = this;
-    request({
-        url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
-        method: 'GET'
-    }, (error, response, body) => {
-        if (!error && response.statusCode === 200) {
-            var reta = [];
-            var alert = JSON.parse(body).alerts;
-            var keys = Object.keys(alert);
-            var alerts = alert[keys];
-            if (alerts != undefined) {
-                if (this.config.lang != 'en') {
-                    console.log("in Translate");
-                    Promise.all([
-                        translate(alerts.description, {
-                            to: this.config.lang
-                        }),
-                        translate(alerts.expires, {
-                            to: this.config.lang
-                        }),
-                        translate(alerts.message, {
-                            to: this.config.lang
-                        })
-                    ]).then(function(results) {
-                        alerts.description = results[0].text;
-                        alerts.expires = results[1].text;
-                        alerts.message = results[2].text;
-                        reta[0] = alerts;
-                        var desc = alerts.description;
-                        var expire = alerts.expires;
-                        var mess = alerts.message;
-                        self.sendSocketNotification("ALERT_RESULTS", {
-                            desc,
-                            expire,
-                            mess
-                        });
-                    })
-                } else {
-                    console.log(alerts);
-                    self.sendSocketNotification("ALERT_RESULTS", alerts);
-                }
+   getAlerts: function() {
+	var self = this;
+	request({
+		url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
+		method: 'GET'
+		}, (error, response, body) => {
+			if (!error && response.statusCode === 200) {
+				var alert = JSON.parse(body).alerts;
+				for(var i = 0; i < alert.length; i++) {
+					var alerts = alert[i];
+					if (alerts != undefined) { 
+						console.log("Alert(" + i + ") found ....");
+						if (this.config.lang != 'en') {
+							console.log("in Translate");
+							Promise.all([
+								translate(alerts.description, {from: 'en', to: this.config.lang})
+							]).then(function(results) {
+								var desc = results[0].text;
+								var level = alerts.level_meteoalarm;
+ 					    	        	self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+		              				})
+                	   			}else{
+		                  			var desc = alerts.description;
+                		  			var level = alerts.level_meteoalarm;
+							self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+						}
 
-            }
-
-        }
-    });
-},
+					}else{
+						self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+					}
+				}
+			}     	
+	});
+    },
   
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
@@ -124,4 +110,4 @@ module.exports = NodeHelper.create({
 		this.getAlerts(payload);
 	    }
          },  
-    });
+});

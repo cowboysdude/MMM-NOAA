@@ -3,6 +3,7 @@
 * By cowboysdude and snille 
 modified by barnosch
 */
+var c = 0;
 
 Module.register("MMM-NOAA", {
 
@@ -54,7 +55,14 @@ Module.register("MMM-NOAA", {
 				"da": "DK",
 				"nl": "NL",
 				"nb": "NO",
-			}
+			},
+
+			levelTrans: {
+				"1":"green",
+				"2":"yellow",
+				"3":"orange",
+				"4":"red",
+			}				
 		},
 
 		// Define required scripts.
@@ -95,11 +103,13 @@ Module.register("MMM-NOAA", {
 			this.air = {};
 			this.srss = {};
 			this.alert = [];
+			this.amess = [];
 			this.today = "";
 			this.scheduleUpdate();
 		},
 
 		processNoaa: function(data) {
+			c = 0;
 			this.current = data.current_observation;
 			this.forecast = data.forecast.simpleforecast.forecastday;
 			this.loaded = true;
@@ -115,6 +125,8 @@ Module.register("MMM-NOAA", {
 
 		processAlert: function(data) {
 			this.alert = data;
+			this.amess[c] = this.alert;
+			c = c + 1;
 		},
 
 		secondsToString: function(seconds) {
@@ -566,31 +578,34 @@ Module.register("MMM-NOAA", {
 			}
 
 
-			var alert = this.alert[0];
+			var alert = this.amess[0];
 
-			if (typeof alert !== 'undefined') {
+			if (typeof alert.mess != 'undefined' || typeof alert.level != 'undefined'){			
 				
 				var all = document.createElement("div");
 				all.classList.add("bright", "xsmall", "alert");
      				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
 				wrapper.appendChild(all);
 
-				var Alert = document.createElement("div");
-				Alert.classList.add("bright", "xsmall");
-				Alert.innerHTML = alert.description + "<br>";
-				wrapper.appendChild(Alert);
+				var Alert = [];
+				var Level = [];
+				for(var i = 0; i < c; i++){
 
-				var atext = document.createElement("div");
-				atext.classList.add("bright", "xsmall");
-				atext.innerHTML = this.translate("Expires: ") + alert.expires;
-				wrapper.appendChild(atext);
+					var alert = this.amess[i];
 
-				var warn = document.createElement("div");
-				warn.classList.add("bright", "xsmall");
-				warn.innerHTML = alert.message.split(/\s+/).slice(0, 5).join(" ");
-				wrapper.appendChild(warn);
+					Level[i] = document.createElement("div");
+					Level[i].classList.add("bright", "xsmall");
+					Level[i].innerHTML =  this.translate("Warning Level: ") + alert.level + "<br>";
+					wrapper.appendChild(Level[i]);
+					
+
+					Alert[i] = document.createElement("div");
+					Alert[i].classList.add("bright", "xsmall");
+					Alert[i].innerHTML = "<font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "<br>";
+					wrapper.appendChild(Alert[i]);
+
+				}
 			}
-
 
 			return wrapper;
 		},

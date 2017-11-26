@@ -594,13 +594,13 @@ Module.register("MMM-NOAA", {
 					var alert = this.amess[i];
 
 					Level[i] = document.createElement("div");
-					Level[i].classList.add("bright", "xsmall", "alert");
+					Level[i].classList.add("bright", "xsmall", "alerts");
 					Level[i].innerHTML =  this.translate("Warning Level: ") + alert.level + "<br>";
 					wrapper.appendChild(Level[i]);
 					
 
 					Alert[i] = document.createElement("div");
-					Alert[i].classList.add("bright", "xsmall");
+					Alert[i].classList.add("bright", "xsmall", "aler");
 					Alert[i].innerHTML = "<font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "<br>";
 					wrapper.appendChild(Alert[i]);
 

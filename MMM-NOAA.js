@@ -580,7 +580,7 @@ Module.register("MMM-NOAA", {
 
 			var alert = this.amess[0];
 
-			if (typeof alert.mess != 'undefined' || typeof alert.level != 'undefined'){			
+			if (typeof alert != 'undefined'){			
 				
 				var all = document.createElement("div");
 				all.classList.add("bright", "xsmall", "alert");

@@ -9,6 +9,7 @@
   "author": "cowboysdude",
   "license": "MIT",
   "dependencies": {
+    "google-translate-api": "^2.3.0"
   },
   "devDependencies": {
     "grunt": "latest",

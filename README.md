@@ -36,7 +36,7 @@ If you do not enter a name in the config.js file it will just say either "Good M
 ## Config.js entry and options
 
 Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top]
-Will default to EN if NO translation file is found.
+Will default to EN if NO translation file is found.  Weather alerts will be in the native language chosen by your config.js automatically and in the correct language!  Thanks tbbear!!!
 
     {
         disabled: false,

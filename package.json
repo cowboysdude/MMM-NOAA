@@ -9,6 +9,7 @@
   "author": "cowboysdude",
   "license": "MIT",
   "dependencies": {
+    "google-translate": "^2.0.5"
   },
   "devDependencies": {
     "grunt": "latest",
@@ -20,5 +21,13 @@
     "stylelint": "^7.10.1",
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cowboysdude/MMM-NOAA.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cowboysdude/MMM-NOAA/issues"
+  },
+  "homepage": "https://github.com/cowboysdude/MMM-NOAA#readme"
 }

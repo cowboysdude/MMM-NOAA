@@ -61,29 +61,41 @@ module.exports = NodeHelper.create({
        });
    },
    
-   getAlerts: function(){
-	 	request({ 
-    	  	  url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
-    	          method: 'GET' 
-    	        }, (error, response, body) => {
-     		       if (!error && response.statusCode === 200) {
-                     	  var alerts = JSON.parse(body).alerts;
-                          if (alerts != null || undefined){
-				if (this.config.lang != 'en') {
-					console.log("STEP 1");
-					console.log(alerts.description);
-			 		translate(alerts.description, {to: this.config.lang}).then(res => {alerts.description = res.text});
-					translate(alerts.expires, {to: this.config.lang}).then(res => {alerts.expires = res.text});
-					translate(alerts.message, {to: this.config.lang}).then(res => {alerts.message = res.text});
-				}
-			        this.sendSocketNotification("ALERT_RESULTS", alerts);	
-			  }                        
-                          console.log(alerts);
-              }
-         });
-   },
+   getAlerts: function() {
+	var self = this;
+	request({
+		url: "http://api.wunderground.com/api/" + this.config.apiKey + "/alerts/q/pws:" + this.config.pws + ".json",
+		method: 'GET'
+		}, (error, response, body) => {
+			if (!error && response.statusCode === 200) {
+				var alert = JSON.parse(body).alerts;
+				for(var i = 0; i < alert.length; i++) {
+					var alerts = alert[i];
+					if (alerts != undefined) { 
+						console.log("Alert(" + i + ") found ....");
+						if (this.config.lang != 'en') {
+							console.log("in Translate");
+							Promise.all([
+								translate(alerts.description, {from: 'en', to: this.config.lang})
+							]).then(function(results) {
+								var desc = results[0].text;
+								var level = alerts.level_meteoalarm;
+ 					    	        	self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+		              				})
+                	   			}else{
+		                  			var desc = alerts.description;
+                		  			var level = alerts.level_meteoalarm;
+							self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+						}
 
-   
+					}else{
+						self.sendSocketNotification("ALERT_RESULTS", {desc, level});
+					}
+				}
+			}     	
+	});
+    },
+  
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
@@ -95,7 +107,7 @@ module.exports = NodeHelper.create({
 	    }  else if (notification === 'GET_AIR') {
 		this.getAIR(payload);
 	    }  else if (notification === 'GET_ALERT') {
-		this.getAlert(payload);
+		this.getAlerts(payload);
 	    }
          },  
-    });
+});

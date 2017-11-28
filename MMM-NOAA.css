@@ -73,6 +73,15 @@
 	color: white;
     text-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
 }
+.MMM-NOAA .alerts{
+	font-size: 20px;
+	text-align: left;
+	color: white;
+    text-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
+}
+.MMM-NOAA .aler{
+	text-align: left;
+}
 .MMM-NOAA .dayalert{
 	font-size: 20px;
 	color: #ffff00;

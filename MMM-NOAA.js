@@ -3,6 +3,8 @@
 * By cowboysdude and snille 
 modified by barnosch
 */
+var c = 0;
+
 Module.register("MMM-NOAA", {
 
 		// Module config defaults.
@@ -53,7 +55,14 @@ Module.register("MMM-NOAA", {
 				"da": "DK",
 				"nl": "NL",
 				"nb": "NO",
-			}
+			},
+
+			levelTrans: {
+				"1":"green",
+				"2":"yellow",
+				"3":"orange",
+				"4":"red",
+			}				
 		},
 
 		// Define required scripts.
@@ -94,11 +103,13 @@ Module.register("MMM-NOAA", {
 			this.air = {};
 			this.srss = {};
 			this.alert = [];
+			this.amess = [];
 			this.today = "";
 			this.scheduleUpdate();
 		},
 
 		processNoaa: function(data) {
+			c = 0;
 			this.current = data.current_observation;
 			this.forecast = data.forecast.simpleforecast.forecastday;
 			this.loaded = true;
@@ -114,6 +125,8 @@ Module.register("MMM-NOAA", {
 
 		processAlert: function(data) {
 			this.alert = data;
+			this.amess[c] = this.alert;
+			c = c + 1;
 		},
 
 		secondsToString: function(seconds) {
@@ -389,14 +402,14 @@ Module.register("MMM-NOAA", {
 				}
 		
 		
-		
+		    
 				if (this.config.showWind != false) {
 					var spacer = document.createElement("div");
 					spacer.classList.add("small", "bright", "font");
 					spacer.innerHTML = "<br><br>";
 					wrapper.appendChild(spacer);
 
-         
+                if (current.wind_mph > 0 || current.wind_kph > 0){
 					var wind = document.createElement("div");
 					wind.classList.add("xsmall", "bright");
 					if (this.config.units != "metric") {
@@ -409,8 +422,9 @@ Module.register("MMM-NOAA", {
 					}
 					wrapper.appendChild(wind);
 				}
+			  }
 			}
-
+          	
 
 			var srss = this.srss;
 
@@ -564,56 +578,35 @@ Module.register("MMM-NOAA", {
 			}
 
 
-			var alert = this.alert;
-      	if (typeof alert.mess != 'undefined' || typeof alert.message != 'undefined'){
-        if (this.config.lang != 'en'){
-        
-            var all = document.createElement("div");
-            all.classList.add("bright", "xsmall", "alert");
-            all.innerHTML = "<BR>***ALERT***<br><br>";
-            wrapper.appendChild(all);
+			var alert = this.amess[0];
 
-            var Alert = document.createElement("div");
-            Alert.classList.add("bright", "xsmall");
-            Alert.innerHTML = alert.desc + "<br>";
-            wrapper.appendChild(Alert);
+			if (typeof alert != 'undefined'){			
+				
+				var all = document.createElement("div");
+				all.classList.add("bright", "xsmall", "alert");
+     				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
+				wrapper.appendChild(all);
 
-            var atext = document.createElement("div");
-            atext.classList.add("bright", "xsmall");
-            atext.innerHTML = "Expires: " + alert.expire;
-            wrapper.appendChild(atext);
+				var Alert = [];
+				var Level = [];
+				for(var i = 0; i < c; i++){
 
-            
-            var warn = document.createElement("div");
-            warn.classList.add("bright", "xsmall");
-            warn.innerHTML = alert.mess.split(/\s+/).slice(0, 1).join(" ");
-            wrapper.appendChild(warn);
-			
-		} else {
-		
-            var all = document.createElement("div");
-            all.classList.add("bright", "xsmall", "alert");
-            all.innerHTML = "<BR>***ALERT***<br><br>";
-            wrapper.appendChild(all);
+					var alert = this.amess[i];
 
-            var Alert = document.createElement("div");
-            Alert.classList.add("bright", "xsmall");
-            Alert.innerHTML = alert.description + "<br>";
-            wrapper.appendChild(Alert);
+					Level[i] = document.createElement("div");
+					Level[i].classList.add("bright", "xsmall", "alerts");
+					Level[i].innerHTML =  this.translate("Warning Level: ") + alert.level + "<br>";
+					wrapper.appendChild(Level[i]);
+					
 
-            var atext = document.createElement("div");
-            atext.classList.add("bright", "xsmall");
-            atext.innerHTML = "Expires: " + alert.expires;
-            wrapper.appendChild(atext);
+					Alert[i] = document.createElement("div");
+					Alert[i].classList.add("bright", "xsmall", "aler");
+					Alert[i].innerHTML = "<font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "<br>";
+					wrapper.appendChild(Alert[i]);
 
-          
-            var warn = document.createElement("div");
-            warn.classList.add("bright", "xsmall");
-            warn.innerHTML = alert.message.split(/\s+/).slice(0, 1).join(" ");
-            wrapper.appendChild(warn);
-					}
-       	}
+				}
+			}
 
 			return wrapper;
 		},
-	});
+});

@@ -15,6 +15,8 @@ If you do not enter a name in the config.js file it will just say either "Good M
 ## Your terminal installation instructions
 
 * `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
+  `~MagicMirror/modules/MMM-NOAA`
+  `npm install`
 
 ## Get your free API key here [WEATHER, You must also get an AirAPI Key--- see below]
 

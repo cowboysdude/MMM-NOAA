@@ -3,6 +3,7 @@
 * By cowboysdude and snille 
 modified by barnosch
 */
+
 Module.register("MMM-NOAA", {
 
 		// Module config defaults.
@@ -568,9 +569,10 @@ Module.register("MMM-NOAA", {
 			var alert = this.alert[0];
 
 			if (typeof alert !== 'undefined') {
+				
 				var all = document.createElement("div");
 				all.classList.add("bright", "xsmall", "alert");
-				all.innerHTML = "<BR>***ALERT***<br><br>";
+     				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
 				wrapper.appendChild(all);
 
 				var Alert = document.createElement("div");
@@ -580,7 +582,7 @@ Module.register("MMM-NOAA", {
 
 				var atext = document.createElement("div");
 				atext.classList.add("bright", "xsmall");
-				atext.innerHTML = "Expires: " + alert.expires;
+				atext.innerHTML = this.translate("Expires: ") + alert.expires;
 				wrapper.appendChild(atext);
 
 				var warn = document.createElement("div");

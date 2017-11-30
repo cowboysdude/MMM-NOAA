@@ -4,6 +4,7 @@
 modified by barnosch
 */
 var c = 0;
+var dopo = false;
 
 Module.register("MMM-NOAA", {
 
@@ -309,29 +310,28 @@ Module.register("MMM-NOAA", {
 			}
 			wrapper.appendChild(curCon);
 
-
 		
-
-			var cpCondition = document.createElement("span");
-			if (this.config.position != 'top_left' || this.config.position != "top_left"){
-				cpCondition.classList.add("xsmall", "bright", "rset");	
-			} else {
-				cpCondition.classList.add("xsmall", "bright", "set");	
-			}
-			if (current.UV >= 0 && current.UV < 3) {
-				cpCondition.innerHTML = this.translate("UVI")  +"<div class=box><b>" + current.UV + " G</b></div>";
-			} else if (current.UV > 2 && current.UV < 6) {
-				cpCondition.innerHTML = this.translate("UVI ") +"<div class=box><b>" + current.UV + "</b></div>";
-			} else if (current.UV > 5 && current.UV < 8) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			} else if (current.UV > 7 && current.UV < 11) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			} else if (current.UV >= 11) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			}
-			wrapper.appendChild(cpCondition);
-
 			if (this.config.useAir != false) {
+
+				var cpCondition = document.createElement("span");
+				if (this.config.position != 'top_left' || this.config.position != "top_left"){
+					cpCondition.classList.add("xsmall", "bright", "rset");	
+				} else {
+					cpCondition.classList.add("xsmall", "bright", "set");	
+				}
+				if (current.UV >= 0 && current.UV < 3) {
+					cpCondition.innerHTML = this.translate("UVI")  +"<div class=box><b>" + current.UV + " G</b></div>";
+				} else if (current.UV > 2 && current.UV < 6) {
+					cpCondition.innerHTML = this.translate("UVI ") +"<div class=box><b>" + current.UV + "</b></div>";
+				} else if (current.UV > 5 && current.UV < 8) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				} else if (current.UV > 7 && current.UV < 11) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				} else if (current.UV >= 11) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				}
+				wrapper.appendChild(cpCondition);
+
 				var aqius = this.air.aqius;
 				var aqi = document.createElement("span");
 				if (this.config.position != 'top_left' || this.config.position != "top_left"){
@@ -351,12 +351,9 @@ Module.register("MMM-NOAA", {
 					aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "P</b></div>";
 				}
 				wrapper.appendChild(aqi);
+				dopo = true;
+
 			}
-
-
-
-
-
 
 			if (this.config.showHum != false){
 				var reHumid = current.relative_humidity.substring(0, 2);
@@ -400,16 +397,20 @@ Module.register("MMM-NOAA", {
 					}
 					wrapper.appendChild(bP);
 				}
-		
-		
-		    
-				if (this.config.showWind != false) {
-					var spacer = document.createElement("div");
-					spacer.classList.add("small", "bright", "font");
-					spacer.innerHTML = "<br><br>";
-					wrapper.appendChild(spacer);
+				dopo = true;
+			}
 
-                if (current.wind_mph > 0 || current.wind_kph > 0){
+			if (dopo == true) {
+				var spacer = document.createElement("div");
+				spacer.classList.add("small", "bright", "font");
+				spacer.innerHTML = "<br><br>";
+				wrapper.appendChild(spacer);
+				dopo = false;
+			}
+
+			if (this.config.showWind != false) {
+
+       			       if (current.wind_mph > 0 || current.wind_kph > 0){
 					var wind = document.createElement("div");
 					wind.classList.add("xsmall", "bright");
 					if (this.config.units != "metric") {
@@ -423,9 +424,7 @@ Module.register("MMM-NOAA", {
 					wrapper.appendChild(wind);
 				}
 			  }
-			}
-          	
-
+		
 			var srss = this.srss;
 
 

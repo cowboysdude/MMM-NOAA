@@ -63,7 +63,8 @@ Will default to EN if NO translation file is found.  Weather alerts will be in t
 		showUV: true,               //show UV index
 	        showBar: true,             // show Barometer
 	        showHum: true,              //show Humidity level
-		position: 'top_right'       //whatever you have in above position must also be here
+		position: 'top_right',       //whatever you have in above position must also be here
+	        alert: true                //show weather alerts default is true
 	}
     },
 

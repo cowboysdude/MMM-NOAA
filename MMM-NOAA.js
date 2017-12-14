@@ -32,6 +32,7 @@ Module.register("MMM-NOAA", {
 			showBar: true,
 			showHum: true,
 			position: 'top_left',
+			alert: true,
 
 			langFile: {
 				"en": "en-US",
@@ -576,7 +577,7 @@ Module.register("MMM-NOAA", {
 				}
 			}
 
-
+                        if (this.config.alert != false){
 			var alert = this.amess[0];
 
 			if (typeof alert != 'undefined'){			
@@ -602,7 +603,7 @@ Module.register("MMM-NOAA", {
 					Alert[i].classList.add("bright", "xsmall", "aler");
 					Alert[i].innerHTML = "<font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "<br>";
 					wrapper.appendChild(Alert[i]);
-
+				}
 				}
 			}
 

@@ -610,10 +610,10 @@ Module.register("MMM-NOAA", {
 			return wrapper;
 		},
 	 notificationReceived: function(notification, payload) {
-        if (notification === 'HIDE_COWBOY') {
+        if (notification === 'HIDE_NOAA') {
             this.hide(1000);
             this.updateDom(300);
-        }  else if (notification === 'SHOW_COWBOY') {
+        }  else if (notification === 'SHOW_NOAA') {
             this.show(1000);
             this.updateDom(300);
         }

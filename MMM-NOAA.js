@@ -1,7 +1,7 @@
 /* Magic Mirror
 * Module: MMM-NOAA
 * By cowboysdude and snille 
-modified by barnosch
+modified by barnosch and Tbbear
 */
 var c = 0;
 var dopo = false;

@@ -64,7 +64,8 @@ Will default to EN if NO translation file is found.  Weather alerts will be in t
 	        showBar: true,             // show Barometer
 	        showHum: true,              //show Humidity level
 		position: 'top_right',       //whatever you have in above position must also be here
-	        alert: true                //show weather alerts default is true
+	        alert: true,                //show weather alerts default is true
+		days: "3"                   //default in config is 3 can be either "3" or "10" for forecast
 	}
     },
 

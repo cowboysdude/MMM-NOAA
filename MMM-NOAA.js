@@ -249,12 +249,12 @@ Module.register("MMM-NOAA", {
 			var n = d.getHours();
 
 
-			if (this.config.showClock == true) {
-				var CurTime = document.createElement("div");
-				CurTime.classList.add("large", "fontClock");
-				CurTime.innerHTML = this.getTime();
-				wrapper.appendChild(CurTime);
-			}
+		//	if (this.config.showClock == true) {
+		//		var CurTime = document.createElement("div");
+		//		CurTime.classList.add("large", "fontClock");
+		//		CurTime.innerHTML = this.getTime();
+		//		wrapper.appendChild(CurTime);
+		//	}
 
 			if (this.config.showGreet == true) {
 				var Greet = document.createElement("div");

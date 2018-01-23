@@ -1,7 +1,7 @@
 /* Magic Mirror
 * Module: MMM-NOAA
 * By cowboysdude and snille 
-modified by barnosch
+modified by barnosch and Tbbear
 */
 var c = 0;
 var dopo = false;
@@ -33,6 +33,7 @@ Module.register("MMM-NOAA", {
 			showHum: true,
 			position: 'top_left',
 			alert: true,
+			days: "3",
 
 			langFile: {
 				"en": "en-US",
@@ -89,6 +90,9 @@ Module.register("MMM-NOAA", {
 		getStyles: function() {
 			return ["MMM-NOAA.css", "weather-icons.css", "font-awesome.css"];
 		},
+		getScripts: function () {
+			return ["moment.js"];
+		},
 
 		// Define start sequence.
 		start: function() {
@@ -98,9 +102,7 @@ Module.register("MMM-NOAA", {
 			this.sendSocketNotification("CONFIG", this.config);
 
 			// Set locale.  
-			var lang = this.config.langTrans[config.language];
-			this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-
+			this.url = this.getUrl();
 			this.forecast = {};
 			this.air = {};
 			this.srss = {};
@@ -108,6 +110,21 @@ Module.register("MMM-NOAA", {
 			this.amess = [];
 			this.today = "";
 			this.scheduleUpdate();
+		},
+		
+		getUrl: function() {
+    		   var url = null;
+   		   var days = this.config.days; 
+ 	           var lang = this.config.langTrans[config.language];
+       
+   		   if (days == "3") {
+			  url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+		   } else {
+			  url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+		   }
+       
+		  return url;
+   
 		},
 
 		processNoaa: function(data) {
@@ -202,6 +219,11 @@ Module.register("MMM-NOAA", {
 			}
 
 			var current = this.current;
+			
+	console.log(this.current);
+	var today = new Date(); 
+	console.log(today);
+	
 
 			var d = new Date();
 			var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -227,12 +249,12 @@ Module.register("MMM-NOAA", {
 			var n = d.getHours();
 
 
-			if (this.config.showClock == true) {
-				var CurTime = document.createElement("div");
-				CurTime.classList.add("large", "fontClock");
-				CurTime.innerHTML = this.getTime();
-				wrapper.appendChild(CurTime);
-			}
+		//	if (this.config.showClock == true) {
+		//		var CurTime = document.createElement("div");
+		//		CurTime.classList.add("large", "fontClock");
+		//		CurTime.innerHTML = this.getTime();
+		//		wrapper.appendChild(CurTime);
+		//	}
 
 			if (this.config.showGreet == true) {
 				var Greet = document.createElement("div");
@@ -524,9 +546,12 @@ Module.register("MMM-NOAA", {
 					weekday[6] = "Sat";
 
 					var n = this.translate(weekday[d.getDay()]);
+					
+					var fDate = noaa.date.day;
+					var cDate = moment().date();
 
 					var td1 = document.createElement("td");
-					if (noaa.date.weekday_short == n) {
+					if (fDate == cDate) {
 						td1.innerHTML = this.translate("Today");
 						if (this.config.flash != false){
 							td1.classList.add("pulse");	
@@ -609,4 +634,16 @@ Module.register("MMM-NOAA", {
 
 			return wrapper;
 		},
+	 notificationReceived: function(notification, payload) {
+        if (notification === 'HIDE_NOAA') {
+            this.hide(1000);
+            this.updateDom(300);
+        }  else if (notification === 'SHOW_NOAA') {
+            this.show(1000);
+            this.updateDom(300);
+        }
+		
+	},
+	
+	
 });

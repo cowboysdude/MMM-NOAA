@@ -1,8 +1,10 @@
 /* Magic Mirror
 * Module: MMM-NOAA
 * By cowboysdude and snille 
-modified by barnosch
+modified by barnosch and Tbbear
 */
+var c = 0;
+var dopo = false;
 
 Module.register("MMM-NOAA", {
 
@@ -30,6 +32,8 @@ Module.register("MMM-NOAA", {
 			showBar: true,
 			showHum: true,
 			position: 'top_left',
+			alert: true,
+			days: "3",
 
 			langFile: {
 				"en": "en-US",
@@ -54,7 +58,14 @@ Module.register("MMM-NOAA", {
 				"da": "DK",
 				"nl": "NL",
 				"nb": "NO",
-			}
+			},
+
+			levelTrans: {
+				"1":"green",
+				"2":"yellow",
+				"3":"orange",
+				"4":"red",
+			}				
 		},
 
 		// Define required scripts.
@@ -79,6 +90,9 @@ Module.register("MMM-NOAA", {
 		getStyles: function() {
 			return ["MMM-NOAA.css", "weather-icons.css", "font-awesome.css"];
 		},
+		getScripts: function () {
+			return ["moment.js"];
+		},
 
 		// Define start sequence.
 		start: function() {
@@ -88,18 +102,33 @@ Module.register("MMM-NOAA", {
 			this.sendSocketNotification("CONFIG", this.config);
 
 			// Set locale.  
-			var lang = this.config.langTrans[config.language];
-			this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-
+			this.url = this.getUrl();
 			this.forecast = {};
 			this.air = {};
 			this.srss = {};
 			this.alert = [];
+			this.amess = [];
 			this.today = "";
 			this.scheduleUpdate();
 		},
+		
+		getUrl: function() {
+    		   var url = null;
+   		   var days = this.config.days; 
+ 	           var lang = this.config.langTrans[config.language];
+       
+   		   if (days == "3") {
+			  url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+		   } else {
+			  url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast10day/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+		   }
+       
+		  return url;
+   
+		},
 
 		processNoaa: function(data) {
+			c = 0;
 			this.current = data.current_observation;
 			this.forecast = data.forecast.simpleforecast.forecastday;
 			this.loaded = true;
@@ -115,6 +144,8 @@ Module.register("MMM-NOAA", {
 
 		processAlert: function(data) {
 			this.alert = data;
+			this.amess[c] = this.alert;
+			c = c + 1;
 		},
 
 		secondsToString: function(seconds) {
@@ -188,6 +219,11 @@ Module.register("MMM-NOAA", {
 			}
 
 			var current = this.current;
+			
+	console.log(this.current);
+	var today = new Date(); 
+	console.log(today);
+	
 
 			var d = new Date();
 			var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -213,12 +249,12 @@ Module.register("MMM-NOAA", {
 			var n = d.getHours();
 
 
-			if (this.config.showClock == true) {
-				var CurTime = document.createElement("div");
-				CurTime.classList.add("large", "fontClock");
-				CurTime.innerHTML = this.getTime();
-				wrapper.appendChild(CurTime);
-			}
+		//	if (this.config.showClock == true) {
+		//		var CurTime = document.createElement("div");
+		//		CurTime.classList.add("large", "fontClock");
+		//		CurTime.innerHTML = this.getTime();
+		//		wrapper.appendChild(CurTime);
+		//	}
 
 			if (this.config.showGreet == true) {
 				var Greet = document.createElement("div");
@@ -297,29 +333,28 @@ Module.register("MMM-NOAA", {
 			}
 			wrapper.appendChild(curCon);
 
-
 		
-
-			var cpCondition = document.createElement("span");
-			if (this.config.position != 'top_left' || this.config.position != "top_left"){
-				cpCondition.classList.add("xsmall", "bright", "rset");	
-			} else {
-				cpCondition.classList.add("xsmall", "bright", "set");	
-			}
-			if (current.UV >= 0 && current.UV < 3) {
-				cpCondition.innerHTML = this.translate("UVI")  +"<div class=box><b>" + current.UV + " G</b></div>";
-			} else if (current.UV > 2 && current.UV < 6) {
-				cpCondition.innerHTML = this.translate("UVI ") +"<div class=box><b>" + current.UV + "</b></div>";
-			} else if (current.UV > 5 && current.UV < 8) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			} else if (current.UV > 7 && current.UV < 11) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			} else if (current.UV >= 11) {
-				cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
-			}
-			wrapper.appendChild(cpCondition);
-
 			if (this.config.useAir != false) {
+
+				var cpCondition = document.createElement("span");
+				if (this.config.position != 'top_left' || this.config.position != "top_left"){
+					cpCondition.classList.add("xsmall", "bright", "rset");	
+				} else {
+					cpCondition.classList.add("xsmall", "bright", "set");	
+				}
+				if (current.UV >= 0 && current.UV < 3) {
+					cpCondition.innerHTML = this.translate("UVI")  +"<div class=box><b>" + current.UV + " G</b></div>";
+				} else if (current.UV > 2 && current.UV < 6) {
+					cpCondition.innerHTML = this.translate("UVI ") +"<div class=box><b>" + current.UV + "</b></div>";
+				} else if (current.UV > 5 && current.UV < 8) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				} else if (current.UV > 7 && current.UV < 11) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				} else if (current.UV >= 11) {
+					cpCondition.innerHTML = this.translate("UVI ") + "<div class=box><b>" + current.UV +  "</b></div>";
+				}
+				wrapper.appendChild(cpCondition);
+
 				var aqius = this.air.aqius;
 				var aqi = document.createElement("span");
 				if (this.config.position != 'top_left' || this.config.position != "top_left"){
@@ -339,12 +374,9 @@ Module.register("MMM-NOAA", {
 					aqi.innerHTML = this.translate("AQI ") + "<div class=box><b>" + aqius + "P</b></div>";
 				}
 				wrapper.appendChild(aqi);
+				dopo = true;
+
 			}
-
-
-
-
-
 
 			if (this.config.showHum != false){
 				var reHumid = current.relative_humidity.substring(0, 2);
@@ -388,16 +420,20 @@ Module.register("MMM-NOAA", {
 					}
 					wrapper.appendChild(bP);
 				}
-		
-		
-		    
-				if (this.config.showWind != false) {
-					var spacer = document.createElement("div");
-					spacer.classList.add("small", "bright", "font");
-					spacer.innerHTML = "<br><br>";
-					wrapper.appendChild(spacer);
+				dopo = true;
+			}
 
-                if (current.wind_mph > 0 || current.wind_kph > 0){
+			if (dopo == true) {
+				var spacer = document.createElement("div");
+				spacer.classList.add("small", "bright", "font");
+				spacer.innerHTML = "<br><br>";
+				wrapper.appendChild(spacer);
+				dopo = false;
+			}
+
+			if (this.config.showWind != false) {
+
+       			       if (current.wind_mph > 0 || current.wind_kph > 0){
 					var wind = document.createElement("div");
 					wind.classList.add("xsmall", "bright");
 					if (this.config.units != "metric") {
@@ -411,9 +447,7 @@ Module.register("MMM-NOAA", {
 					wrapper.appendChild(wind);
 				}
 			  }
-			}
-          	
-
+		
 			var srss = this.srss;
 
 
@@ -439,7 +473,7 @@ Module.register("MMM-NOAA", {
 				} else {
 					Rdate.classList.add("bright", "xsmall", "pmclock");
 				}
-				Rdate.innerHTML = "<img class = srss src='modules/MMM-NOAA/images/sunrise1.png'> " + sunrise + " &nbsp;&nbsp;&nbsp;<img class = srss src='modules/MMM-NOAA/images/sunset1.png'> " + sunset + "<br><br>";
+				Rdate.innerHTML = "<img class = srss src='modules/MMM-NOAA/images/sunrise1.png'> " + sunrise + " &nbsp;&nbsp;&nbsp;<img class = srss src='modules/MMM-NOAA/images/sunset1.png'> " + sunset + "<br>";
 				wrapper.appendChild(Rdate);
 			}
 
@@ -512,9 +546,12 @@ Module.register("MMM-NOAA", {
 					weekday[6] = "Sat";
 
 					var n = this.translate(weekday[d.getDay()]);
+					
+					var fDate = noaa.date.day;
+					var cDate = moment().date();
 
 					var td1 = document.createElement("td");
-					if (noaa.date.weekday_short == n) {
+					if (fDate == cDate) {
 						td1.innerHTML = this.translate("Today");
 						if (this.config.flash != false){
 							td1.classList.add("pulse");	
@@ -565,33 +602,43 @@ Module.register("MMM-NOAA", {
 				}
 			}
 
+                        if (this.config.alert != false){
+			var alert = this.amess[0];
 
-			var alert = this.alert[0];
-
-			if (typeof alert !== 'undefined') {
+			if (c != 0){			
 				
-				var all = document.createElement("div");
-				all.classList.add("bright", "xsmall", "alert");
-     				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
-				wrapper.appendChild(all);
+				var Alert = [];
+				var Level = [];
+				for(var i = 0; i < c; i++){
 
-				var Alert = document.createElement("div");
-				Alert.classList.add("bright", "xsmall");
-				Alert.innerHTML = alert.description + "<br>";
-				wrapper.appendChild(Alert);
+					var alert = this.amess[i];
 
-				var atext = document.createElement("div");
-				atext.classList.add("bright", "xsmall");
-				atext.innerHTML = this.translate("Expires: ") + alert.expires;
-				wrapper.appendChild(atext);
+					Level[i] = document.createElement("div");
+					Level[i].classList.add("bright", "xsmall", "alerts");
+					Level[i].innerHTML =  this.translate("Weather Warning Level: ") + alert.level + "<br>";
+					wrapper.appendChild(Level[i]);
+					
 
-				var warn = document.createElement("div");
-				warn.classList.add("bright", "xsmall");
-				warn.innerHTML = alert.message.split(/\s+/).slice(0, 5).join(" ");
-				wrapper.appendChild(warn);
+					Alert[i] = document.createElement("div");
+					Alert[i].classList.add("bright", "xsmall", "aler");
+					Alert[i].innerHTML = "<font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "<br>";
+					wrapper.appendChild(Alert[i]);
+				}
+				}
 			}
-
 
 			return wrapper;
 		},
+	 notificationReceived: function(notification, payload) {
+        if (notification === 'HIDE_NOAA') {
+            this.hide(1000);
+            this.updateDom(300);
+        }  else if (notification === 'SHOW_NOAA') {
+            this.show(1000);
+            this.updateDom(300);
+        }
+		
+	},
+	
+	
 });

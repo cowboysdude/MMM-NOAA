@@ -473,7 +473,7 @@ Module.register("MMM-NOAA", {
 				} else {
 					Rdate.classList.add("bright", "xsmall", "pmclock");
 				}
-				Rdate.innerHTML = "<img class = srss src='modules/MMM-NOAA/images/sunrise1.png'> " + sunrise + " &nbsp;&nbsp;&nbsp;<img class = srss src='modules/MMM-NOAA/images/sunset1.png'> " + sunset + "<br><br>";
+				Rdate.innerHTML = "<img class = srss src='modules/MMM-NOAA/images/sunrise1.png'> " + sunrise + " &nbsp;&nbsp;&nbsp;<img class = srss src='modules/MMM-NOAA/images/sunset1.png'> " + sunset + "<br>";
 				wrapper.appendChild(Rdate);
 			}
 
@@ -605,13 +605,8 @@ Module.register("MMM-NOAA", {
                         if (this.config.alert != false){
 			var alert = this.amess[0];
 
-			if (typeof alert != 'undefined'){			
+			if (c != 0){			
 				
-				var all = document.createElement("div");
-				all.classList.add("bright", "xsmall", "alert");
-     				all.innerHTML = "<BR>" + this.translate("***ALERT***") + "<br><br>";
-				wrapper.appendChild(all);
-
 				var Alert = [];
 				var Level = [];
 				for(var i = 0; i < c; i++){
@@ -620,7 +615,7 @@ Module.register("MMM-NOAA", {
 
 					Level[i] = document.createElement("div");
 					Level[i].classList.add("bright", "xsmall", "alerts");
-					Level[i].innerHTML =  this.translate("Warning Level: ") + alert.level + "<br>";
+					Level[i].innerHTML =  this.translate("Weather Warning Level: ") + alert.level + "<br>";
 					wrapper.appendChild(Level[i]);
 					
 

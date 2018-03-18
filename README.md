@@ -1,4 +1,4 @@
-# MMM-NOAA
+# MMM-NOAA2
 
 **Weather for your mirror**
   Also UV index and Air Quality Index.  [Warning AQI may not work in all areas if not you won't be able to use this branch].

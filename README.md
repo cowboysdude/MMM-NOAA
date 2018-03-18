@@ -5,16 +5,16 @@
 
 ## Examples
 
-![](github.png) ![](githubde.png) ![](forecast.png)
+![](capture.png)
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  MUST ADD POSITION to config see example BELOW in sampe CONFIG ****
-*Shows forecast or not, config option
-*NO longer need to enter Lat and Lon... it's automatic!
-*Automatically adjusts languge based on your config.js!
+If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  
+   *Config options trimmed to just three!
+   *NO longer need to enter Lat and Lon... it's automatic!
+   *Automatically adjusts languge based on your config.js!
 
 ## Your terminal installation instructions
 
-* `git clone https://github.com/cowboysdude/MMM-NOAA` into the `~/MagicMirror/modules` directory.
+* `git clone https://github.com/cowboysdude/MMM-NOAA2` into the `~/MagicMirror/modules` directory.
 *  `~MagicMirror/modules/MMM-NOAA`
 *  `npm install`
 

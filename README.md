@@ -42,7 +42,7 @@ Will default to EN if NO translation file is found.  Weather alerts will be in t
 
     {
         disabled: false,
-        module: 'MMM-NOAA',
+        module: 'MMM-NOAA2',
         position: 'top_right',
         config: {
 

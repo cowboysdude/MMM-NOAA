@@ -7,7 +7,7 @@
 
 ![](capture.png)
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  
+ 
    *Config options trimmed to just three!
    *NO longer need to enter Lat and Lon... it's automatic!
    *Automatically adjusts languge based on your config.js!

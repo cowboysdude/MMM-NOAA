@@ -1,4 +1,7 @@
-# MMM-NOAA2
+# MMM-NOAA V2
+
+  **IF you're upgrading from NOAA V1 to NOAA V2 you can just copy the contents of this repository into your existing NOAA module
+    directory!!!  BUT just in case run npm install once you do that!
 
 **Weather for your mirror**
   Also UV index and Air Quality Index.  [Warning AQI may not work in all areas if not you won't be able to use this branch].
@@ -42,7 +45,7 @@ Will default to EN if NO translation file is found.  Weather alerts will be in t
 
     {
         disabled: false,
-        module: 'MMM-NOAA2',
+        module: 'MMM-NOAA',
         position: 'top_right',
         config: {
 

@@ -1,0 +1,16 @@
+{
+  "name": "mmm-noaa",
+  "version": "1.0.0",
+  "main": "MMM-NOAA.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.85.0",
+    "google-translate-api": "^2.0.5"
+  },
+  "devDependencies": {},
+  "description": ""
+}

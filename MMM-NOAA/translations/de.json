@@ -1,0 +1,21 @@
+{
+"Monday": "Montag",
+"Tuesday": "Dienstag",
+"Wednesday": "Mittwoch",
+"Thursday": "Donnerstag",
+"Friday": "Freitag",
+"Saturday": "Samstag",
+"Sunday": "Sonntag",
+"Atmospheric Conditions" :"Atmosphärische Bedingungen",
+"Sunrise/Sunset": "Sonnenaufgang/Sonnenuntergang",
+"4 Day Forecast": "4-Tages-Prognose",
+"Weather Warning":"Wetterwarnungen",
+"Last Updated": "Aktualisiert",
+"Mon":"Mo",
+"Tue":"Di",
+"Wed":"Mi",
+"Thu":"Do",
+"Fri":"Fr",
+"Sat":"Sa",
+"Sun":"So"
+}

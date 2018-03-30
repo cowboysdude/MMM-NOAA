@@ -1,0 +1,63 @@
+.MMM-NOAA {
+     width: 200px;
+     margin-right: 0px;
+     margin-left: 125px;
+}
+ .MMM-NOAA .table th, tr, td{
+     text-align:center;
+     table-layout:fixed;
+}
+ .MMM-NOAA tr {
+     height: 29px;
+}
+ .MMM-NOAA th {
+     line-height: 20%;
+}
+.MMM-NOAA .img {
+	width: 70px;
+	height: 70px;
+	align-content: center;
+}
+.MMM-NOAA .button {
+        border-style: inset;
+        border-width: 0px;
+	text-align: center;
+}
+ .MMM-NOAA .Forecasttable {
+     float: left;
+     clear: left;
+     display: inline;
+     margin-left: auto;
+     margin-right:auto;
+     text-align: center;
+}
+ .MMM-NOAA .rheading {
+     background-color: #d6d7d8;
+     text-align:center;
+     color: rgba(0,0,0,0.6);
+     text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     padding: 2px ;
+     font-size: 13px;
+     line-height: 110%;
+     border-radius: 7px;
+}
+ .font {
+     font-size: 23px;
+}
+ .fontac {
+     color:#e4ab5f 
+}
+ .fontss{
+     color: #e0e29a;
+}
+ .fontauw{
+     color:#51c7ca 
+}
+ .fontfor {
+     color: #000;
+}
+ .MMM-NOAA .xxsmall {
+     font-size: 12px;
+     color:#a4c6c5;
+     margin: 10px;
+}

@@ -622,7 +622,7 @@ Module.register("MMM-NOAA", {
 			console.log(alert.desc);
 if (alert.desc != 'undefined'|| undefined){
 			var alert = this.amess[i];
-			Alert[i] = document.createElement("th");
+			Alert[i] = document.createElement("tr");
 			Alert[i].classList.add("bright", "xsmall");
 		        Alert[i].setAttribute("style", "line-height: 170%;");
 			Alert[i].innerHTML = "<marquee scrollamount="+"20"+" scrolldelay="+"300"+"><font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "</marquee><br>";

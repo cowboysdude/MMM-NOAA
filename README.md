@@ -5,7 +5,7 @@
 
 ## Examples
 
-![](github.png) ![](githubde.png) ![](forecast.png)
+![](NOAA.PNG) 
 
 If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  MUST ADD POSITION to config see example BELOW in sampe CONFIG ****
 *Shows forecast or not, config option

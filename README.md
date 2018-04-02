@@ -1,3 +1,5 @@
+This repository is maintained by Cowboysdude and tbbear [SPECIAL THANKS FOR FOR ALL THE HARD WORK!]
+
 # MMM-NOAA
 
 **Weather for your mirror**

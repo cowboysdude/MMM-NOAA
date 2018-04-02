@@ -1,19 +1,16 @@
 This repository is maintained by Cowboysdude and tbbear [SPECIAL THANKS FOR FOR ALL THE HARD WORK!]
 [This is the second version of this module for MagicMirror2]
 
-# MMM-NOAA
+# MMM-NOAA V2.0
 
 **Weather for your mirror**
-  Also UV index and Air Quality Index.  [Warning AQI may not work in all areas if not then disable see config options].
+  Also UV index and Air Quality Index.  [Warning AQI may not work in all areas].
 
 ## Examples
 
 ![](NOAA.PNG) 
 
-If you do not enter a name in the config.js file it will just say either "Good Morning", "Good Afternoon" or "Good Evening".  With a name.  **** NEW UPDATE:  MUST ADD POSITION to config see example BELOW in sampe CONFIG ****
-*Shows forecast or not, config option
-*NO longer need to enter Lat and Lon... it's automatic!
-*Automatically adjusts languge based on your config.js!
+*Automatically adjusts languge and all other settings based on your config.js!
 
 ## Your terminal installation instructions
 
@@ -42,34 +39,36 @@ If you do not enter a name in the config.js file it will just say either "Good M
 
 Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top]
 Will default to EN if NO translation file is found.  Weather alerts will be in the native language chosen by your config.js automatically and in the correct language!  Thanks tbbear!!!
+In this new Version you can select up to 3 different weather locations like in this example. You can also show up names(the one u like) for this places.
+U can do the selection of the location my pressing on the city name on touchscreen, with mouse-click or mousepad. 
 
     {
-        disabled: false,
         module: 'MMM-NOAA',
-        position: 'top_right',
         config: {
 
 		apiKey: "YOUR API KEY",    // https://www.wunderground.com/weather/api  select the middle plan... 
-		useAir: false,             // set to false if you do not want to use Air Quality Index
 		airKey: "YOUR API KEY",    // IF you want Air Quality Index
-		pws: "KNYELMIR13",         // go here to find your pws: https://www.wunderground.com/wundermap
-		showClock: true,           // Hides or shows clock
-		dformat: true,             // for M/D/YYYY format, false for D/M/YYYY
-		format: "12",              // 12 or 24 hour format.. will default to 12 hour if none selected.
-		ampm: true,                // to show AM and PM on Sunrise/Sunset time
-		showGreet: false,          // deafult is false - to show greeting under clock and above date
-		name: "",                  // Your name
-		showWind: false,
-		showDate: false,
-		showForecast: true,         //show bottom 3 day forecast
-		flash: true,                 //Today in forecast flashes halo
-		showUV: true,               //show UV index
-	        showBar: true,             // show Barometer
-	        showHum: true,              //show Humidity level
-		position: 'top_right',       //whatever you have in above position must also be here
-	        alert: true,                //show weather alerts default is true
-		days: "3"                   //default in config is 3 can be either "3" or "10" for forecast
+		pws1: "KNYELMIR13",	   // go here to find your pws: https://www.wunderground.com/wundermap
+		pws2: "IBIBIONE8", 
+		pws3: "IHERAKLI5",  
+		loco1: "New York/Us",	   // fill in the name of the location or whatever u want to be displayed
+		loco2: "Bibione/It",
+		loco3: "Kos/Gr",
 	}
     },
+
+If u dont want or need this so like before with only one pws  (location) use this example:
+
+    {
+        module: 'MMM-NOAA',
+        config: {
+
+		apiKey: "YOUR API KEY",    // https://www.wunderground.com/weather/api  select the middle plan... 
+		airKey: "YOUR API KEY",    // IF you want Air Quality Index
+		pws1: "KNYELMIR13",	   // go here to find your pws: https://www.wunderground.com/wundermap
+	}
+    },
+
+## Very important for updating: !!! Please rename ur pws to pws1 !!!
 
 ## Start your mirror . . . enjoy! 

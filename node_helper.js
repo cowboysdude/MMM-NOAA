@@ -8,12 +8,12 @@ const NodeHelper = require('node_helper');
 var request = require('request');
 const translate = require('google-translate-api');
 
-
 module.exports = NodeHelper.create({
 	  
     start: function() {
     	console.log("Starting module: " + this.name);
     },
+    
     
      getNOAA: function(url) {
         request({
@@ -36,6 +36,7 @@ module.exports = NodeHelper.create({
     },
     
     getSRSS: function(){
+     	var self = this;
 	 	request({ 
     	    url: "http://api.sunrise-sunset.org/json?lat="+lat2+"&lng="+lon2+"&formatted=0",
     	          method: 'GET' 
@@ -49,7 +50,8 @@ module.exports = NodeHelper.create({
     },
   
     getAir: function(){
- 	 	request({ 
+     	var self = this;
+	 	request({ 
     	    url: "http://api.airvisual.com/v2/nearest_city?lat="+this.config.lat+"&lon="+this.config.lon+"&rad=100&key="+this.config.airKey,
     	          method: 'GET' 
     	        }, (error, response, body) => {
@@ -79,12 +81,13 @@ module.exports = NodeHelper.create({
 								translate(alerts.description, {from: 'en', to: this.config.lang})
 							]).then(function(results) {
 								var desc = results[0].text;
+								var level = 2;
 								var level = alerts.level_meteoalarm;
  					    	        	self.sendSocketNotification("ALERT_RESULTS", {desc, level});
 		              				})
                 	   			}else{
 		                  			var desc = alerts.description;
-                		  			var level = alerts.level_meteoalarm;
+                		  			var level = 2;
 							self.sendSocketNotification("ALERT_RESULTS", {desc, level});
 						}
 
@@ -94,20 +97,14 @@ module.exports = NodeHelper.create({
 				}
 			}     	
 	});
-    },
-  
+   },
+
     //Subclass socketNotificationReceived received.
     socketNotificationReceived: function(notification, payload) {
     	if(notification === 'CONFIG'){
-		this.config = payload;
-	    } else if (notification === 'GET_NOAA') {
+			this.config = payload;
+		} else if (notification === 'GET_NOAA') {
                 this.getNOAA(payload);
-            } else if (notification === 'GET_SRSS') {
-                this.getSRSS(payload);
-	    }  else if (notification === 'GET_AIR') {
-		this.getAIR(payload);
-	    }  else if (notification === 'GET_ALERT') {
-		this.getAlerts(payload);
-	    }
+            } 
          },  
-});
+    });

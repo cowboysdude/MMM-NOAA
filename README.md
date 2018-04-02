@@ -1,4 +1,5 @@
 This repository is maintained by Cowboysdude and tbbear [SPECIAL THANKS FOR FOR ALL THE HARD WORK!]
+[This is the second version of this module for MagicMirror2]
 
 # MMM-NOAA
 

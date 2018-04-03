@@ -225,17 +225,6 @@ Module.register("MMM-NOAA", {
         return time;
     },
 
-    secondsToString: function(seconds) {
-        var srss = this.srss.day_length;
-        var numhours = Math.floor((srss % 86400) / 3600);
-        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
-        if (numminutes > 0) {
-            return numhours + ":" + numminutes;
-        } else {
-            return numhours + this.translate(" hours ");
-        }
-    },
-
     doact: function() {
 		l = l + 1;
 		if (l == 4) {l = 1};

@@ -294,7 +294,7 @@ Module.register("MMM-NOAA", {
         cur.classList.add("large", "bright");
         cur.setAttribute('style', 'line-height: 5%;');
         cur.setAttribute("style", "padding-bottom:15px;");
-	if (config.timeFormat != 24) {
+	if (config.units != "metric") {
 		if (current.temp_f > 80) {
 			cur.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_f) + "&deg;";
 		} else {
@@ -333,7 +333,7 @@ Module.register("MMM-NOAA", {
      for (i = 0; i < this.forecast2.length; i++) {
        var ftext = this.forecast2[i];
       if (i == 0) {
-        if (config.timeFormat != 24) {
+        if (config.units != "metric") {
             tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext + "</marquee><br>";
         } else {
             tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext_metric + "</marquee><br>";
@@ -387,7 +387,7 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(TDrow);
 
         var td3 = document.createElement("td");
-	if (config.timeFormat != 24) {
+	if (config.units != "metric") {
 	        if (current.pressure_trend != 0) {
         	    td3.innerHTML = current.pressure_in + " " + current.pressure_trend;
 	        } else {
@@ -597,7 +597,7 @@ Module.register("MMM-NOAA", {
             var temper = document.createElement("td");
             temper.setAttribute("colspan", "1");
             temper.classList.add("xsmall", "bright");
-            if (config.timeFormat != 24) {
+            if (config.units != "metric") {
               temper.innerHTML = noaa.high.fahrenheit + "/" + noaa.low.fahrenheit;
 	    } else {
               temper.innerHTML = noaa.high.celsius + "/" + noaa.low.celsius;

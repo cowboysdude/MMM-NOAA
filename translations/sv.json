@@ -20,5 +20,6 @@
 "Fri":"Fr",
 "Sat":"Lö",
 "Sun":"Sö",
-"Forecast":"prognose"
+"Forecast":"prognose",
+"Weather Warning":"Vädervarning"
 }

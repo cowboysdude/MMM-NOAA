@@ -1,6 +1,6 @@
 /* Magic Mirror
  * Module: MMM-NOAA
- * By cowboysdude and snille 
+ * By cowboysdude and tbbear 
         modified by barnosch
  */
 var c = 0;
@@ -17,13 +17,13 @@ Module.register("MMM-NOAA", {
         maxWidth: "100%",
         apiKey: "",
         airKey: "",
-        loco1: "xxx",
-        loco2: "xxx",
-        loco3: "xxx",
-        pws: "XXX",
-        pws1: "xxx",
-        pws2: "xxx",
-        pws3: "xxx",
+	loco1: "xxx",
+	loco2: "xxx",
+	loco3: "xxx",
+	pws: "XXX",
+	pws1: "xxx",
+	pws2: "xxx",
+	pws3: "xxx",
 
         langFile: {
             "en": "en-US",
@@ -50,12 +50,12 @@ Module.register("MMM-NOAA", {
             "nb": "NO",
         },
 
-        levelTrans: {
-            "1": "green",
-            "2": "yellow",
-            "3": "orange",
-            "4": "red",
-        }
+	levelTrans: {
+        	"1":"green",
+		"2":"yellow",
+		"3":"orange",
+		"4":"red",
+	}				
 
     },
 
@@ -101,16 +101,16 @@ Module.register("MMM-NOAA", {
 
         // Set locale.  
         var lang = this.config.langTrans[config.language];
-        l = 1;
-        loco = this.config.loco1;
-        this.config.pws = this.config.pws1;
+	l = 1;
+	loco = this.config.loco1;
+	this.config.pws = this.config.pws1;
         this.url = this.getUrl();
         this.forecast = {};
-        this.forecast2 = {};
+	this.forecast2 = {};
         this.air = {};
         this.srss = {};
         this.alert = [];
-        this.amess = [];
+	this.amess = [];
         this.map = [];
         this.city = {};
         this.clphase = {};
@@ -121,10 +121,10 @@ Module.register("MMM-NOAA", {
 
 
     processNoaa: function(data) {
-        c = 0;
+	c = 0;
         this.current = data.current_observation;
         this.forecast = data.forecast.simpleforecast.forecastday;
-        this.forecast2 = data.forecast.txt_forecast.forecastday;
+	this.forecast2 = data.forecast.txt_forecast.forecastday;
         this.city = this.current.display_location.city;
     },
 
@@ -137,9 +137,9 @@ Module.register("MMM-NOAA", {
     },
 
     processAlert: function(data) {
-        this.alert = data;
-        this.amess[c] = this.alert;
-        c = c + 1;
+	this.alert = data;
+	this.amess[c] = this.alert;
+	c = c + 1;
     },
 
     processMoon: function(data) {
@@ -198,9 +198,9 @@ Module.register("MMM-NOAA", {
         } else if (notification === 'SHOW_NOAA') {
             this.show(100);
             this.updateDom(300);
-        } else if (notification === 'NEXT_NOAA') {
+        }  else if (notification === 'NEXT_NOAA') {
             this.doakt();
-        }
+	}
     },
 
     getTime: function() {
@@ -237,45 +237,43 @@ Module.register("MMM-NOAA", {
     },
 
     doact: function() {
-        l = l + 1;
-        if (l == 4) {
-            l = 1
-        };
-        var lang = this.config.langTrans[config.language];
+		l = l + 1;
+		if (l == 4) {l = 1};
+		var lang = this.config.langTrans[config.language];
 
-        switch (l) {
-            case 1:
-                loco = this.config.loco1;
-                this.config.pws = this.config.pws1;
-                break;
-            case 2:
-                loco = this.config.loco2;
-                this.config.pws = this.config.pws2;
-                break;
-            case 3:
-                loco = this.config.loco3;
-                this.config.pws = this.config.pws3;
-                break;
-        }
-        this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-        this.sendSocketNotification("CONFIG", this.config);
-        this.getNOAA();
-        this.updateDom(300);
-    },
+		switch (l) {
+		case 1:
+			loco = this.config.loco1;
+			this.config.pws = this.config.pws1;
+			break;
+		case 2:
+			loco = this.config.loco2;
+			this.config.pws = this.config.pws2;
+			break;
+		case 3:
+			loco = this.config.loco3;
+			this.config.pws = this.config.pws3;
+			break;
+		}
+		this.url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
+	        this.sendSocketNotification("CONFIG", this.config);
+		this.getNOAA();
+		this.updateDom(300);	
+	},
 
     getDom: function() {
 
 
         var wrapper = document.createElement("div");
 
-        if (this.config.pws2 != "xxx") {
-            var loc = document.createElement("div");
-            loc.innerHTML = loco;
-            loc.style.cursor = "pointer";
-            loc.className = "button";
-            loc.addEventListener("click", () => this.doact());
-            wrapper.appendChild(loc);
-        }
+	if (this.config.pws2 != "xxx"){
+		var loc = document.createElement("div");
+		loc.innerHTML = loco;
+		loc.style.cursor = "pointer";
+		loc.className = "button";
+		loc.addEventListener("click", () => this.doact());
+		wrapper.appendChild(loc);
+	}
 
         var current = this.current;
 
@@ -296,54 +294,55 @@ Module.register("MMM-NOAA", {
         cur.classList.add("large", "bright");
         cur.setAttribute('style', 'line-height: 5%;');
         cur.setAttribute("style", "padding-bottom:15px;");
-        if (config.timeFormat != 24) {
-            if (current.temp_f > 80) {
-                cur.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_f) + "&deg;";
-            } else {
-                cur.innerHTML = Math.round(current.temp_f) + "&deg;";
-            }
-        } else {
-            if (current.temp_c > 26) {
-                cur.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_c) + "&deg;";
-            } else {
-                cur.innerHTML = Math.round(current.temp_c) + "&deg;";
-            }
-        }
+	if (config.timeFormat != 24) {
+		if (current.temp_f > 80) {
+			cur.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_f) + "&deg;";
+		} else {
+			cur.innerHTML = Math.round(current.temp_f) + "&deg;";
+		}
+	} else {
+		if (current.temp_c > 26) {
+			cur.innerHTML = "<font color=#7dfafd>" + Math.round(current.temp_c) + "&deg;";
+		} else {
+			cur.innerHTML = Math.round(current.temp_c) + "&deg;";
+		}
+	}
         wrapper.appendChild(cur);
 
         var top = document.createElement("div");
 
         var weatherTable = document.createElement("table");
         weatherTable.classList.add("table");
-
-        var xFCRow = document.createElement("tr");
-        var xjumpy = document.createElement("th");
-        xjumpy.setAttribute("colspan", 4);
-        xjumpy.setAttribute("style", "text-align:center");
-        xjumpy.classList.add("rheading");
-        xjumpy.innerHTML = this.translate("Forecast");
-        xFCRow.appendChild(xjumpy);
-        weatherTable.appendChild(xFCRow);
-
-        var fRow = document.createElement("tr");
-        var tt = document.createElement("td");
-
-        tt.classList.add("bright", "xsmall");
-        tt.setAttribute("colspan", 4);
-        tt.setAttribute("style", "line-height: 170%;")
-        for (i = 0; i < this.forecast2.length; i++) {
-            var ftext = this.forecast2[i];
-            if (i == 0) {
-                if (config.timeFormat != 24) {
-                    tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=yellow>" + ftext.fcttext + "</marquee><br>";
-                } else {
-                    tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=yellow>" + ftext.fcttext_metric + "</marquee><br>";
-                }
-            }
+        
+       var xFCRow = document.createElement("tr");
+	   var xjumpy = document.createElement("th");
+	   xjumpy.setAttribute("colspan", 4);
+	   xjumpy.setAttribute("style", "text-align:center");
+	   xjumpy.classList.add("rheading");
+	   xjumpy.innerHTML = this.translate("Forecast");
+	   xFCRow.appendChild(xjumpy);
+	   weatherTable.appendChild(xFCRow);
+        
+       var fRow = document.createElement("tr");
+       var tt = document.createElement("td");
+       
+ 	   tt.classList.add("bright", "xsmall");
+       tt.setAttribute("colspan", 4);
+       tt.setAttribute("style", "line-height: 170%;");
+       tt.setAttribute("style","padding-top: 8px");
+     for (i = 0; i < this.forecast2.length; i++) {
+       var ftext = this.forecast2[i];
+      if (i == 0) {
+        if (config.timeFormat != 24) {
+            tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext + "</marquee><br>";
+        } else {
+            tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext_metric + "</marquee><br>";
         }
+    }
+}
         fRow.appendChild(tt);
         weatherTable.appendChild(fRow);
-
+ 
         var hRow = document.createElement("tr");
         var hsecond = document.createElement("th");
         hsecond.setAttribute("colspan", 4);
@@ -388,19 +387,19 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(TDrow);
 
         var td3 = document.createElement("td");
-        if (config.timeFormat != 24) {
-            if (current.pressure_trend != 0) {
-                td3.innerHTML = current.pressure_in + " " + current.pressure_trend;
-            } else {
-                td3.innerHTML = current.pressure_in + " S";
-            }
-        } else {
-            if (current.pressure_trend != 0) {
-                td3.innerHTML = current.pressure_mb + " " + current.pressure_trend + " hPa";
-            } else {
-                td3.innerHTML = current.pressure_mb + " ~ hPa";
-            }
-        }
+	if (config.timeFormat != 24) {
+	        if (current.pressure_trend != 0) {
+        	    td3.innerHTML = current.pressure_in + " " + current.pressure_trend;
+	        } else {
+        	    td3.innerHTML = current.pressure_in + " S";
+	        }
+	} else {
+        	if (current.pressure_trend != 0) {
+	            td3.innerHTML = current.pressure_mb + " " + current.pressure_trend + " hPa";
+	        } else {
+	            td3.innerHTML = current.pressure_mb + " ~ hPa";
+        	}
+	}
         TDrow.appendChild(td3);
         weatherTable.appendChild(TDrow);
 
@@ -490,9 +489,17 @@ Module.register("MMM-NOAA", {
         airq.appendChild(aqSymbol);
         otherRow.appendChild(airq);
 
+        var g = new Date();
+        var s = g.getHours();
+        str2 = sunset.slice(0, 2);
+        
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-        uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");
+        if (s > str2){
+		uvSymbol.innerHTML='<img src="modules/MMM-NOAA/images/smallmoon.png" width=25 height=25>';	
+		} else {
+        uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
+		}
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
 
@@ -514,7 +521,11 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-        uvcol.innerHTML = current.UV;
+        if (s > str2){
+        uvcol.innerHTML = "Night";	
+			} else {
+		uvcol.innerHTML = current.UV;		
+			}
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 
@@ -587,10 +598,10 @@ Module.register("MMM-NOAA", {
             temper.setAttribute("colspan", "1");
             temper.classList.add("xsmall", "bright");
             if (config.timeFormat != 24) {
-                temper.innerHTML = noaa.high.fahrenheit + "/" + noaa.low.fahrenheit;
-            } else {
-                temper.innerHTML = noaa.high.celsius + "/" + noaa.low.celsius;
-            }
+              temper.innerHTML = noaa.high.fahrenheit + "/" + noaa.low.fahrenheit;
+	    } else {
+              temper.innerHTML = noaa.high.celsius + "/" + noaa.low.celsius;
+	    }
             tempRow.appendChild(temper);
             ForecastTable.appendChild(tempRow);
 
@@ -600,48 +611,48 @@ Module.register("MMM-NOAA", {
 
         //////////////////END FORECAST ROWS///////////////////////
 
-        var alert = this.amess[0];
+	var alert = this.amess[0];
+  
+	if (c != 0){			
+			
+		var Alert = [];
+		var Level = [];
+	        var ATable = document.createElement("table");
+	        ATable.classList.add("table")
+	        ATable.setAttribute('style', 'line-height: 20%;');
+	        var aFCRow = document.createElement("tr");
+	        var ajumpy = document.createElement("th");
+	        ajumpy.setAttribute("colspan", 4);
+	        ajumpy.setAttribute("style", "text-align:center");
+	        ajumpy.classList.add("rheading");
+	        ajumpy.innerHTML = this.translate("Weather Warning");
+	        aFCRow.appendChild(ajumpy);
+	        ATable.appendChild(aFCRow);
+ 
+		for(var i = 0; i < c; i++){
+			console.log(alert.desc);
+if (alert.desc != 'undefined'|| undefined){
+			var alert = this.amess[i];
+			Alert[i] = document.createElement("th");
+			Alert[i].classList.add("bright", "xsmall");
+		        Alert[i].setAttribute("style", "line-height: 170%;");
+			Alert[i].innerHTML = "<marquee scrollamount="+"20"+" scrolldelay="+"300"+"><font color=" + this.config.levelTrans[alert.level] +">" + alert.desc + "</marquee><br>";
+			ATable.appendChild(Alert[i]);
+		}
+		wrapper.appendChild(ATable);
 
-        if (c != 0) {
+	}
+			}
 
-            var Alert = [];
-            var Level = [];
-            var ATable = document.createElement("table");
-            ATable.classList.add("table")
-            ATable.setAttribute('style', 'line-height: 20%;');
-            var aFCRow = document.createElement("tr");
-            var ajumpy = document.createElement("th");
-            ajumpy.setAttribute("colspan", 4);
-            ajumpy.setAttribute("style", "text-align:center");
-            ajumpy.classList.add("rheading");
-            ajumpy.innerHTML = this.translate("Weather Warning");
-            aFCRow.appendChild(ajumpy);
-            ATable.appendChild(aFCRow);
-
-            for (var i = 0; i < c; i++) {
-                console.log(alert.desc);
-                if (alert.desc != 'undefined' || undefined) {
-                    var alert = this.amess[i];
-                    Alert[i] = document.createElement("th");
-                    Alert[i].classList.add("bright", "xsmall");
-                    Alert[i].setAttribute("style", "line-height: 170%;");
-                    Alert[i].innerHTML = "<marquee scrollamount=" + "20" + " scrolldelay=" + "300" + "><font color=" + this.config.levelTrans[alert.level] + ">" + alert.desc + "</marquee><br>";
-                    ATable.appendChild(Alert[i]);
-                }
-                wrapper.appendChild(ATable);
-
-            }
-        }
-
-        if (config.timeFormat == 12) {
-            var doutput = moment().format("MM/DD/YYYY");
-            var tinput = document.lastModified;
-            var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('hh:mm a'));
-        } else {
-            var doutput = moment().format("DD/MM/YYYY");
-            var tinput = document.lastModified;
-            var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('HH:mm'));
-        }
+	if (config.timeFormat == 12) {
+	        var doutput = moment().format("MM/DD/YYYY");
+        	var tinput = document.lastModified;
+	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('hh:mm a'));
+	} else {
+	        var doutput = moment().format("DD/MM/YYYY");
+        	var tinput = document.lastModified;
+	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('HH:mm'));
+	}
         var mod = document.createElement("div");
         mod.classList.add("xxsmall", "bright");
         mod.setAttribute('style', 'line-height: 170%;');

@@ -8,7 +8,7 @@ This repository is maintained by Cowboysdude and tbbear [SPECIAL THANKS FOR FOR 
 
 ## Examples
 
-![](NOAA.PNG) 
+![](NOAA.PNG) ![](german.png)  ![](full.png) 
 
 *Automatically adjusts languge and all other settings based on your config.js!
 

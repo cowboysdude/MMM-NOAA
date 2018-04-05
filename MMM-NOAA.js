@@ -280,7 +280,7 @@ Module.register("MMM-NOAA", {
         wrapper.appendChild(curCon);
 
         var cur = document.createElement("div");
-        cur.classList.add("large", "bright");
+        cur.classList.add("large", "bright","tempf");
         cur.setAttribute('style', 'line-height: 5%;');
         cur.setAttribute("style", "padding-bottom:15px;");
 	if (config.units != "metric") {

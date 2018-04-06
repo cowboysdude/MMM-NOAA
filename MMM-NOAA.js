@@ -481,10 +481,11 @@ Module.register("MMM-NOAA", {
         var g = new Date();
         var s = g.getHours();
         str2 = sunset.slice(0, 2);
-        
+        str3 = sunrise.slice(0, 2);
+
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-        if (s > str2){
+         if (s >= str2 || s <= str3){
 		uvSymbol.innerHTML='<img src="modules/MMM-NOAA/images/smallmoon.png" width=25 height=25>';	
 		} else {
         uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
@@ -510,8 +511,8 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-        if (s > str2){
-        uvcol.innerHTML = "Night";	
+        if (s >= str2 || s <= str3){
+        uvcol.innerHTML = this.translate("Night");	
 			} else {
 		uvcol.innerHTML = current.UV;		
 			}

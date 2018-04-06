@@ -480,8 +480,8 @@ Module.register("MMM-NOAA", {
 
         var g = new Date();
         var s = g.getHours();
-        str2 = sunset.slice(0, 2);
-        str3 = sunrise.slice(0, 2);
+        var str2 = sunset.slice(0, 2);
+        var str3 = sunrise.slice(0, 1);
 
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");

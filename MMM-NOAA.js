@@ -495,18 +495,15 @@ var t = hh+":"+mm;
 
         var g = new Date();
         var time = new Date();
-        var now = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
-console.log("Now: "+now);
-console.log("Rise: "+sunrise);
-console.log("Set: "+sunset); 
+        var now = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
         
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-        if (now >= sunrise && now < sunset){
+       // if (now >= sunrise && now < sunset){
 		uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
-		} else {
-		uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
-		}
+	//	} else {
+	//	uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
+	//	}
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
 
@@ -528,11 +525,11 @@ console.log("Set: "+sunset);
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-        if (now >= sunrise && now < sunset){
+      //  if (now >= sunrise && now < sunset){
         uvcol.innerHTML = current.UV;
-			} else {
-		uvcol.innerHTML = this.translate("Night");		
-			}
+	//		} else {
+	//	uvcol.innerHTML = this.translate("Night");		
+	//		}
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 

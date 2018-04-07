@@ -148,17 +148,6 @@ Module.register("MMM-NOAA", {
         console.log(this.moon);
     },
 
-    secondsToString: function(seconds) {
-        var srss = this.srss.day_length;
-        var numhours = Math.floor((srss % 86400) / 3600);
-        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
-        if (numminutes > 0) {
-            return numhours + this.translate(" hours ") + numminutes + this.translate(" minutes ");
-        } else {
-            return numhours + this.translate(" hours ");
-        }
-    },
-
     scheduleUpdate: function() {
         setInterval(() => {
             this.getNOAA();
@@ -226,6 +215,17 @@ Module.register("MMM-NOAA", {
         return time;
     },
 
+    secondsToString: function(seconds) {
+        var srss = this.srss.day_length;
+        var numhours = Math.floor((srss % 86400) / 3600);
+        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
+        if (numminutes > 0) {
+            return numhours + ":" + numminutes;
+        } else {
+            return numhours + this.translate(" hours ");
+        }
+    },
+
     doact: function() {
 		l = l + 1;
 		if (l == 4) {l = 1};
@@ -267,8 +267,8 @@ Module.register("MMM-NOAA", {
 
         var current = this.current;
 
-        var d = new Date();
-        var n = d.getHours();
+      //  var d = new Date();
+     //   var n = d.getHours();
 
         var curCon = document.createElement("div");
         curCon.classList.add("small", "bright", "img");
@@ -314,7 +314,7 @@ Module.register("MMM-NOAA", {
 	   weatherTable.appendChild(xFCRow);
         
        var fRow = document.createElement("tr");
-       var tt = document.createElement("td");
+        var tt = document.createElement("td");
        
  	   tt.classList.add("bright", "xsmall");
        tt.setAttribute("colspan", 4);
@@ -324,7 +324,7 @@ Module.register("MMM-NOAA", {
        var ftext = this.forecast2[i];
       if (i == 0) {
         if (config.units != "metric") {
-            tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext + "</marquee><br>";
+            tt.innerHTML = "<marquee scrollamount=" + "8" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext + "</marquee><br>";
         } else {
             tt.innerHTML = "<marquee scrollamount=" + "10" + " scrolldelay=" + "300" + "><font color=#e3f3f9>" + ftext.fcttext_metric + "</marquee><br>";
         }
@@ -350,7 +350,6 @@ Module.register("MMM-NOAA", {
         second.appendChild(tempSymbol);
         forecastRow.appendChild(second);
 
-
         var third = document.createElement("th");
         var currentHSymbol = document.createElement("i");
         currentHSymbol.classList.add("wi", "wi-barometer", "font", "fontac");
@@ -364,9 +363,6 @@ Module.register("MMM-NOAA", {
         forecastRow.appendChild(fourth);
 
         weatherTable.appendChild(forecastRow);
-
-
-        console.log(current);
 
         var TDrow = document.createElement("tr");
         TDrow.classList.add("xsmall", "bright");
@@ -398,7 +394,6 @@ Module.register("MMM-NOAA", {
         TDrow.appendChild(td5);
         weatherTable.appendChild(TDrow);
 
-
         top.appendChild(weatherTable);
         wrapper.appendChild(top);
 
@@ -411,7 +406,6 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(SSRow);
 
         var midRow = document.createElement("tr");
-
 
         var sunup = document.createElement("th");
         var SUSymbol = document.createElement("i");
@@ -438,9 +432,8 @@ Module.register("MMM-NOAA", {
         var sunset = srss.sunset;
         var utcsunrise = moment.utc(sunrise).toDate();
         var utcsunset = moment.utc(sunset).toDate();
-        var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm");
-        var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm");
-
+    var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm");
+    var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm");
 
         var Midrow = document.createElement("tr");
         Midrow.classList.add("xsmall", "bright");
@@ -481,16 +474,13 @@ Module.register("MMM-NOAA", {
 
         var g = new Date();
         var s = g.getHours();
-        var str2 = sunset.slice(0, 2);
-        var str3 = sunrise.slice(0, 1);
-
+        var m = g.getMinutes();
+        var sm = s+":"+m;
+    
+        
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-         if (s >= str2 || s <= str3){
-		uvSymbol.innerHTML='<img src="modules/MMM-NOAA/images/smallmoon.png" width=25 height=25>';	
-		} else {
-        uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
-		}
+        uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
 
@@ -512,11 +502,7 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-        if (s >= str2 || s <= str3){
-        uvcol.innerHTML = this.translate("Night");	
-			} else {
-		uvcol.innerHTML = current.UV;		
-			}
+        uvcol.innerHTML = current.UV;
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 
@@ -615,13 +601,13 @@ Module.register("MMM-NOAA", {
 	        var ajumpy = document.createElement("th");
 	        ajumpy.setAttribute("colspan", 4);
 	        ajumpy.setAttribute("style", "text-align:center");
-	        ajumpy.classList.add("rheading");
+	        ajumpy.classList.add("wheading","blink_tr");
 	        ajumpy.innerHTML = this.translate("Weather Warning");
 	        aFCRow.appendChild(ajumpy);
 	        ATable.appendChild(aFCRow);
  
 		for(var i = 0; i < c; i++){
-			console.log(alert.desc);
+			//console.log(alert.desc);
 if (alert.desc != 'undefined'|| undefined){
 			var alert = this.amess[i];
 			Alert[i] = document.createElement("tr");
@@ -647,7 +633,7 @@ if (alert.desc != 'undefined'|| undefined){
         var mod = document.createElement("div");
         mod.classList.add("xxsmall", "bright");
         mod.setAttribute('style', 'line-height: 170%;');
-        mod.innerHTML = "[" + this.translate("Last Updated") + ": " + doutput + " " + toutput + "]";
+        mod.innerHTML = "[" + this.translate("Updated") + ": " + doutput + " " + toutput + "]";
         wrapper.appendChild(mod);
         return wrapper;
     },

@@ -12,7 +12,22 @@
      line-height: 20%;
      padding-top: 9px;
 }
-
+.MMM-NOAA .blink_tr {
+  animation: blinker 2s linear infinite;
+}
+@keyframes blinker {  
+  60% { opacity: 0; }
+}
+ .MMM-NOAA .wheading {
+     background-color: #b97e11;
+     text-align:center;
+     color: rgba(0,0,0,0.6);
+     text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     padding: 2px;
+     font-size: 13px;
+     line-height: 110%;
+     border-radius: 7px;
+}
 .MMM-NOAA .img {
 	width: 70px;
 	height: 70px;
@@ -51,11 +66,15 @@
  .fontfor {
      color: #000;
 }
+.MMM-NOAA .IMG {
+	width: 25px;
+	height: 24px;
+}
  .MMM-NOAA .xxsmall {
      font-size: 12px;
      color:#a4c6c5;
      margin: 10px;
 }
-.MMM-NOAA tempf{
- color: white;
+.MMM-NOAA .tempf {
+	color: white;
 }

@@ -216,29 +216,15 @@ Module.register("MMM-NOAA", {
     },
 
     secondsToString: function(seconds) {
-
-    var seconds = this.srss.day_length;
-    // multiply by 1000 because Date() requires miliseconds
-    var date = new Date(seconds * 1000);
-    var hh = date.getUTCHours();
-    var mm = date.getUTCMinutes();
-    var ss = date.getSeconds();
-    // If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
-    // if (hh > 12) {hh = hh % 12;}
-    // These lines ensure you have two-digits
-    if (hh < 10) {
-        hh = "0" + hh;
-    }
-    if (mm < 10) {
-        mm = "0" + mm;
-    }
-    if (ss < 10) {
-        ss = "0" + ss;
-    }
-    // This formats your string to HH:MM:SS
-    var t = hh + ":" + mm;
-    return t;
-},
+        var srss = this.srss.day_length;
+        var numhours = Math.floor((srss % 86400) / 3600);
+        var numminutes = Math.floor(((srss % 86400) % 3600) / 60);
+        if (numminutes > 0) {
+            return numhours + ":" + numminutes;
+        } else {
+            return numhours + this.translate(" hours ");
+        }
+    },
 
     doact: function() {
 		l = l + 1;
@@ -264,6 +250,27 @@ Module.register("MMM-NOAA", {
 		this.getNOAA();
 		this.updateDom(300);	
 	},
+	
+	
+	
+	secondsToString: function(seconds) {
+		
+    var seconds = this.srss.day_length;
+// multiply by 1000 because Date() requires miliseconds
+var date = new Date(seconds * 1000);
+var hh = date.getUTCHours();
+var mm = date.getUTCMinutes();
+var ss = date.getSeconds();
+// If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
+// if (hh > 12) {hh = hh % 12;}
+// These lines ensure you have two-digits
+if (hh < 10) {hh = "0"+hh;}
+if (mm < 10) {mm = "0"+mm;}
+if (ss < 10) {ss = "0"+ss;}
+// This formats your string to HH:MM:SS
+var t = hh+":"+mm;
+  return t;
+    },
 
     getDom: function() {
 
@@ -489,6 +496,9 @@ Module.register("MMM-NOAA", {
         var g = new Date();
         var time = new Date();
         var now = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+console.log("Now: "+now);
+console.log("Rise: "+sunrise);
+console.log("Set: "+sunset); 
         
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");

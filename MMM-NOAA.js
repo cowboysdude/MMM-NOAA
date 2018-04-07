@@ -24,7 +24,6 @@ Module.register("MMM-NOAA", {
 	pws1: "xxx",
 	pws2: "xxx",
 	pws3: "xxx",
-	ampm: true,
 
         langFile: {
             "en": "en-US",
@@ -453,8 +452,8 @@ var t = hh+":"+mm;
         var sunset = srss.sunset;
         var utcsunrise = moment.utc(sunrise).toDate();
         var utcsunset = moment.utc(sunset).toDate();
-    var sunrise = this.config.ampm == true ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("H:mm");
-    var sunset = this.config.ampm == true ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("H:mm");
+	var sunrise = config.timeFormat == 12 ? moment(utcsunrise).local().format("h:mm A") : moment(utcsunrise).local().format("HH:mm");
+	var sunset = config.timeFormat == 12 ? moment(utcsunset).local().format("h:mm A") : moment(utcsunset).local().format("HH:mm");
 
         var Midrow = document.createElement("tr");
         Midrow.classList.add("xsmall", "bright");
@@ -495,15 +494,21 @@ var t = hh+":"+mm;
 
         var g = new Date();
         var time = new Date();
-        var now = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }); 
+	var now = time.toLocaleString('de-DE', { hour: 'numeric', minute: 'numeric', hour12: false });
+	var str1 = moment(sunrise, ["h:mm A"]).format("HH:mm");
+	var str2 = moment(sunset, ["h:mm A"]).format("HH:mm");
+	
+console.log("Now: "+now);
+console.log("Rise: "+str1);
+console.log("Set: "+str2); 
         
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-       // if (now >= sunrise && now < sunset){
+        if (now >= str1 && now <= str2){
 		uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
-	//	} else {
-	//	uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
-	//	}
+	} else {
+		uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
+	}
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
 
@@ -525,11 +530,11 @@ var t = hh+":"+mm;
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-      //  if (now >= sunrise && now < sunset){
+        if (now >= str1 && now <= str2){
         uvcol.innerHTML = current.UV;
-	//		} else {
-	//	uvcol.innerHTML = this.translate("Night");		
-	//		}
+			} else {
+		uvcol.innerHTML = this.translate("Night");		
+			}
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 

@@ -473,14 +473,16 @@ Module.register("MMM-NOAA", {
         otherRow.appendChild(airq);
 
         var g = new Date();
-        var s = g.getHours();
-        var m = g.getMinutes();
-        var sm = s+":"+m;
-    
+        var time = new Date();
+        var now = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
         
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
-        uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");
+        if (now >= sunrise && now < sunset){
+		uvSymbol.classList.add("wi", "wi-day-sunny", "font", "fontauw");	
+		} else {
+		uvSymbol.innerHTML = "<img class='IMG' src='modules/MMM-NOAA/images/smallmoon.png'>";	
+		}
         uvcol.appendChild(uvSymbol);
         otherRow.appendChild(uvcol);
 
@@ -502,7 +504,11 @@ Module.register("MMM-NOAA", {
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
+        if (now >= sunrise && now < sunset){
         uvcol.innerHTML = current.UV;
+			} else {
+		uvcol.innerHTML = this.translate("Night");		
+			}
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 

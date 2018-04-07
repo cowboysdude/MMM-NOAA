@@ -658,7 +658,7 @@ if (alert.desc != 'undefined'|| undefined){
         	var tinput = document.lastModified;
 	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('hh:mm a'));
 	} else {
-	        var doutput = moment().format("DD/MM/YYYY");
+	        var doutput = moment().format("DD.MM.YYYY");
         	var tinput = document.lastModified;
 	        var toutput = (moment(tinput.substring(10, 16), 'HH:mm').format('HH:mm'));
 	}

@@ -21,5 +21,6 @@
 "Sat":"Sab",
 "Sun":"Lun",
 "Forecast":"Pronóstico",
-"Weather Warning":"Advertencia del clima"
+"Weather Warning":"Advertencia del clima",
+"Night": "Noche"
 }

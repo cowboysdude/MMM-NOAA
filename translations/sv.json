@@ -21,5 +21,6 @@
 "Sat":"Lö",
 "Sun":"Sö",
 "Forecast":"prognose",
-"Weather Warning":"Vädervarning"
+"Weather Warning":"Vädervarning",
+"Night": "Natt"
 }

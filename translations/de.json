@@ -20,6 +20,7 @@
 "Fri":"Fr",
 "Sat":"Sa",
 "Sun":"So",
-"Forecast":"Vorhersage",
-"Weather Warning":"Wetterwarnung"
+"Forecast":"Prognose",
+"Weather Warning":"Wetterwarnung",
+"Night": "Nacht"
 }

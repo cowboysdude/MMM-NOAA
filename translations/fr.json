@@ -21,5 +21,6 @@
 "Sat":"sam",
 "Sun":"dim",
 "Forecast":"Prévoir",
-"Weather Warning":"Avertissement météo"
+"Weather Warning":"Avertissement météo",
+"Night": "Nuit"
   }

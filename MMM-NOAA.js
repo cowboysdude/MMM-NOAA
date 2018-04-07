@@ -24,6 +24,7 @@ Module.register("MMM-NOAA", {
 	pws1: "xxx",
 	pws2: "xxx",
 	pws3: "xxx",
+	ampm: true,
 
         langFile: {
             "en": "en-US",

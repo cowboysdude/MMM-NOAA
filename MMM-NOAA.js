@@ -287,8 +287,8 @@ var t = hh+":"+mm;
 
         var current = this.current;
 
-      //  var d = new Date();
-     //   var n = d.getHours();
+        var d = new Date();
+        var n = d.getHours();
 
         var curCon = document.createElement("div");
         curCon.classList.add("small", "bright", "img");

@@ -1,4 +1,4 @@
-This repository is maintained by Cowboysdude [SPECIAL THANKS TO tbbear FOR FOR ALL THE HARD WORK!]
+This repository is maintained by Cowboysdude and is the Original NOAA module... [SPECIAL THANKS TO tbbear FOR FOR ALL THE HARD WORK!]
 [This is the second version of this module for MagicMirror2]
 
 # MMM-NOAA V2.0

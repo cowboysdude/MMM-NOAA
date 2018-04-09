@@ -141,12 +141,7 @@ Module.register("MMM-NOAA", {
 	this.amess[c] = this.alert;
 	c = c + 1;
     },
-
-    processMoon: function(data) {
-        this.moon = data;
-        console.log(this.moon);
-    },
-
+    
     scheduleUpdate: function() {
         setInterval(() => {
             this.getNOAA();
@@ -253,23 +248,29 @@ Module.register("MMM-NOAA", {
 	
 	
 	secondsToString: function(seconds) {
-		
+
     var seconds = this.srss.day_length;
-// multiply by 1000 because Date() requires miliseconds
-var date = new Date(seconds * 1000);
-var hh = date.getUTCHours();
-var mm = date.getUTCMinutes();
-var ss = date.getSeconds();
-// If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
-// if (hh > 12) {hh = hh % 12;}
-// These lines ensure you have two-digits
-if (hh < 10) {hh = "0"+hh;}
-if (mm < 10) {mm = "0"+mm;}
-if (ss < 10) {ss = "0"+ss;}
-// This formats your string to HH:MM:SS
-var t = hh+":"+mm;
-  return t;
-    },
+    // multiply by 1000 because Date() requires miliseconds
+    var date = new Date(seconds * 1000);
+    var hh = date.getUTCHours();
+    var mm = date.getUTCMinutes();
+    var ss = date.getSeconds();
+    // If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
+    // if (hh > 12) {hh = hh % 12;}
+    // These lines ensure you have two-digits
+    if (hh < 10) {
+        hh = "0" + hh;
+    }
+    if (mm < 10) {
+        mm = "0" + mm;
+    }
+    if (ss < 10) {
+        ss = "0" + ss;
+    }
+    // This formats your string to HH:MM:SS
+    var t = hh + ":" + mm;
+    return t;
+},
 
     getDom: function() {
 
@@ -497,11 +498,7 @@ var t = hh+":"+mm;
 	var now = time.toLocaleString('de-DE', { hour: 'numeric', minute: 'numeric', hour12: false });
 	var str1 = moment(sunrise, ["h:mm A"]).format("HH:mm");
 	var str2 = moment(sunset, ["h:mm A"]).format("HH:mm");
-	
-console.log("Now: "+now);
-console.log("Rise: "+str1);
-console.log("Set: "+str2); 
-        
+///MOON Change//////	    
         var uvcol = document.createElement("th");
         var uvSymbol = document.createElement("i");
         if (now >= str1 && now <= str2){

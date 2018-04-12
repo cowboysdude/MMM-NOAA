@@ -101,16 +101,15 @@ Module.register("MMM-NOAA", {
 	this.config.pws = this.config.pws1;
         this.url = this.getUrl();
         this.forecast = {};
-	    this.forecast2 = {};
+	this.forecast2 = {};
         this.air = {};
         this.srss = {};
         this.alert = [];
-	    this.amess = [];
+	this.amess = [];
         this.map = [];
         this.city = {};
         this.clphase = {};
         this.current = {};
-        this.allDay = {};
         this.today = "";
         this.scheduleUpdate();
     },

@@ -101,15 +101,16 @@ Module.register("MMM-NOAA", {
 	this.config.pws = this.config.pws1;
         this.url = this.getUrl();
         this.forecast = {};
-	this.forecast2 = {};
+	    this.forecast2 = {};
         this.air = {};
         this.srss = {};
         this.alert = [];
-	this.amess = [];
+	    this.amess = [];
         this.map = [];
         this.city = {};
         this.clphase = {};
         this.current = {};
+        this.allDay = {};
         this.today = "";
         this.scheduleUpdate();
     },
@@ -345,7 +346,7 @@ Module.register("MMM-NOAA", {
        var fRow = document.createElement("tr");
        
         var tt = document.createElement("td");
-		tt.classList.add("bright", "xsmall", "marquee");
+		tt.classList.add("bright", "xsmall");
 		tt.setAttribute("colspan", 4);
 		tt.setAttribute("style", "line-height: 170%;");
 		tt.setAttribute("style", "padding-top: 8px");

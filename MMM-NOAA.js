@@ -117,11 +117,8 @@ Module.register("MMM-NOAA", {
     
     getUrl: function() {
         var url = null;
-        var days = this.config.days;
         var lang = this.config.langTrans[config.language];
-
         url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-
         return url;
     },
 
@@ -265,18 +262,14 @@ Module.register("MMM-NOAA", {
 	
 		secondsToString: function(seconds) {
 	    var seconds = this.srss.day_length;
-		// multiply by 1000 because Date() requires miliseconds
+		
 		var date = new Date(seconds * 1000);
 		var hh = date.getUTCHours();
 		var mm = date.getUTCMinutes();
 		var ss = date.getSeconds();
-		// If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
-		// if (hh > 12) {hh = hh % 12;}
-		// These lines ensure you have two-digits
 		if (hh < 10) {hh = "0"+hh;}
 		if (mm < 10) {mm = "0"+mm;}
 		if (ss < 10) {ss = "0"+ss;}
-		// This formats your string to HH:MM:SS
 		var t = hh+":"+mm;
 		  return t;
 		    },
@@ -303,11 +296,7 @@ Module.register("MMM-NOAA", {
         var curCon = document.createElement("div");
         curCon.classList.add("small", "bright", "img");
         curCon.setAttribute('style', 'line-height: 105%;');
-        if (n < 18 && n > 6) {
-            curCon.innerHTML = current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>";
-        } else {
-            curCon.innerHTML = current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/nt_" + current.icon + ".png'>";
-        }
+    curCon.innerHTML = (n < 18 && n > 6) ? current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/" + current.icon + ".png'>" : current.weather + "<img class = 'icon2' src='modules/MMM-NOAA/images/nt_" + current.icon + ".png'>";
         wrapper.appendChild(curCon);
 
         var cur = document.createElement("div");
@@ -534,16 +523,12 @@ Module.register("MMM-NOAA", {
 
         var aqius = this.air.aqius;
         var aqicol = document.createElement("td");
-        aqicol.innerHTML = aqius;
+        aqicol.innerHTML = aqius == undefined ? "N/A" : aqius;	
         nextRow.appendChild(aqicol);
         weatherTable.appendChild(nextRow);
 
         var uvcol = document.createElement("td");
-        if (done >= str1 && done <= str2){
-        uvcol.innerHTML = current.UV;
-			} else {
-		uvcol.innerHTML = this.translate("Night");		
-			}
+        uvcol.innerHTML = (done >= str1 && done <= str2) ? current.UV : this.translate("Night");
         nextRow.appendChild(uvcol);
         weatherTable.appendChild(nextRow);
 
@@ -589,11 +574,7 @@ Module.register("MMM-NOAA", {
             var wdshort = document.createElement("td");
             wdshort.classList.add("xsmall", "bright");
             wdshort.setAttribute("style", "padding:11px");
-            if (this.translate(noaa.date.weekday_short) == n) {
-                wdshort.innerHTML = this.translate("Today");
-            } else {
-                wdshort.innerHTML = this.translate(noaa.date.weekday_short);
-            }
+    wdshort.innerHTML = (this.translate(noaa.date.weekday_short) == n) ? this.translate("Today") : this.translate(noaa.date.weekday_short);
             nextRow.appendChild(wdshort);
             ForecastTable.appendChild(nextRow);
         }
@@ -615,11 +596,7 @@ Module.register("MMM-NOAA", {
             var temper = document.createElement("td");
             temper.setAttribute("colspan", "1");
             temper.classList.add("xsmall", "bright");
-            if (config.units != "metric") {
-              temper.innerHTML = noaa.high.fahrenheit + "/" + noaa.low.fahrenheit;
-	    } else {
-              temper.innerHTML = noaa.high.celsius + "/" + noaa.low.celsius;
-	    }
+            temper.innerHTML = (config.units != "metric") ? noaa.high.fahrenheit + "/" + noaa.low.fahrenheit : noaa.high.celsius + "/" + noaa.low.celsius;
             tempRow.appendChild(temper);
             ForecastTable.appendChild(tempRow);
 
@@ -640,11 +617,7 @@ Module.register("MMM-NOAA", {
 	        ajumpy.setAttribute("colspan", 4);
 	        ajumpy.setAttribute("style", "text-align:center");
 	        ajumpy.classList.add("wheading","blink_tr");
-	        if (ArrayNumber > 1){
-			ajumpy.innerHTML = this.translate(ArrayNumber +" Weather Warnings");	
-			} else {
-			ajumpy.innerHTML = this.translate("Weather Warning");	
-			}
+			ajumpy.innerHTML = (ArrayNumber > 1) ? this.translate(ArrayNumber +" Weather Warnings") : this.translate("Weather Warning");
 	        aFCRow.appendChild(ajumpy);
 	        ATable.appendChild(aFCRow);
 

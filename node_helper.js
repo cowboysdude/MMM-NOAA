@@ -49,10 +49,10 @@ module.exports = NodeHelper.create({
        });
     },
   
-    getAir: function(){
+      getAir: function(){
      	var self = this;
 	 	request({ 
-    url: "http://api.airvisual.com/v2/nearest_city?lat="+this.config.lat+"&lon="+this.config.lon+"&rad=100&key="+this.config.airKey,
+    url: "http://api.airvisual.com/v2/nearest_city?lat="+lat2+"&lon="+lon2+"&rad=100&key="+this.config.airKey,
     	          method: 'GET' 
     	        }, (error, response, body) => {
             if (!error && response.statusCode === 200) {

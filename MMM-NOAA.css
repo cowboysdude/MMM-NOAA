@@ -1,12 +1,14 @@
 .MMM-NOAA {
      width: 200px;
 }
- .MMM-NOAA .table th, tr, td{
+ .MMM-NOAA .table td{
      text-align:center;
      table-layout:fixed;
 }
  .MMM-NOAA tr {
      height: 29px;
+	 text-align:center;
+     table-layout:fixed;
 }
  .MMM-NOAA th {
      line-height: 20%;
@@ -17,16 +19,6 @@
 }
 @keyframes blinker {  
   60% { opacity: 0; }
-}
- .MMM-NOAA .forehead {
-     background-color: #868c88;
-     text-align:center;
-     color: rgba(0,0,0,0.6);
-     text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
-     padding: 2px;
-     font-size: 13px;
-     line-height: 110%;
-     border-radius: 7px;
 }
  .MMM-NOAA .wheading {
      background-color: #b97e11;
@@ -51,8 +43,8 @@
      margin-right:auto;
      text-align: center;
 }
- .MMM-NOAA .rheading {
-     background-color: #d6d7d8;
+ .MMM-NOAA .forehead {
+     background-color: #868c88;
      text-align:center;
      color: rgba(0,0,0,0.6);
      text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
@@ -61,19 +53,29 @@
      line-height: 110%;
      border-radius: 7px;
 }
- .font {
+ .MMM-NOAA .rheading {
+     background-color: #868c88;
+     text-align:center;
+     color: rgba(0,0,0,0.6);
+     text-shadow: 2px 8px 6px rgba(0,0,0,0.2), 0px -5px 35px rgba(255,255,255,0.3);
+     padding: 2px;
+     font-size: 13px;
+     line-height: 110%;
+     border-radius: 7px;
+}
+ .MMM-NOAA .font {
      font-size: 23px;
 }
- .fontac {
+.MMM-NOAA .fontac {
      color:#e4ab5f 
 }
- .fontss{
+.MMM-NOAA .fontss{
      color: #e0e29a;
 }
- .fontauw{
+.MMM-NOAA .fontauw{
      color:#51c7ca 
 }
- .fontfor {
+.MMM-NOAA .fontfor {
      color: #000;
 }
 .MMM-NOAA .IMG {

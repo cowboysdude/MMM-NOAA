@@ -12,7 +12,7 @@ Module.register("MMM-NOAA", {
 
     // Module config defaults.
     defaults: {
-        updateInterval: 10 * 60 * 1000, // every 10 minutes
+        updateInterval: 70 * 60 * 1000, // every 10 minutes
         animationSpeed: 0,
         initialLoadDelay: 8000,
         rotateInterval: 20 * 1000,
@@ -27,7 +27,7 @@ Module.register("MMM-NOAA", {
 	pws2: "xxx",
 	pws3: "xxx",
 
-        langFile: {
+	   langFile: {
             "en": "en-US",
             "de": "de-DE",
             "sv": "sv-SE",
@@ -93,18 +93,18 @@ Module.register("MMM-NOAA", {
         this.config.lang = this.config.lang || config.language; //automatically overrides and sets language :)
         this.config.units = this.config.units || config.units;
         this.sendSocketNotification("CONFIG", this.config);
+		this.scheduleUpdate();
 
         // Set locale.  
         var lang = this.config.langTrans[config.language];
 	l = 1;
 	loco = this.config.loco1;
-	this.config.pws = this.config.pws1;
-        this.url = this.getUrl();
+	this.config.pws = this.config.pws1; 
         this.forecast = {};
 	    this.forecast2 = {};
         this.air = {};
         this.srss = {};
-        this.alert = [];
+        //this.alert = [];
 	    this.amess = [];
         this.map = [];
         this.city = {};
@@ -112,22 +112,14 @@ Module.register("MMM-NOAA", {
         this.current = {};
         this.allDay = {};
         this.today = "";
-        this.scheduleUpdate();
-    },
-    
-    getUrl: function() {
-        var url = null;
-        var lang = this.config.langTrans[config.language];
-        url = "http://api.wunderground.com/api/" + this.config.apiKey + "/forecast/lang:" + lang + "/conditions/q/pws:" + this.config.pws + ".json";
-        return url;
-    },
+        
+    }, 
 
     processNoaa: function(data) {
 	c = 0;
-        this.current = data.current_observation;
-        this.forecast = data.forecast.simpleforecast.forecastday;
-	    this.forecast2 = data.forecast.txt_forecast.forecastday;
-        this.city = this.current.display_location.city;
+        this.current = data.current;
+        this.forecast = data.forecast;
+		console.log(this.current, this.forecast);
     },
 
     processSRSS: function(data) {
@@ -138,7 +130,7 @@ Module.register("MMM-NOAA", {
         this.air = data.data.current.pollution;
     },
 
-    processAlert: function(data) {
+  /*  processAlert: function(data) {
 	if (this.config.lang == "en"){
 		this.alert = data;
 	} else {
@@ -147,7 +139,9 @@ Module.register("MMM-NOAA", {
 	c = c + 1;	
 	}
     },
-    
+	
+    */
+	
     scheduleCarousel: function() {
         this.rotateInterval = setInterval(() => {
             this.activeItem++;
@@ -163,7 +157,7 @@ Module.register("MMM-NOAA", {
     },
 
     getNOAA: function() {
-        this.sendSocketNotification("GET_NOAA", this.url);
+        this.sendSocketNotification("GET_NOAA");
     },
 
     socketNotificationReceived: function(notification, payload) {
@@ -327,7 +321,7 @@ Module.register("MMM-NOAA", {
 	   var xjumpy = document.createElement("th");
 	   xjumpy.setAttribute("colspan", 4);
 	   xjumpy.setAttribute("style", "text-align:center");
-	   xjumpy.classList.add("rheading");
+	   xjumpy.classList.add("forehead");
 	   xjumpy.innerHTML = this.translate("Forecast");
 	   xFCRow.appendChild(xjumpy);
 	   weatherTable.appendChild(xFCRow);
@@ -335,19 +329,23 @@ Module.register("MMM-NOAA", {
        var fRow = document.createElement("tr");
        
         var tt = document.createElement("td");
-		tt.classList.add("bright", "xsmall");
+		tt.classList.add("bright", "xsmall","fmar");
 		tt.setAttribute("colspan", 4);
 		tt.setAttribute("style", "line-height: 170%;");
 		tt.setAttribute("style", "padding-top: 8px");
 		
-		var allDay = this.forecast2;
+		var allDay = this.current.forecast;
+        if (typeof this.current.forecast !== 'undefined'){
+		var allDay1 = this.current.forecast[1].fcttext;
+		var allDayM1 = this.current.forecast[1].fcttext_metric;
+		}
 		
-		if (this.config.units != "metric" && allDay.length > 0) {
+		if (this.config.units != "metric") {
 	tt.innerHTML = n <= 18 ? "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>Day ~ " + allDay[0].fcttext + "</marquee><br>" 
-		: "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>Night ~ " + allDay[1].fcttext + "</marquee><br>";
-		} else if (allDay.length > 0) {
+		: "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>Night ~ " + allDay1 + "</marquee><br>";
+		} else {
 	tt.innerHTML = n <= 18 ? "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>" + allDay[0].fcttext_metric + "</marquee><br>" 
-		: "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>" + allDay[1].fcttext_metric + "</marquee><br>";  
+		: "<marquee scrollamount=8 scrolldelay=300><font color=#e3f3f9>" + allDayM1 + "</marquee><br>";  
 		}	
         fRow.appendChild(tt);
         weatherTable.appendChild(fRow);
@@ -393,18 +391,10 @@ Module.register("MMM-NOAA", {
 
         var td3 = document.createElement("td");
 	if (config.units != "metric") {
-	        if (current.pressure_trend != 0) {
-        	    td3.innerHTML = current.pressure_in + " " + current.pressure_trend;
-	        } else {
-        	    td3.innerHTML = current.pressure_in + " S";
-	        }
-	} else {
-        	if (current.pressure_trend != 0) {
-	            td3.innerHTML = current.pressure_mb + " " + current.pressure_trend + " hPa";
-	        } else {
-	            td3.innerHTML = current.pressure_mb + " ~ hPa";
-        	}
-	}
+        td3.innerHTML = current.pressure_in;
+    	} else {
+		td3.innerHTML = current.pressure_mb + " ~ hPa";
+	     }
         TDrow.appendChild(td3);
         weatherTable.appendChild(TDrow);
 
@@ -606,7 +596,7 @@ Module.register("MMM-NOAA", {
 
         //////////////////END FORECAST ROWS///////////////////////
  
-  if (this.config.lang == "en" && this.alert.length > 0 ){
+ /*  if (this.config.lang == "en" && this.alert.length > 0 ){
   	 var ArrayNumber = this.alert.length;
            
   	  var ATable = document.createElement("table");
@@ -670,7 +660,7 @@ if (alert.desc != 'undefined'|| undefined){
 	}
 		
   	
-  }	}
+  }	}  */
 
 	if (config.timeFormat == 12) {
 	        var doutput = moment().format("MM/DD/YYYY");
@@ -687,5 +677,5 @@ if (alert.desc != 'undefined'|| undefined){
         mod.innerHTML = "[" + this.translate("Updated") + ": " + doutput + " " + toutput + "]";
         wrapper.appendChild(mod);
         return wrapper;
-    },
+    }, 
 });

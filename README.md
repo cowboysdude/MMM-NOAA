@@ -20,16 +20,9 @@ This repository is maintained by Cowboysdude and is the Original NOAA module... 
 
 ## Get your free API key here [WEATHER, You must also get an AirAPI Key--- see below]
 
- [https://www.wunderground.com/weather/api](https://www.wunderground.com/weather/api)
+ [https://www.weatherbit.io/api](https://www.weatherbit.io/api)
 
-* Select the middle plan
-
-## Get your PWS from here
-
-
- [https://www.wunderground.com/wundermap](https://www.wunderground.com/wundermap)
- 
-* For your config.js entry for precise localized weather 
+* Select the free plan
 
 ## Get your AirKEY from here
 
@@ -47,13 +40,7 @@ U can do the selection of the location my pressing on the city name on touchscre
         config: {
 
 		apiKey: "YOUR API KEY",    // https://www.wunderground.com/weather/api  select the middle plan... 
-		airKey: "YOUR API KEY",    // IF you want Air Quality Index
-		pws1: "KNYELMIR13",	   // go here to find your pws: https://www.wunderground.com/wundermap
-		pws2: "IBIBIONE8", 
-		pws3: "IHERAKLI5",  
-		loco1: "New York/Us",	   // fill in the name of the location or whatever u want to be displayed
-		loco2: "Bibione/It",
-		loco3: "Kos/Gr",
+		airKey: "YOUR API KEY"    // IF you want Air Quality Index
 	}
     },
 
@@ -65,7 +52,6 @@ If u dont want or need this so like before with only one pws  (location) use thi
 
 		apiKey: "YOUR API KEY",    // https://www.wunderground.com/weather/api  select the middle plan... 
 		airKey: "YOUR API KEY",    // IF you want Air Quality Index
-		pws1: "KNYELMIR13",	   // go here to find your pws: https://www.wunderground.com/wundermap
 	}
     },
 

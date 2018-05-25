@@ -43,6 +43,5 @@ U can do the selection of the location my pressing on the city name on touchscre
 		airKey: "YOUR API KEY"    // IF you want Air Quality Index
 	}
     },
-## Very important for updating: !!! Please rename ur pws to pws1 !!!
 
 ## Start your mirror . . . enjoy! 

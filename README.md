@@ -32,8 +32,7 @@ This repository is maintained by Cowboysdude and is the Original NOAA module... 
 
 Will automatically select translation file and either F or C by reading your defaults from the config.js file [at the top]
 Will default to EN if NO translation file is found.  Weather alerts will be in the native language chosen by your config.js automatically and in the correct language!  Thanks tbbear!!!
-In this new Version you can select up to 3 different weather locations like in this example. You can also show up names(the one u like) for this places.
-U can do the selection of the location my pressing on the city name on touchscreen, with mouse-click or mousepad. 
+ 
 
     {
         module: 'MMM-NOAA',

@@ -1,0 +1,23 @@
+{
+  "Atmospheric Conditions" : "תנאים אטמוספריים",
+"Sunrise/Sunset":"זריחה/שקיעה",
+"AQI/UV/Wind":"רמת זיהום/קרינה/רוח",
+"4 Day Forecast":"תחזית ל4 ימים",
+"Monday": "שני",
+"Tuesday": "שלישי",
+"Wednesday": "רביעי",
+"Thursday": "חמישי",
+"Friday": "שישי",
+"Saturday": "שבת",
+"Sunday": "ראשון",
+"Hours of Light":"משך היום",
+"Last Updated": "עדכון אחרון",
+"Today":"היום",
+"Mon":"ב'",
+"Tue":"ג'",
+"Wed":"ד'",
+"Thu":"ה'",
+"Fri":"ו'",
+"Sat":"שבת",
+"Sun":"א'"
+}

@@ -50,6 +50,7 @@ Module.register("MMM-NOAA", {
             "da": "DK",
             "nl": "NL",
             "nb": "NO",
+	    "he": "HE",
         },
 
 	levelTrans: {
@@ -71,7 +72,8 @@ Module.register("MMM-NOAA", {
             fr: "translations/fr.json",
             zh_cn: "translations/zh_cn.json",
             nl: "translations/nl.json",
-            nb: "translations/nb.json"
+            nb: "translations/nb.json",
+	    he: "translations/he.json",
         };
     },
 

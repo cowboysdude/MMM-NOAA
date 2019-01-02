@@ -15,10 +15,10 @@
     "grunt": "latest",
     "grunt-eslint": "latest",
     "grunt-jsonlint": "latest",
-    "grunt-markdownlint": "^1.0.13",
+    "grunt-markdownlint": "1.1.2",
     "grunt-stylelint": "latest",
-    "grunt-yamllint": "^0.3.0",
-    "stylelint": "^7.10.1",
+    "grunt-yamllint": "0.3.0",
+    "stylelint": "7.13.0",
     "stylelint-config-standard": "latest",
     "time-grunt": "latest"
   },
